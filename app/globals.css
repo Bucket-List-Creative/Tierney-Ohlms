@@ -1,0 +1,292 @@
+@import "tailwindcss";
+
+/* =========================================================================
+   Tierney & Ohlms — Design tokens
+   The brand guide is the source of truth. Colors, type, spacing, radii, and
+   the two shadow levels are defined once here and referenced everywhere.
+   ========================================================================= */
+@theme {
+  /* ---- Color: foundation ---- */
+  --color-ink: #111111;
+  --color-obsidian: #000000;
+  --color-white: #ffffff;
+  --color-bone: #faf8f5;
+  --color-alabaster: #f2f0ec;
+
+  /* ---- Color: structure & accent ---- */
+  --color-rule: #e4e0d8; /* hairlines, dividers, card rest borders */
+  --color-stroke: #cccccc; /* inputs, secondary buttons, card hover, step rules */
+  --color-slate: #595959; /* secondary text, captions, labels */
+  --color-gold: #c9a227; /* accent — rules, washes, dividers ONLY (never text) */
+  --color-brass: #8c6e1f; /* text-safe gold — use for any gold text */
+
+  /* ---- Color: dark surfaces ---- */
+  --color-dark-body: #b5b5b5;
+  --color-dark-label: #8a8a8a;
+  --color-dark-border: #3a3a3a;
+  --color-dark-rule: #2a2a2a;
+  --color-dark-link: #d6d6d6;
+
+  /* ---- Typography ---- */
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
+
+  --text-display: 56px;
+  --text-display--line-height: 1.12;
+  --text-display--font-weight: 500;
+
+  --text-h2: 38px;
+  --text-h2--line-height: 1.2;
+  --text-h2--font-weight: 500;
+
+  --text-h3: 22px;
+  --text-h3--line-height: 1.3;
+  --text-h3--font-weight: 600;
+
+  --text-card-title: 20px;
+  --text-card-title--line-height: 1.25;
+  --text-card-title--font-weight: 600;
+
+  --text-lead: 18px;
+  --text-lead--line-height: 1.6;
+
+  --text-body: 15px;
+  --text-body--line-height: 1.6;
+
+  --text-eyebrow: 13px;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--font-weight: 600;
+  --text-eyebrow--letter-spacing: 0.18em;
+
+  --text-spec: 12px;
+  --text-spec--line-height: 1.4;
+  --text-spec--letter-spacing: 0.14em;
+
+  /* ---- Space: 8px grid (section vertical rhythm) ---- */
+  --spacing-section: 112px;
+  --spacing-section-md: 88px;
+  --spacing-section-sm: 64px;
+  --spacing-container: 1240px;
+
+  /* ---- Radius ---- */
+  --radius-input: 6px;
+  --radius-btn: 10px;
+  --radius-card: 12px;
+
+  /* ---- Elevation ---- */
+  --shadow-rest: 0 4px 20px rgba(17, 17, 17, 0.04);
+  --shadow-hover: 0 12px 32px rgba(17, 17, 17, 0.08);
+  /* Warm gold-tinted drop for accent cards */
+  --shadow-gold: 0 18px 44px -12px rgba(201, 162, 39, 0.4);
+
+  /* Soft warm gold ground */
+  --color-goldwash: #faf4e2;
+}
+
+/* The one atmospheric texture — fractal-noise film grain, defined once.
+   `--grain` sits under soft-light on dark surfaces; `--grain-soft` is a
+   lighter noise for light surfaces so multiply never muddies them to grey. */
+:root {
+  --grain: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http://www.w3.org/2000/svg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27n%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.9%27%20numOctaves%3D%273%27%20stitchTiles%3D%27stitch%27/%3E%3CfeColorMatrix%20type%3D%27saturate%27%20values%3D%270%27/%3E%3C/filter%3E%3Crect%20width%3D%27160%27%20height%3D%27160%27%20filter%3D%27url%28%23n%29%27%20opacity%3D%270.5%27/%3E%3C/svg%3E");
+  --grain-soft: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http://www.w3.org/2000/svg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27n%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.9%27%20numOctaves%3D%273%27%20stitchTiles%3D%27stitch%27/%3E%3CfeColorMatrix%20type%3D%27saturate%27%20values%3D%270%27/%3E%3C/filter%3E%3Crect%20width%3D%27160%27%20height%3D%27160%27%20filter%3D%27url%28%23n%29%27%20opacity%3D%270.22%27/%3E%3C/svg%3E");
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    background: var(--color-white);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  ::placeholder {
+    color: #9a9a9a;
+  }
+  /* Visible focus rings everywhere — 2px ink, offset 2px. Never removed. */
+  :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: pretty;
+  }
+}
+
+/* =========================================================================
+   Component-layer utilities — the grain/aura surfaces and repeated patterns.
+   These express things Tailwind utilities can't (multi-layer blended
+   backgrounds), keeping component markup free of arbitrary values.
+   ========================================================================= */
+@layer components {
+  .container-x {
+    max-width: var(--spacing-container);
+    margin-inline: auto;
+    padding-inline: 32px;
+  }
+  @media (max-width: 767px) {
+    .container-x {
+      padding-inline: 20px;
+    }
+  }
+
+  /* Eyebrow label — brass, never gold (gold fails contrast as text). */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--text-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-brass);
+  }
+
+  /* Monospace spec label. */
+  .spec-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-slate);
+  }
+
+  /* Statistic numerals: ink→brass gradient, numerals only. */
+  .stat-numeral {
+    font-family: var(--font-display);
+    font-weight: 500;
+    background-image: linear-gradient(150deg, #111111 35%, #8c6e1f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  @supports not ((background-clip: text) or (-webkit-background-clip: text)) {
+    .stat-numeral {
+      color: var(--color-ink);
+      background-image: none;
+    }
+  }
+
+  /* --- Grain & Aura surfaces --- */
+
+  /* Dark signature surface: hero-dark, CTA banner, 404. One per page. */
+  .surface-dark {
+    background-color: #000;
+    background-image: var(--grain),
+      radial-gradient(
+        48% 80% at 50% 10%,
+        rgba(201, 162, 39, 0.32),
+        rgba(201, 162, 39, 0) 68%
+      );
+    background-blend-mode: soft-light, normal;
+  }
+
+  /* Hero light aura — soft warm wash from the top-right over clean white. */
+  .aura-hero {
+    background-color: var(--color-white);
+    background-image: var(--grain-soft),
+      radial-gradient(
+        60% 80% at 92% 4%,
+        rgba(201, 162, 39, 0.16),
+        rgba(201, 162, 39, 0) 60%
+      );
+    background-blend-mode: multiply, normal;
+  }
+
+  /* Warm gold section ground — a colored surface that keeps text legible. */
+  .surface-gold {
+    background-color: var(--color-goldwash);
+    background-image: var(--grain-soft),
+      radial-gradient(
+        90% 90% at 100% 0%,
+        rgba(201, 162, 39, 0.2),
+        rgba(201, 162, 39, 0) 58%
+      ),
+      radial-gradient(
+        70% 70% at 0% 100%,
+        rgba(201, 162, 39, 0.1),
+        rgba(201, 162, 39, 0) 60%
+      );
+    background-blend-mode: multiply, normal, normal;
+  }
+
+  /* Light aura wash — icon tiles, empty-state discs. Enters upper-left. */
+  .aura-light {
+    background-color: var(--color-white);
+    background-image: var(--grain-soft),
+      radial-gradient(
+        120% 120% at 20% 0%,
+        rgba(201, 162, 39, 0.24),
+        rgba(201, 162, 39, 0) 70%
+      );
+    background-blend-mode: multiply, normal;
+  }
+
+  /* Primary "grain" button — aura enters upper-left, never crosses the label. */
+  .btn-grain {
+    background-color: #111;
+    background-image: var(--grain),
+      radial-gradient(
+        140% 190% at 12% 0%,
+        rgba(201, 162, 39, 0.42),
+        rgba(201, 162, 39, 0) 68%
+      );
+    background-blend-mode: soft-light, normal;
+    color: #fff;
+    transition: background-image 0.3s ease;
+  }
+  .btn-grain:hover {
+    background-image: var(--grain),
+      radial-gradient(
+        150% 210% at 30% 0%,
+        rgba(201, 162, 39, 0.62),
+        rgba(201, 162, 39, 0) 72%
+      );
+    color: #fff;
+  }
+  /* Slightly tighter aura for the compact header CTA. */
+  .btn-grain-sm {
+    background-image: var(--grain),
+      radial-gradient(
+        140% 190% at 12% 0%,
+        rgba(201, 162, 39, 0.4),
+        rgba(201, 162, 39, 0) 68%
+      );
+  }
+  .btn-grain-sm:hover {
+    background-image: var(--grain),
+      radial-gradient(
+        150% 210% at 30% 0%,
+        rgba(201, 162, 39, 0.6),
+        rgba(201, 162, 39, 0) 72%
+      );
+  }
+}
+
+/* Honor reduced motion: drop transforms, keep color transitions. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .card-lift:hover {
+    transform: none !important;
+  }
+}
