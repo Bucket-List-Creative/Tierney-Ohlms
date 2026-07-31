@@ -9,16 +9,23 @@ type Status = "idle" | "submitting" | "sent" | "error";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/** In static-export builds (GitHub Pages) there is no /api route to POST to. */
+const STATIC_EXPORT = process.env.NEXT_PUBLIC_STATIC_EXPORT === "true";
+
 /**
- * Contact form with inline field validation and a real submission to
- * /api/contact. On success the submit button confirms and resets after 4s.
+ * Contact form with inline field validation. Normally POSTs to /api/contact;
+ * in a static-export build it falls back to opening a pre-filled mailto so the
+ * form still works on a server-less host. On success the submit button confirms
+ * and resets after 4s.
  */
 export function ContactForm({
   serviceOptions,
   embedded = false,
+  contactEmail = "info@tierneyohlms.com",
 }: {
   serviceOptions: string[];
   embedded?: boolean;
+  contactEmail?: string;
 }) {
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>("idle");
@@ -45,9 +52,35 @@ export function ContactForm({
       return;
     }
 
+    const payload = Object.fromEntries(new FormData(form).entries()) as Record<
+      string,
+      string
+    >;
+
+    // Static host (GitHub Pages): no server endpoint, so hand off to the user's
+    // mail client with the message pre-filled.
+    if (STATIC_EXPORT) {
+      const subject = `Website inquiry from ${payload.name ?? ""}`.trim();
+      const body = [
+        `Name: ${payload.name ?? ""}`,
+        `Company: ${payload.company ?? ""}`,
+        `Email: ${payload.email ?? ""}`,
+        `Phone: ${payload.phone ?? ""}`,
+        `Service: ${payload.service ?? ""}`,
+        "",
+        payload.message ?? "",
+      ].join("\n");
+      window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(
+        subject,
+      )}&body=${encodeURIComponent(body)}`;
+      setStatus("sent");
+      form.reset();
+      window.setTimeout(() => setStatus("idle"), 4000);
+      return;
+    }
+
     setStatus("submitting");
     try {
-      const payload = Object.fromEntries(new FormData(form).entries());
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

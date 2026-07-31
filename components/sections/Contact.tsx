@@ -89,7 +89,11 @@ export function Contact({
 
         {/* Light form panel */}
         <div className="bg-white">
-          <ContactForm serviceOptions={contact.serviceOptions} embedded />
+          <ContactForm
+            serviceOptions={contact.serviceOptions}
+            contactEmail={site.email}
+            embedded
+          />
         </div>
       </div>
 
