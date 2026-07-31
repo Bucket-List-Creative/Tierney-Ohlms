@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "seed": "sanity dataset import scripts/seed.ndjson production --replace",
+    "seed": "sanity dataset import scripts/seed.ndjson tierney-ohlms --replace",
     "sanity:deploy": "sanity deploy"
   },
   "dependencies": {
