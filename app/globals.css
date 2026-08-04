@@ -3,7 +3,7 @@
 /* =========================================================================
    Tierney & Ohlms — Design tokens
    The brand guide is the source of truth. Colors, type, spacing, radii, and
-   the two shadow levels are defined once here and referenced everywhere.
+   the elevation ladder are defined once here and referenced everywhere.
    ========================================================================= */
 @theme {
   /* ---- Color: foundation ---- */
@@ -32,15 +32,24 @@
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
 
-  --text-display: 56px;
+  /* Fluid scale — the same ladder as the brand guide, interpolated between
+     360px and 1240px so nothing has to be re-declared per breakpoint. */
+  --text-hero: clamp(2.25rem, 1.06rem + 5.3vw, 3.5rem);
+  --text-hero--line-height: 1.06;
+  --text-hero--font-weight: 500;
+  --text-hero--letter-spacing: -0.015em;
+
+  --text-display: clamp(2rem, 1.2rem + 3.6vw, 3.25rem);
   --text-display--line-height: 1.12;
   --text-display--font-weight: 500;
+  --text-display--letter-spacing: -0.012em;
 
-  --text-h2: 38px;
-  --text-h2--line-height: 1.2;
+  --text-h2: clamp(1.75rem, 1.24rem + 2.3vw, 2.375rem);
+  --text-h2--line-height: 1.16;
   --text-h2--font-weight: 500;
+  --text-h2--letter-spacing: -0.01em;
 
-  --text-h3: 22px;
+  --text-h3: clamp(1.15rem, 1rem + 0.7vw, 1.375rem);
   --text-h3--line-height: 1.3;
   --text-h3--font-weight: 600;
 
@@ -48,11 +57,11 @@
   --text-card-title--line-height: 1.25;
   --text-card-title--font-weight: 600;
 
-  --text-lead: 18px;
-  --text-lead--line-height: 1.6;
+  --text-lead: clamp(1rem, 0.95rem + 0.32vw, 1.125rem);
+  --text-lead--line-height: 1.62;
 
   --text-body: 15px;
-  --text-body--line-height: 1.6;
+  --text-body--line-height: 1.65;
 
   --text-eyebrow: 13px;
   --text-eyebrow--line-height: 1.2;
@@ -64,21 +73,31 @@
   --text-spec--letter-spacing: 0.14em;
 
   /* ---- Space: 8px grid (section vertical rhythm) ---- */
-  --spacing-section: 112px;
-  --spacing-section-md: 88px;
-  --spacing-section-sm: 64px;
+  --spacing-section: 120px;
+  --spacing-section-md: 92px;
+  --spacing-section-sm: 68px;
   --spacing-container: 1240px;
 
   /* ---- Radius ---- */
   --radius-input: 6px;
   --radius-btn: 10px;
-  --radius-card: 12px;
+  --radius-card: 14px;
+  --radius-panel: 20px;
 
-  /* ---- Elevation ---- */
-  --shadow-rest: 0 4px 20px rgba(17, 17, 17, 0.04);
-  --shadow-hover: 0 12px 32px rgba(17, 17, 17, 0.08);
+  /* ---- Elevation: a four-step ladder, warm-tinted so shadows never read grey ---- */
+  --shadow-rest: 0 1px 2px rgba(17, 17, 17, 0.03), 0 4px 20px rgba(24, 20, 10, 0.04);
+  --shadow-hover:
+    0 2px 4px rgba(17, 17, 17, 0.03), 0 14px 34px -8px rgba(24, 20, 10, 0.11);
+  --shadow-float:
+    0 2px 6px rgba(17, 17, 17, 0.04), 0 26px 60px -18px rgba(24, 20, 10, 0.18);
   /* Warm gold-tinted drop for accent cards */
-  --shadow-gold: 0 18px 44px -12px rgba(201, 162, 39, 0.4);
+  --shadow-gold: 0 18px 44px -14px rgba(201, 162, 39, 0.42);
+  --glow-gold: 0 0 0 1px rgba(201, 162, 39, 0.28), 0 12px 40px -12px rgba(201, 162, 39, 0.45);
+
+  /* ---- Motion ---- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.36, 0.64, 1);
 
   /* Soft warm gold ground */
   --color-goldwash: #faf4e2;
@@ -90,11 +109,15 @@
 :root {
   --grain: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http://www.w3.org/2000/svg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27n%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.9%27%20numOctaves%3D%273%27%20stitchTiles%3D%27stitch%27/%3E%3CfeColorMatrix%20type%3D%27saturate%27%20values%3D%270%27/%3E%3C/filter%3E%3Crect%20width%3D%27160%27%20height%3D%27160%27%20filter%3D%27url%28%23n%29%27%20opacity%3D%270.5%27/%3E%3C/svg%3E");
   --grain-soft: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http://www.w3.org/2000/svg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27n%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.9%27%20numOctaves%3D%273%27%20stitchTiles%3D%27stitch%27/%3E%3CfeColorMatrix%20type%3D%27saturate%27%20values%3D%270%27/%3E%3C/filter%3E%3Crect%20width%3D%27160%27%20height%3D%27160%27%20filter%3D%27url%28%23n%29%27%20opacity%3D%270.22%27/%3E%3C/svg%3E");
+  /* Header height, published by the Header so sheets/anchors can sit under it. */
+  --header-h: 78px;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Anchor targets clear the sticky header instead of hiding beneath it. */
+    scroll-padding-top: calc(var(--header-h) + 16px);
   }
   body {
     margin: 0;
@@ -102,9 +125,11 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: var(--text-body);
-    line-height: 1.6;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    /* Belt-and-braces against a stray decorative layer widening the page. */
+    overflow-x: clip;
   }
   * {
     box-sizing: border-box;
@@ -123,6 +148,87 @@
   h3,
   h4 {
     text-wrap: pretty;
+  }
+  h1,
+  h2 {
+    text-wrap: balance;
+  }
+  /* Warm text selection rather than the browser's blue. */
+  ::selection {
+    background: rgba(201, 162, 39, 0.24);
+    color: var(--color-ink);
+  }
+}
+
+/* =========================================================================
+   Ambient motion — long, low-amplitude drifts for background light only.
+   Transform/opacity exclusively, so every one of these stays on the GPU.
+   ========================================================================= */
+@keyframes drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(3%, -4%, 0) scale(1.08);
+  }
+}
+@keyframes drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.04);
+  }
+  50% {
+    transform: translate3d(-4%, 3%, 0) scale(0.96);
+  }
+}
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+@keyframes pan-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+@keyframes sheen-sweep {
+  0% {
+    transform: translateX(-120%) skewX(-12deg);
+  }
+  100% {
+    transform: translateX(220%) skewX(-12deg);
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+}
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes draw-line {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }
 
@@ -153,6 +259,23 @@
     color: var(--color-brass);
   }
 
+  /* Eyebrow with a short gold rule leading into it. */
+  .eyebrow-rule {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow-rule::before {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      rgba(201, 162, 39, 0),
+      rgba(201, 162, 39, 0.9)
+    );
+  }
+
   /* Monospace spec label. */
   .spec-label {
     font-family: var(--font-mono);
@@ -166,6 +289,7 @@
   .stat-numeral {
     font-family: var(--font-display);
     font-weight: 500;
+    font-variant-numeric: tabular-nums;
     background-image: linear-gradient(150deg, #111111 35%, #8c6e1f 100%);
     -webkit-background-clip: text;
     background-clip: text;
@@ -180,7 +304,7 @@
 
   /* --- Grain & Aura surfaces --- */
 
-  /* Dark signature surface: hero-dark, CTA banner, 404. One per page. */
+  /* Dark signature surface: hero-dark, CTA banner, 404. */
   .surface-dark {
     background-color: #000;
     background-image: var(--grain),
@@ -233,6 +357,266 @@
     background-blend-mode: multiply, normal;
   }
 
+  /* --- Layered section grounds -------------------------------------------
+     Each major section gets its own light signature so the page reads as a
+     continuous atmosphere rather than a stack of flat bands. All are pure
+     gradients (no filters) so they cost nothing to paint. */
+
+  /* Quiet white: a whisper of bone at the edges, warmth entering top-left. */
+  .mesh-quiet {
+    background-color: var(--color-white);
+    background-image: var(--grain-soft),
+      radial-gradient(
+        70% 55% at 8% 0%,
+        rgba(201, 162, 39, 0.09),
+        rgba(201, 162, 39, 0) 62%
+      ),
+      radial-gradient(
+        60% 60% at 100% 100%,
+        rgba(228, 224, 216, 0.55),
+        rgba(228, 224, 216, 0) 60%
+      );
+    background-blend-mode: multiply, normal, normal;
+  }
+
+  /* Bone ground with a warm horizon low on the right. */
+  .mesh-bone {
+    background-color: var(--color-bone);
+    background-image: var(--grain-soft),
+      radial-gradient(
+        75% 60% at 100% 8%,
+        rgba(201, 162, 39, 0.13),
+        rgba(201, 162, 39, 0) 60%
+      ),
+      radial-gradient(
+        80% 70% at 0% 100%,
+        rgba(255, 255, 255, 0.9),
+        rgba(255, 255, 255, 0) 62%
+      );
+    background-blend-mode: multiply, normal, normal;
+  }
+
+  /* Dark aurora — the signature black surface with two coloured lights. */
+  .mesh-dark {
+    background-color: #050505;
+    background-image: var(--grain),
+      radial-gradient(
+        55% 75% at 22% 0%,
+        rgba(201, 162, 39, 0.34),
+        rgba(201, 162, 39, 0) 62%
+      ),
+      radial-gradient(
+        50% 70% at 84% 100%,
+        rgba(140, 110, 31, 0.34),
+        rgba(140, 110, 31, 0) 60%
+      ),
+      linear-gradient(180deg, #0b0a08 0%, #000 55%, #060504 100%);
+    background-blend-mode: soft-light, normal, normal, normal;
+  }
+
+  /* --- Atmosphere scaffolding --- */
+
+  /* Positioning context for decorative light layers; clips them to the section
+     and isolates blending so nothing leaks into neighbouring sections.
+     `clip` rather than `hidden` — it contains the layers without becoming a
+     scroll container, so sticky columns inside still stick to the viewport. */
+  .atmos {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+  }
+  .atmos-layer {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(0.5px);
+  }
+
+  /* Soft coloured light. Size/placement come from utilities on the element. */
+  .orb-gold {
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(201, 162, 39, 0.34),
+      rgba(201, 162, 39, 0.1) 45%,
+      rgba(201, 162, 39, 0) 70%
+    );
+  }
+  .orb-bone {
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(228, 224, 216, 0.8),
+      rgba(228, 224, 216, 0) 68%
+    );
+  }
+  .orb-ink {
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(17, 17, 17, 0.055),
+      rgba(17, 17, 17, 0) 68%
+    );
+  }
+
+  .drift-a {
+    animation: drift-a 26s ease-in-out infinite;
+  }
+  .drift-b {
+    animation: drift-b 32s ease-in-out infinite;
+  }
+  .float-y {
+    animation: float-y 7s ease-in-out infinite;
+  }
+
+  /* Gradient hairline — replaces hard rules where sections should blend. */
+  .rule-fade {
+    height: 1px;
+    border: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(228, 224, 216, 0),
+      rgba(228, 224, 216, 1) 18%,
+      rgba(201, 162, 39, 0.45) 50%,
+      rgba(228, 224, 216, 1) 82%,
+      rgba(228, 224, 216, 0)
+    );
+  }
+  .rule-fade-dark {
+    height: 1px;
+    border: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(58, 58, 58, 0),
+      rgba(58, 58, 58, 1) 20%,
+      rgba(201, 162, 39, 0.55) 50%,
+      rgba(58, 58, 58, 1) 80%,
+      rgba(58, 58, 58, 0)
+    );
+  }
+
+  /* --- Glass --- */
+  .glass {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: var(--shadow-float);
+  }
+  .glass-dark {
+    background: rgba(12, 11, 9, 0.55);
+    backdrop-filter: blur(14px) saturate(1.3);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* --- Interaction --- */
+
+  /* Card surface: hairline at rest, warms and lifts on hover/focus-within. */
+  .card-surface {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-rest);
+    transition:
+      transform 0.42s var(--ease-out-expo),
+      box-shadow 0.42s var(--ease-out-expo),
+      border-color 0.3s ease;
+  }
+  .card-surface:hover,
+  .card-surface:focus-within {
+    transform: translateY(-4px);
+    border-color: rgba(201, 162, 39, 0.55);
+    box-shadow: var(--shadow-float);
+  }
+
+  /* Pointer-tracked highlight. `--mx/--my` are written by <Spotlight>; with no
+     JS (or no pointer) it still fades a centred glow in on hover. */
+  .spotlight {
+    position: relative;
+  }
+  .spotlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      240px circle at var(--mx, 50%) var(--my, 0%),
+      rgba(201, 162, 39, 0.16),
+      rgba(201, 162, 39, 0) 68%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .spotlight:hover::after,
+  .spotlight:focus-within::after {
+    opacity: 1;
+  }
+  .spotlight > * {
+    position: relative;
+    z-index: 1;
+  }
+  .spotlight-dark::after {
+    background: radial-gradient(
+      260px circle at var(--mx, 50%) var(--my, 0%),
+      rgba(201, 162, 39, 0.22),
+      rgba(201, 162, 39, 0) 66%
+    );
+  }
+
+  /* A light sweep across a surface on hover — used on buttons and media. */
+  .sheen {
+    position: relative;
+    overflow: hidden;
+  }
+  .sheen::before {
+    content: "";
+    position: absolute;
+    top: -20%;
+    bottom: -20%;
+    left: 0;
+    width: 45%;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.35) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: translateX(-120%) skewX(-12deg);
+    pointer-events: none;
+    opacity: 0;
+  }
+  .sheen:hover::before,
+  .sheen:focus-visible::before {
+    opacity: 1;
+    animation: sheen-sweep 0.9s var(--ease-out-soft);
+  }
+
+  /* Animated underline for text links — grows from the left, retreats right. */
+  .link-line {
+    position: relative;
+    display: inline-block;
+  }
+  .link-line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+  .link-line:hover::after,
+  .link-line:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* --- Buttons --------------------------------------------------------- */
+
   /* Primary "grain" button — aura enters upper-left, never crosses the label. */
   .btn-grain {
     background-color: #111;
@@ -244,7 +628,11 @@
       );
     background-blend-mode: soft-light, normal;
     color: #fff;
-    transition: background-image 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16), 0 10px 26px -12px rgba(201, 162, 39, 0.5);
+    transition:
+      background-image 0.4s ease,
+      box-shadow 0.4s var(--ease-out-expo),
+      transform 0.24s var(--ease-out-expo);
   }
   .btn-grain:hover {
     background-image: var(--grain),
@@ -254,6 +642,7 @@
         rgba(201, 162, 39, 0) 72%
       );
     color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18), 0 18px 40px -14px rgba(201, 162, 39, 0.72);
   }
   /* Slightly tighter aura for the compact header CTA. */
   .btn-grain-sm {
@@ -272,9 +661,126 @@
         rgba(201, 162, 39, 0) 72%
       );
   }
+
+  /* Shared press physics for every button-like control. */
+  .btn-press {
+    transform: translateZ(0);
+    transition:
+      transform 0.24s var(--ease-out-expo),
+      box-shadow 0.4s var(--ease-out-expo),
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      color 0.3s ease;
+  }
+  .btn-press:hover {
+    transform: translateY(-2px);
+  }
+  .btn-press:active {
+    transform: translateY(0) scale(0.985);
+    transition-duration: 0.09s;
+  }
+
+  /* Click ripple — a single expanding ring, positioned at the pointer. */
+  .ripple {
+    position: absolute;
+    border-radius: 9999px;
+    transform: translate(-50%, -50%) scale(0);
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.55),
+      rgba(255, 255, 255, 0) 70%
+    );
+    animation: ripple-out 0.62s var(--ease-out-soft) forwards;
+    pointer-events: none;
+  }
+  .ripple-ink {
+    background: radial-gradient(
+      circle,
+      rgba(17, 17, 17, 0.18),
+      rgba(17, 17, 17, 0) 70%
+    );
+  }
+
+  /* --- Forms --- */
+  .field-control {
+    width: 100%;
+    border: 1px solid var(--color-stroke);
+    border-radius: var(--radius-input);
+    padding: 13px 14px;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--color-ink);
+    outline: none;
+    transition:
+      border-color 0.24s ease,
+      box-shadow 0.32s var(--ease-out-expo),
+      background-color 0.24s ease;
+  }
+  .field-control:hover {
+    border-color: #b3b3b3;
+  }
+  .field-control:focus {
+    border-color: var(--color-ink);
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(201, 162, 39, 0.16);
+  }
+  .field-control[aria-invalid="true"] {
+    border-color: var(--color-ink);
+    box-shadow: 0 0 0 4px rgba(17, 17, 17, 0.08);
+  }
+
+  /* --- Scroll-driven bits --- */
+
+  /* Route transition — replayed by app/(site)/template.tsx on every navigation. */
+  .page-enter {
+    animation: page-enter 620ms var(--ease-out-expo) both;
+  }
+
+  /* Header progress rail. Scale is written by the Header on scroll. */
+  .scroll-rail {
+    transform-origin: 0 50%;
+    background: linear-gradient(
+      90deg,
+      rgba(201, 162, 39, 0.35),
+      var(--color-gold) 45%,
+      var(--color-brass)
+    );
+  }
 }
 
-/* Honor reduced motion: drop transforms, keep color transitions. */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes field-error-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ripple-out {
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+/* =========================================================================
+   Reduced motion — keep every affordance, remove the movement. Colour and
+   opacity transitions stay so hover states still read as interactive.
+   ========================================================================= */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -282,11 +788,29 @@
   *,
   *::before,
   *::after {
-    transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
+  .drift-a,
+  .drift-b,
+  .float-y,
+  .sheen::before,
+  .ripple {
+    animation: none !important;
+  }
+  .card-surface:hover,
+  .card-surface:focus-within,
+  .btn-press:hover,
+  .btn-press:active,
   .card-lift:hover {
     transform: none !important;
+  }
+}
+
+/* Coarse pointers (touch) never hover — drop the sweep so it can't flash on tap. */
+@media (hover: none) {
+  .sheen::before {
+    display: none;
   }
 }

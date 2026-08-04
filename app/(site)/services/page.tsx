@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getHomeData } from "@/lib/data";
-import { Section } from "@/components/layout/Section";
+import { Section, Orb } from "@/components/layout/Section";
 import { Button } from "@/components/primitives/Button";
 import { MediaFrame } from "@/components/primitives/MediaFrame";
 import { AnimatedStats } from "@/components/sections/AnimatedStats";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 import { Reveal } from "@/components/primitives/Reveal";
+import { TextReveal, FadeIn } from "@/components/motion/TextReveal";
+import { Magnetic } from "@/components/motion/Magnetic";
+import { Parallax } from "@/components/motion/Parallax";
+import { Spotlight } from "@/components/motion/Spotlight";
 import { LineIcon } from "@/components/icons/LineIcon";
 import { IconTile } from "@/components/primitives/IconTile";
 import { cn } from "@/lib/cn";
@@ -25,68 +29,135 @@ export default async function ServicesPage() {
   return (
     <>
       {/* Hero */}
-      <section className="aura-hero overflow-hidden border-b border-rule">
-        <div className="container-x pb-14 pt-16 max-[980px]:pb-12 max-[980px]:pt-12">
+      <section className="atmos aura-hero">
+        <Orb
+          tone="gold"
+          drift="a"
+          className="-right-[12%] -top-[36%] h-[720px] w-[720px] opacity-90 max-[980px]:h-[420px] max-[980px]:w-[420px]"
+        />
+        <Orb
+          tone="bone"
+          drift="b"
+          className="-bottom-[40%] -left-[14%] h-[620px] w-[620px] max-[980px]:hidden"
+        />
+
+        <div className="container-x relative z-[1] pb-16 pt-16 max-[980px]:pb-12 max-[980px]:pt-12">
           <div className="grid grid-cols-[1.05fr_minmax(0,0.95fr)] items-center gap-14 max-[980px]:grid-cols-1 max-[980px]:gap-10">
             <div className="flex min-w-0 flex-col items-start gap-6">
-              <nav className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-slate">
-                <Link href="/" className="hover:text-ink">
-                  Home
-                </Link>
-                <span aria-hidden>/</span>
-                <span className="text-ink">Services</span>
-              </nav>
-              <span className="eyebrow">Services</span>
-              <h1 className="m-0 max-w-[17ch] font-display text-[52px] leading-[1.08] max-[1100px]:text-[44px] max-[767px]:text-[34px]">
-                Everything an accounting department does, under one roof.
-              </h1>
-              <p className="m-0 max-w-[56ch] text-lead text-slate">
+              <Reveal variant="left" duration={700}>
+                <nav
+                  aria-label="Breadcrumb"
+                  className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-slate"
+                >
+                  <Link href="/" className="link-line transition-colors hover:text-ink">
+                    Home
+                  </Link>
+                  <span aria-hidden>/</span>
+                  <span className="text-ink">Services</span>
+                </nav>
+              </Reveal>
+              <Reveal variant="left" delay={80} duration={700}>
+                <span className="eyebrow eyebrow-rule">Services</span>
+              </Reveal>
+              <TextReveal
+                as="h1"
+                text="Everything an accounting department does, under one roof."
+                delay={120}
+                step={50}
+                className="m-0 max-w-[17ch] font-display text-hero text-ink"
+              />
+              <FadeIn delay={300} className="m-0 max-w-[56ch] text-lead text-slate">
                 Everything an owner-operated business needs, under one roof, on a modern
                 stack, for one flat monthly fee. Start wherever you are, and grow into the rest.
-              </p>
-              <div className="mt-1 flex flex-wrap gap-3.5">
-                <Button href="/#contact" variant="primary">
-                  Get Started
-                </Button>
-                <Button href={site.phoneHref} variant="secondary">
-                  Call {site.phone}
-                </Button>
-              </div>
+              </FadeIn>
+              <Reveal delay={420} duration={700} className="mt-1">
+                <div className="flex flex-wrap gap-3.5">
+                  <Magnetic strength={0.24}>
+                    <Button href="/#contact" variant="primary">
+                      Get Started
+                      <LineIcon
+                        name="arrow-right"
+                        size={17}
+                        className="transition-transform duration-300 group-hover/btn:translate-x-1"
+                      />
+                    </Button>
+                  </Magnetic>
+                  <Button href={site.phoneHref} variant="secondary">
+                    <LineIcon name="phone" size={16} />
+                    Call {site.phone}
+                  </Button>
+                </div>
+              </Reveal>
             </div>
 
             <div className="min-w-0">
-              <MediaFrame
-                fallback={servicesPhoto}
-                alt="Modern accounting office"
-                priority
-                sizes="(max-width: 980px) 100vw, 46vw"
-                className="h-[420px] w-full max-[980px]:h-[300px] max-[520px]:h-[230px]"
-              />
+              <Parallax strength={-40} minWidth={980}>
+                <Reveal variant="mask" duration={1100} className="group relative">
+                  <span
+                    aria-hidden
+                    className="absolute -bottom-6 -right-6 z-0 h-full w-full rounded-panel border border-gold/45 bg-goldwash max-[520px]:-bottom-3 max-[520px]:-right-3"
+                  />
+                  <div className="relative z-[1]">
+                    <MediaFrame
+                      fallback={servicesPhoto}
+                      alt="Modern accounting office"
+                      priority
+                      zoom
+                      overlay
+                      sizes="(max-width: 980px) 100vw, 46vw"
+                      className="h-[440px] w-full shadow-[var(--shadow-hover)] max-[980px]:h-[310px] max-[520px]:h-[240px]"
+                    />
+                  </div>
+                </Reveal>
+              </Parallax>
             </div>
           </div>
 
-          <div className="mt-12 border-t border-rule pt-9 max-[980px]:mt-9 max-[980px]:pt-7">
+          <div className="relative z-[1] mt-14 max-[980px]:mt-10">
+            <span aria-hidden className="rule-fade mb-9 block w-full max-[980px]:mb-7" />
             <AnimatedStats stats={stats} />
           </div>
         </div>
+
+        <div aria-hidden className="rule-fade absolute inset-x-0 bottom-0 z-[2]" />
       </section>
 
       {/* Service ladder */}
-      <Section ground="white">
+      <Section
+        ground="quiet"
+        atmosphere={
+          <>
+            <Orb
+              tone="gold"
+              drift="b"
+              className="-left-[16%] top-[12%] h-[560px] w-[560px] opacity-60 max-[900px]:hidden"
+            />
+            <Orb
+              tone="ink"
+              className="-right-[12%] bottom-[8%] h-[460px] w-[460px] max-[900px]:hidden"
+            />
+          </>
+        }
+      >
         <div className="mb-12 flex max-w-[640px] flex-col gap-4">
-          <span className="eyebrow">The service ladder</span>
-          <h2 className="m-0 font-display text-h2 max-[767px]:text-[30px]">
-            Cleanup to controller.
-          </h2>
-          <p className="m-0 text-[17px] leading-relaxed text-slate">
-            The order below reflects how businesses grow with us. Start where you are today,
-            and add the next rung when you&rsquo;re ready.
-          </p>
+          <Reveal variant="left" duration={700}>
+            <span className="eyebrow eyebrow-rule">The service ladder</span>
+          </Reveal>
+          <TextReveal
+            text="Cleanup to controller."
+            className="m-0 font-display text-h2 text-ink"
+          />
+          <Reveal delay={160} duration={800}>
+            <p className="m-0 text-lead leading-relaxed text-slate">
+              The order below reflects how businesses grow with us. Start where you are today,
+              and add the next rung when you&rsquo;re ready.
+            </p>
+          </Reveal>
         </div>
 
         <div className="flex flex-col gap-6">
           {services.map((service, i) => (
-            <Reveal key={service._id} delay={0}>
+            <Reveal key={service._id} variant="up" delay={i * 60} duration={850}>
               <ServiceBlock service={service} index={i + 1} />
             </Reveal>
           ))}
@@ -114,31 +185,33 @@ export default async function ServicesPage() {
 function ServiceBlock({ service, index }: { service: Service; index: number }) {
   const top = service.topTier;
   return (
-    <article
+    <Spotlight
+      as="article"
+      dark={top}
       className={cn(
-        "grid grid-cols-[.85fr_1.4fr] gap-10 rounded-card border p-9 transition-all duration-[250ms] ease-out max-[820px]:grid-cols-1 max-[820px]:gap-6 max-[767px]:p-7",
+        "group grid grid-cols-[.85fr_1.4fr] gap-10 rounded-panel border p-9 transition-all duration-[450ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-[820px]:grid-cols-1 max-[820px]:gap-6 max-[767px]:p-7",
         top
-          ? "surface-dark border-transparent text-white shadow-[var(--shadow-gold)]"
-          : "border-rule bg-white hover:-translate-y-[2px] hover:border-gold hover:shadow-[var(--shadow-gold)]",
+          ? "surface-dark border-gold/30 text-white shadow-[var(--shadow-gold)] hover:-translate-y-1 hover:shadow-[0_28px_70px_-20px_rgba(201,162,39,0.6)]"
+          : "border-rule bg-white/75 shadow-[var(--shadow-rest)] backdrop-blur-sm hover:-translate-y-1 hover:border-gold/55 hover:bg-white hover:shadow-[var(--shadow-gold)]",
       )}
     >
       {/* Left */}
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           {top ? (
-            <span className="flex h-[52px] w-[52px] items-center justify-center rounded-btn border border-dark-border bg-white/5 text-gold">
+            <span className="flex h-[52px] w-[52px] items-center justify-center rounded-btn border border-dark-border bg-white/5 text-gold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5 group-hover:border-gold/70 group-hover:bg-gold/10">
               <LineIcon name={service.icon} size={24} />
             </span>
           ) : (
             <IconTile icon={service.icon} tile={52} size={24} />
           )}
           {top ? (
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-gold px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-gold">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-gold bg-gold/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-gold">
               <LineIcon name="star" size={12} />
               Most popular
             </span>
           ) : (
-            <span className="font-mono text-[13px] font-medium tracking-[0.1em] text-brass">
+            <span className="font-mono text-[13px] font-medium tracking-[0.1em] text-brass transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5">
               {String(index).padStart(2, "0")}
             </span>
           )}
@@ -186,8 +259,9 @@ function ServiceBlock({ service, index }: { service: Service; index: number }) {
         {service.youGet ? (
           <div
             className={cn(
-              "mt-1 flex gap-3 rounded-input border-l-2 pl-4",
-              top ? "border-gold" : "border-gold",
+              "mt-1 flex gap-3 rounded-input border-l-2 border-gold pl-4 transition-colors duration-500",
+              top ? "bg-white/[0.03]" : "bg-goldwash/40",
+              "py-2",
             )}
           >
             <span className="flex flex-col gap-1">
@@ -213,14 +287,18 @@ function ServiceBlock({ service, index }: { service: Service; index: number }) {
         <Link
           href="/#contact"
           className={cn(
-            "mt-1 inline-flex items-center gap-1.5 text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors",
+            "link-line mt-1 inline-flex w-fit items-center gap-1.5 text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-300",
             top ? "text-gold hover:text-white" : "text-brass hover:text-ink",
           )}
         >
           Get started
-          <LineIcon name="arrow-right" size={15} />
+          <LineIcon
+            name="arrow-right"
+            size={15}
+            className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1"
+          />
         </Link>
       </div>
-    </article>
+    </Spotlight>
   );
 }

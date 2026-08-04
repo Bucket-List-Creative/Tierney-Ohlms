@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Section } from "@/components/layout/Section";
+import { Section, Orb } from "@/components/layout/Section";
 import { SectionHeader } from "@/components/sections/SectionHeader";
+import { TextReveal } from "@/components/motion/TextReveal";
 import { getPage, getPageSlugs } from "@/lib/data";
 
 type Params = { slug: string };
@@ -37,13 +38,24 @@ export default async function GenericPage({
 
   return (
     <>
-      <Section ground="white">
-        <h1 className="m-0 max-w-[20ch] font-display text-display max-[767px]:text-[36px]">
-          {page.title}
-        </h1>
+      <Section
+        ground="quiet"
+        atmosphere={
+          <Orb
+            tone="gold"
+            drift="a"
+            className="-right-[10%] -top-[46%] h-[620px] w-[620px] opacity-70"
+          />
+        }
+      >
+        <TextReveal
+          as="h1"
+          text={page.title}
+          className="m-0 max-w-[20ch] font-display text-display text-ink"
+        />
       </Section>
       {page.sections?.map((section, i) => (
-        <Section key={i} ground={i % 2 === 0 ? "bone" : "white"} ruleTop>
+        <Section key={i} ground={i % 2 === 0 ? "bone" : "quiet"} ruleTop>
           <SectionHeader data={section} />
         </Section>
       ))}

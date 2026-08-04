@@ -26,7 +26,14 @@ export default function RootLayout({
       lang="en"
       className={`${playfair.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {/* Scroll entrances are inline-styled from the client. Without JS they
+            would never resolve, so force every one of them to its final state. */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}`}</style>
+        </noscript>
+        {children}
+      </body>
     </html>
   );
 }

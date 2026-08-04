@@ -87,16 +87,28 @@ export function AnimatedStats({
     };
   }, []);
 
+  /** Each stat drifts up as its numeral starts counting. */
+  const enter = (i: number) => ({
+    opacity: run ? 1 : 0,
+    transform: run ? "translate3d(0,0,0)" : "translate3d(0,12px,0)",
+    transition: `opacity 620ms ease ${i * 90}ms, transform 620ms cubic-bezier(0.16,1,0.3,1) ${i * 90}ms`,
+  });
+
   if (variant === "inline") {
     return (
       <div
         ref={ref}
         className={
-          "flex flex-wrap items-center gap-x-6 gap-y-2 " + (className ?? "")
+          "flex flex-wrap items-center gap-x-7 gap-y-3 " + (className ?? "")
         }
       >
-        {stats.map((stat) => (
-          <span key={stat._id} className="inline-flex items-baseline gap-1.5">
+        {stats.map((stat, i) => (
+          <span
+            key={stat._id}
+            data-reveal=""
+            style={enter(i)}
+            className="inline-flex items-baseline gap-1.5"
+          >
             <span className="stat-numeral text-[19px] leading-none">
               <AnimatedNumber value={stat.value} run={run} />
             </span>
@@ -114,8 +126,22 @@ export function AnimatedStats({
         "grid grid-cols-4 gap-x-8 gap-y-8 max-[520px]:grid-cols-2 " + (className ?? "")
       }
     >
-      {stats.map((stat) => (
-        <div key={stat._id} className="flex flex-col items-start gap-1">
+      {stats.map((stat, i) => (
+        <div
+          key={stat._id}
+          data-reveal=""
+          style={enter(i)}
+          className="flex flex-col items-start gap-2"
+        >
+          {/* Hairline that grows in under the numeral as it settles. */}
+          <span
+            aria-hidden
+            className="block h-px w-full origin-left bg-gradient-to-r from-gold/70 to-transparent transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+            style={{
+              transform: run ? "scaleX(1)" : "scaleX(0)",
+              transitionDelay: `${i * 90}ms`,
+            }}
+          />
           <div className="stat-numeral text-[44px] leading-none max-[767px]:text-[36px]">
             <AnimatedNumber value={stat.value} run={run} />
           </div>

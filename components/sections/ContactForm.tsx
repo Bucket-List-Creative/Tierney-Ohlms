@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Label, Input, Textarea, Select } from "@/components/primitives/Field";
+import { Button } from "@/components/primitives/Button";
+import { LineIcon } from "@/components/icons/LineIcon";
 import { cn } from "@/lib/cn";
 
 type Errors = Partial<Record<"name" | "email" | "message", string>>;
@@ -44,6 +46,7 @@ export function ContactForm({
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (status === "submitting" || status === "sent") return;
     const form = e.currentTarget;
     const found = validate(form);
     setErrors(found);
@@ -95,22 +98,17 @@ export function ContactForm({
     }
   }
 
-  const buttonLabel =
-    status === "sent"
-      ? "Thank you. We'll be in touch shortly"
-      : status === "submitting"
-        ? "Sending…"
-        : "Send Message";
+  const sent = status === "sent";
 
   return (
     <form
       noValidate
       onSubmit={onSubmit}
       className={cn(
-        "flex flex-col gap-5",
+        "relative flex flex-col gap-5",
         embedded
           ? "px-10 py-11 max-[767px]:px-6 max-[767px]:py-8"
-          : "rounded-card border border-rule bg-white px-10 py-11 shadow-[var(--shadow-rest)] max-[767px]:px-6 max-[767px]:py-8",
+          : "rounded-panel border border-rule bg-white px-10 py-11 shadow-[var(--shadow-rest)] max-[767px]:px-6 max-[767px]:py-8",
       )}
     >
       <div className="grid grid-cols-2 gap-4 max-[500px]:grid-cols-1">
@@ -193,26 +191,65 @@ export function ContactForm({
       </Label>
 
       {status === "error" ? (
-        <p role="alert" className="m-0 text-sm font-semibold text-ink">
+        <p
+          role="alert"
+          className="m-0 flex items-start gap-2 rounded-input border border-rule bg-goldwash/60 px-3.5 py-3 text-sm font-medium text-ink"
+        >
+          <LineIcon name="alert" size={16} className="mt-0.5 shrink-0 text-brass" />
           Something went wrong sending your message. Please try again or email us directly.
         </p>
       ) : null}
 
-      <button
+      {/* While `sent`, the button reads as a confirmation rather than a
+          disabled control — `disabled` would grey out the very message we
+          want to celebrate — so it's inert via aria + pointer-events, and
+          onSubmit refuses a repeat send. */}
+      <Button
         type="submit"
-        disabled={status === "submitting" || status === "sent"}
-        aria-live="polite"
-        className="btn-grain rounded-btn px-4 py-4 text-[15px] font-semibold disabled:opacity-90"
+        loading={status === "submitting"}
+        aria-disabled={sent || undefined}
+        className={cn("w-full", sent && "pointer-events-none")}
       >
-        {buttonLabel}
-      </button>
+        {sent ? (
+          <>
+            {/* The tick draws itself once, then the label follows. */}
+            <span className="grid h-5 w-5 place-items-center rounded-full bg-white/15">
+              <LineIcon name="check" size={13} className="text-white" />
+            </span>
+            Thank you — we&rsquo;ll be in touch shortly
+          </>
+        ) : (
+          <>
+            Send Message
+            <LineIcon
+              name="arrow-right"
+              size={17}
+              className="transition-transform duration-300 group-hover/btn:translate-x-1"
+            />
+          </>
+        )}
+      </Button>
+
+      {/* Status for assistive tech, mirrored out of the visual button state. */}
+      <span role="status" aria-live="polite" className="sr-only">
+        {status === "submitting"
+          ? "Sending your message"
+          : sent
+            ? "Message sent. We'll be in touch shortly."
+            : ""}
+      </span>
     </form>
   );
 }
 
 function FieldError({ id, children }: { id: string; children: React.ReactNode }) {
   return (
-    <span id={id} className="text-[13px] font-medium text-ink">
+    <span
+      id={id}
+      className="flex items-center gap-1.5 text-[13px] font-medium text-ink"
+      style={{ animation: "field-error-in 320ms cubic-bezier(0.16,1,0.3,1)" }}
+    >
+      <LineIcon name="alert" size={13} className="shrink-0 text-brass" />
       {children}
     </span>
   );

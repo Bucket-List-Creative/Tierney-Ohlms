@@ -23,6 +23,7 @@ import {
   CalendarCheck,
   Users,
   Star,
+  CircleAlert,
   type LucideIcon,
 } from "lucide-react";
 
@@ -62,6 +63,7 @@ const ICONS = {
   check: Check,
   star: Star,
   inbox: Inbox,
+  alert: CircleAlert,
 } satisfies Record<string, LucideIcon>;
 
 export type IconKey = keyof typeof ICONS;

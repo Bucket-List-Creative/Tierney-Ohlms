@@ -6,9 +6,8 @@ export type CardVariant = "default" | "interactive" | "flat";
 const variants: Record<CardVariant, string> = {
   // Static white card with hairline border.
   default: "bg-white border border-rule rounded-card shadow-[var(--shadow-rest)]",
-  // Hover lift: translateY(-3px) + hover shadow + border darken.
-  interactive:
-    "card-lift bg-white border border-rule rounded-card transition-all duration-[250ms] ease-out hover:-translate-y-[3px] hover:border-stroke hover:shadow-[var(--shadow-hover)]",
+  // Hover: lifts 4px into a warm halo (see `.card-surface` in globals).
+  interactive: "card-surface card-lift",
   // No border, no shadow.
   flat: "bg-white rounded-card",
 };

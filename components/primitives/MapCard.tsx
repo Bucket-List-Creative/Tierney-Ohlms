@@ -24,7 +24,7 @@ export function MapCard({
   return (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-card border border-rule bg-alabaster shadow-[var(--shadow-rest)]",
+        "group relative overflow-hidden rounded-panel border border-rule bg-alabaster shadow-[var(--shadow-rest)] transition-shadow duration-[600ms] hover:shadow-[var(--shadow-float)]",
         className,
       )}
     >
@@ -34,7 +34,12 @@ export function MapCard({
         fill
         sizes="(max-width: 767px) 100vw, 1240px"
         placeholder="blur"
-        className="object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.04]"
+        className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+      />
+      {/* Warm light over the map so the chips sit on brand-coloured ground. */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_70%_at_15%_0%,rgba(201,162,39,0.16),rgba(201,162,39,0)_60%)]"
       />
 
       {/* Address / directions chip */}

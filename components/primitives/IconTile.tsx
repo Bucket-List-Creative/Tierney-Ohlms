@@ -4,8 +4,8 @@ import { cn } from "@/lib/cn";
 
 /**
  * Aura icon tile — light gold wash under grain, hairline border, ink glyph.
- * On hover (when inside a `group`) the border warms to gold: the one place
- * gold is allowed to move.
+ * On hover (when inside a `group`) the border warms to gold and the tile lifts
+ * into a soft halo: the one place gold is allowed to move.
  */
 export function IconTile({
   icon,
@@ -25,7 +25,7 @@ export function IconTile({
       aria-hidden
       style={{ width: tile, height: tile }}
       className={cn(
-        "aura-light inline-flex shrink-0 items-center justify-center rounded-btn border border-rule text-ink transition-colors duration-[250ms] group-hover:border-gold",
+        "aura-light inline-flex shrink-0 items-center justify-center rounded-btn border border-rule text-ink transition-all duration-[450ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5 group-hover:border-gold group-hover:shadow-[var(--glow-gold)] motion-reduce:group-hover:translate-y-0",
         className,
       )}
     >
