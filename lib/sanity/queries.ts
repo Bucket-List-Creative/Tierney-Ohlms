@@ -30,7 +30,9 @@ export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{
 export const navigationQuery = groq`*[_type == "navigation"][0]{
   items[]{ label, href },
   ctaLabel,
-  ctaHref
+  ctaHref,
+  portalLabel,
+  portalHref
 }`;
 
 export const homePageQuery = groq`*[_type == "homePage"][0]{

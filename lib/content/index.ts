@@ -75,6 +75,8 @@ export const navigation: Navigation = {
   ],
   ctaLabel: "Get Started",
   ctaHref: "/#contact",
+  portalLabel: "Client Login",
+  portalHref: "https://app.financial-cents.com/cp/tierneyohlms",
 };
 
 export const homePage: HomePage = {

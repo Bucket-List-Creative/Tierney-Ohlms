@@ -91,6 +91,9 @@ export type Navigation = {
   items: LinkItem[];
   ctaLabel: string;
   ctaHref: string;
+  /** Client portal login. Rendered only when both are set; always opens in a new tab. */
+  portalLabel?: string | null;
+  portalHref?: string | null;
 };
 
 export type Seo = {

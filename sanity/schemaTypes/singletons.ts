@@ -108,6 +108,20 @@ export const navigation = defineType({
       type: "string",
       validation: (r) => r.required(),
     }),
+    defineField({
+      name: "portalLabel",
+      title: "Client portal label",
+      type: "string",
+      description: "Leave empty (with the URL) to hide the client login button.",
+      initialValue: "Client Login",
+    }),
+    defineField({
+      name: "portalHref",
+      title: "Client portal URL",
+      type: "url",
+      description: "Opens in a new tab. e.g. https://app.financial-cents.com/cp/tierneyohlms",
+      initialValue: "https://app.financial-cents.com/cp/tierneyohlms",
+    }),
   ],
   preview: { prepare: () => ({ title: "Navigation" }) },
 });
