@@ -18,6 +18,7 @@ import type {
   SiteSettings,
   Navigation,
   HomePage,
+  AboutPage,
 } from "@/lib/types";
 
 export const siteSettings: SiteSettings = {
@@ -45,6 +46,7 @@ export const siteSettings: SiteSettings = {
     {
       title: "Company",
       links: [
+        { label: "Our Story", href: "/about" },
         { label: "Why Choose Us", href: "/#why" },
         { label: "How It Works", href: "/#process" },
         { label: "FAQ", href: "/#faq" },
@@ -68,6 +70,7 @@ export const siteSettings: SiteSettings = {
 export const navigation: Navigation = {
   items: [
     { label: "Services", href: "/services" },
+    { label: "Our Story", href: "/about" },
     { label: "Why Us", href: "/#why" },
     { label: "How It Works", href: "/#process" },
     { label: "FAQ", href: "/#faq" },
@@ -92,6 +95,32 @@ export const homePage: HomePage = {
     primaryCta: { label: "Get Started Today", href: "/#contact", variant: "primary" },
     secondaryCta: { label: "Explore Services", href: "/services", variant: "secondary" },
     image: null,
+    strategyScene: {
+      eyebrow: "Tax & Strategy",
+      heading: "Tax strategy that stays ahead of every deadline",
+      emphasis: "ahead",
+      lead: "Proactive planning, quarterly reviews, and filings handled before they become fire drills. Your dedicated team keeps every date on the calendar and every dollar working.",
+    },
+    artifacts: {
+      monthlyCloseLabel: "Monthly close",
+      monthlyClosePeriod: "Mar",
+      revenue: "248,900",
+      expenses: "173,215",
+      net: "75,685",
+      closeSummary: "Books closed in 5 days",
+      automation: "86% automated",
+      note: "Every number tells a story. Make yours legible.",
+      cashFlowChange: "+18.4%",
+      invoiceNumber: "Invoice #2041",
+      invoiceAmount: "4,250.00",
+      filingTitle: "Q1 Estimated Tax",
+      filingDue: "Due April 15",
+      filingProgress: "72% prepared",
+      reviewTitle: "Advisory Review",
+      reviewSubtitle: "Quarterly strategy call",
+      reviewTime: "Thu 10:00",
+      taxSavings: "31,200",
+    },
   },
   servicesHeader: {
     eyebrow: "Services",
@@ -374,4 +403,72 @@ export const localHomeData: HomeData = {
   highlights,
   stats,
   faqs,
+};
+
+export const aboutPage: AboutPage = {
+  seo: {
+    metaTitle: "Our Story | Tierney & Ohlms",
+    metaDescription:
+      "Two St. Louis CPAs started Tierney & Ohlms on nights and weekends to give every business the financial clarity the big firms reserve for their biggest clients.",
+  },
+  hero: {
+    eyebrow: "Our Story",
+    heading: "We built the firm these businesses deserve.",
+    lead: "What started as nights-and-weekends bookkeeping for a handful of companies is now a full accounting team, working with clients in St. Louis and across the country.",
+  },
+  story: {
+    eyebrow: "The story",
+    heading: "It started as a side hustle.",
+    body: [
+      "Six years ago, Dan and I started this business as a side hustle. We were doing the books for a few companies on nights and weekends, and we kept seeing the same thing: sharp owners building real businesses, flying half-blind because nobody was giving them real financial help. The big firms were chasing bigger clients. The local shops were stuck in 1995. So the owner carried it all.",
+      "At some point we thought, why not just build the firm these businesses deserve? So we did.",
+      "Aptly named by two creative CPAs, Tierney & Ohlms is a complete, modern accounting team. You get what the big guys get: accurate books, 24-hour responses, a close that is actually on time, controller-level controls, and CPA-prepared financials, all on modern tools, all for one flat monthly fee. No bloat. No surprise invoices. Real CPAs reviewing the work and the processes that keep your business running.",
+      "The goal is simple: give every business, big or small, the financial clarity the big guys take for granted. What started on nights and weekends is now a full team, working with clients in St. Louis and across the country. Reach out if you are facing a similar problem, or just want some time back to grow your business.",
+    ].join("\n\n"),
+  },
+  rooted: {
+    eyebrow: "Rooted in St. Louis",
+    heading: "A St. Louis firm, through and through.",
+    body: [
+      "Tierney & Ohlms is a St. Louis firm through and through. Paul was born and raised in O'Fallon, MO, went to school here, and still has most of his family in the St. Louis metro. Both founders are raising their families in the area, so the businesses they serve are quite literally their neighbors.",
+      "St. Louis is a small town, and reputation matters. The firm gives every client, no matter their size, the same high level of service, and most of its growth has come through referrals from existing clients, one trusted introduction at a time. Fittingly, the very first client came through a referral too.",
+    ].join("\n\n"),
+    pullQuote:
+      "Big firms save their best service for their biggest clients. We give every client, whatever their size, the same attention. In a town this small, that is the only reputation worth having.",
+  },
+  founders: {
+    eyebrow: "Founders",
+    heading: "Two CPAs who kept seeing the same problem.",
+    people: [
+      {
+        name: "Paul Ohlms",
+        credential: "CPA, Co-founder",
+        bio: "Before starting the firm, Paul spent his career at JPMorgan and Ernst & Young. During that period, he saw that smaller businesses were behind on technology, understaffed, and underserved, so he set out to build a team that brought real focus and work ethic to that market, the kind of service even businesses with smaller balance sheets could count on. He leads the operational accounting side and cares most about the direct impact of the work: at this level, the numbers change what the owner takes home, who they hire, and how fast the company grows.",
+        outsideWork:
+          "Born and raised in O'Fallon, MO, with most of his family still in the St. Louis metro. He and his wife are raising their son Bennett in St. Louis, and he loves to travel, visit the Botanical Garden, cheer on the Mizzou Tigers and golf when time allows.",
+        photo: null,
+      },
+      {
+        name: "Dan Tierney",
+        credential: "CPA, Co-founder",
+        bio: "Dan is a CPA who had talked with Paul for years about building a firm dedicated to small businesses. A conversation with a local banker reinforced what they already believed: St. Louis small businesses needed more support, and affordable, modern solutions existed to give it to them. Dan loves getting to know clients, understanding their challenges, and making accounting a valuable part of the business rather than a burden, clear financial insight and efficient processes that help owners make better decisions, save time, and grow.",
+        // outsideWork intentionally omitted — Dan has not sent his paragraph yet.
+        photo: null,
+      },
+    ],
+  },
+  promises: {
+    eyebrow: "What we promise",
+    heading: "What you can count on.",
+    items: [
+      "A response within 24 hours.",
+      "Staying ahead of the curve on industry changes, we demo and investigate treasury solutions, ERPs, and automation and process tools for accounting departments.",
+      "Private, data-safe AI with a CPA reviewing every output. Client financials are never used to train models.",
+    ],
+  },
+  firstClient: {
+    eyebrow: "The first client",
+    heading: "A barrel company and a banker's introduction.",
+    body: "Our first non-family client was a barrel company that needed financials a bank would trust to approve a loan. Their legacy firm was mostly tax preparers doing some accounting on the side, so the books were behind and not something a lender would accept. A local banker introduced us, and from the moment we met them the need was obvious. We cleaned up the prior financials, built out a full accounting process, and set a real close timeline. That experience validated the vision and became the foundation of the firm.",
+  },
 };

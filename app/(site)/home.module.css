@@ -1,0 +1,57 @@
+.homePage {
+  background-color: var(--color-goldwash);
+  background-image: var(--grain-soft),
+    radial-gradient(
+      80% 42% at 92% 0%,
+      rgba(201, 162, 39, 0.2),
+      rgba(201, 162, 39, 0) 64%
+    ),
+    radial-gradient(
+      70% 38% at 4% 58%,
+      rgba(201, 162, 39, 0.12),
+      rgba(201, 162, 39, 0) 68%
+    );
+  background-blend-mode: multiply, normal, normal;
+}
+
+/* Let the shared canvas flow through light sections. */
+.homePage > section:not(:global(.mesh-dark)) {
+  background-color: transparent;
+  background-image: none;
+}
+
+/* Denser, higher-contrast grain reserved for the homepage hero. */
+.homePage > .hero {
+  background-color: #f2dda5;
+  background-image: var(--grain-soft),
+    var(--grain-soft),
+    radial-gradient(
+      62% 74% at 78% 6%,
+      rgba(201, 162, 39, 0.38),
+      rgba(201, 162, 39, 0) 66%
+    ),
+    radial-gradient(
+      58% 70% at 12% 92%,
+      rgba(140, 110, 31, 0.2),
+      rgba(140, 110, 31, 0) 70%
+    ),
+    linear-gradient(135deg, rgba(255, 252, 239, 0.42), rgba(201, 162, 39, 0.12));
+  background-size: 160px 160px, 290px 290px, auto, auto, auto;
+  background-position: 0 0, 47px 73px, center, center, center;
+  background-blend-mode: multiply, multiply, normal, normal, normal;
+}
+
+.heroTitle {
+  /* HERO TITLE SIZE: adjust the three clamp values (minimum, fluid, maximum). */
+  font-size: clamp(2.25rem, 9.5vw, 5rem);
+  width: min(92vw, 1120px);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: -0.065em;
+}

@@ -111,6 +111,32 @@ export type HomePage = {
     primaryCta: Cta;
     secondaryCta: Cta;
     image?: SanityImage | null;
+    strategyScene?: {
+      eyebrow: string;
+      heading: string;
+      emphasis?: string;
+      lead: string;
+    };
+    artifacts?: {
+      monthlyCloseLabel: string;
+      monthlyClosePeriod: string;
+      revenue: string;
+      expenses: string;
+      net: string;
+      closeSummary: string;
+      automation: string;
+      note: string;
+      cashFlowChange: string;
+      invoiceNumber: string;
+      invoiceAmount: string;
+      filingTitle: string;
+      filingDue: string;
+      filingProgress: string;
+      reviewTitle: string;
+      reviewSubtitle: string;
+      reviewTime: string;
+      taxSavings: string;
+    };
   };
   servicesHeader: SectionHeader;
   whyHeader: SectionHeader;
@@ -147,4 +173,48 @@ export type GenericPage = {
   slug: string;
   seo?: Seo;
   sections: SectionHeader[];
+};
+
+export type Founder ={
+
+  _key?: string;
+  name: string;
+  credential: string;
+  bio:string;
+  outsideWork?:string;
+  photo?:SanityImage | null;
+};
+ export type AboutPage = {
+  seo?: Seo;
+  hero: {
+    eyebrow?: string;
+    heading: string;
+    lead?: string;
+  };
+  story: {
+    eyebrow?: string;
+    heading: string;
+    body: string;
+  };
+  rooted: {
+    eyebrow?: string;
+    heading: string;
+    body?: string;
+    pullQuote?: string;
+  };
+  founders: {
+    eyebrow?: string;
+    heading?: string;
+    people: Founder[];
+  };
+  promises: {
+    eyebrow?: string;
+    heading?: string;
+    items: string[];
+  };
+  firstClient: {
+    eyebrow?: string;
+    heading?: string;
+    body?: string;
+  };
 };

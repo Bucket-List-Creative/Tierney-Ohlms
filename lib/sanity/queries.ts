@@ -43,7 +43,14 @@ export const homePageQuery = groq`*[_type == "homePage"][0]{
     lead,
     primaryCta${ctaProjection},
     secondaryCta${ctaProjection},
-    image${imageProjection}
+    image${imageProjection},
+    strategyScene{ eyebrow, heading, emphasis, lead },
+    artifacts{
+      monthlyCloseLabel, monthlyClosePeriod, revenue, expenses, net,
+      closeSummary, automation, note, cashFlowChange, invoiceNumber,
+      invoiceAmount, filingTitle, filingDue, filingProgress, reviewTitle,
+      reviewSubtitle, reviewTime, taxSavings
+    }
   },
   servicesHeader${headerProjection},
   whyHeader${headerProjection},
@@ -87,4 +94,29 @@ export const pageBySlugQuery = groq`*[_type == "page" && slug.current == $slug][
   "slug": slug.current,
   seo{ metaTitle, metaDescription, ogImage${imageProjection} },
   sections[]${headerProjection}
+}`;
+
+export const aboutPageQuery = groq`*[_type == "aboutPage"][0]{
+  seo{ metaTitle, metaDescription, ogImage${imageProjection} },
+  hero${headerProjection},
+  story{ eyebrow, heading, body },
+  rooted{ eyebrow, heading, body, pullQuote },
+  founders{
+    eyebrow,
+    heading,
+    "people": coalesce(people[]{
+      _key,
+      name,
+      credential,
+      bio,
+      outsideWork,
+      photo${imageProjection}
+    }, [])
+  },
+  promises{
+    eyebrow,
+    heading,
+    "items": coalesce(items, [])
+  },
+  firstClient{ eyebrow, heading, body }
 }`;

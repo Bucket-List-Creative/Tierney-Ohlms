@@ -12,10 +12,12 @@ export function SectionHeader({
   data,
   className,
   align = "start",
+  showEyebrowRule = true,
 }: {
   data: SectionHeaderData;
   className?: string;
   align?: "start" | "center";
+  showEyebrowRule?: boolean;
 }) {
   return (
     <div
@@ -27,7 +29,12 @@ export function SectionHeader({
     >
       {data.eyebrow ? (
         <Reveal variant={align === "center" ? "up" : "left"} duration={700}>
-          <span className={cn("eyebrow", align === "start" && "eyebrow-rule")}>
+          <span
+            className={cn(
+              "eyebrow",
+              align === "start" && showEyebrowRule && "eyebrow-rule",
+            )}
+          >
             {data.eyebrow}
           </span>
         </Reveal>

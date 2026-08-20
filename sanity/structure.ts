@@ -1,7 +1,7 @@
 import type { StructureResolver } from "sanity/structure";
 import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
 
-const SINGLETONS = ["siteSettings", "navigation", "homePage"];
+const SINGLETONS = ["siteSettings", "navigation", "homePage", "aboutPage"];
 
 /**
  * Desk structure: singletons at the top (edit-in-place, not creatable as
@@ -23,6 +23,11 @@ export const structure: StructureResolver = (S, context) =>
         .title("Home page")
         .id("homePage")
         .child(S.document().schemaType("homePage").documentId("homePage")),
+      S.listItem()
+      .title("Our Story page")
+      .id("aboutPage")
+      .child(S.document().schemaType("aboutPage").documentId("aboutPage")),
+
       S.divider(),
       orderableDocumentListDeskItem({
         type: "service",
@@ -55,7 +60,9 @@ export const structure: StructureResolver = (S, context) =>
         context,
       }),
       S.documentTypeListItem("processStep").title("Process steps"),
+
       S.divider(),
+
       S.documentTypeListItem("page").title("Pages"),
     ]);
 

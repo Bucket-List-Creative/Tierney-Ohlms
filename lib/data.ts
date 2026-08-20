@@ -4,6 +4,7 @@ import {
   siteSettingsQuery,
   navigationQuery,
   homePageQuery,
+  aboutPageQuery,
   servicesQuery,
   featuresQuery,
   processStepsQuery,
@@ -13,12 +14,13 @@ import {
   pageBySlugQuery,
   pageSlugsQuery,
 } from "@/lib/sanity/queries";
-import { localHomeData } from "@/lib/content";
+import { localHomeData, aboutPage as localAboutPage } from "@/lib/content";
 import type {
   HomeData,
   SiteSettings,
   Navigation,
   HomePage,
+  AboutPage,
   Service,
   Feature,
   ProcessStep,
@@ -53,16 +55,59 @@ export async function getHomeData(): Promise<HomeData> {
 
   // Fall back per-field so a not-yet-seeded document never blanks the page.
   const fb = localHomeData;
+  const mergedHome: HomePage = home
+    ? {
+        ...fb.home,
+        ...home,
+        hero: {
+          ...fb.home.hero,
+          ...home.hero,
+          strategyScene: home.hero?.strategyScene ?? fb.home.hero.strategyScene,
+          artifacts: {
+            ...fb.home.hero.artifacts!,
+            ...home.hero?.artifacts,
+          } as NonNullable<HomePage["hero"]["artifacts"]>,
+        },
+      }
+    : fb.home;
   return {
     site: site ?? fb.site,
     nav: nav ?? fb.nav,
-    home: home ?? fb.home,
+    home: mergedHome,
     services: services?.length ? services : fb.services,
     features: features?.length ? features : fb.features,
     processSteps: processSteps?.length ? processSteps : fb.processSteps,
     highlights: highlights?.length ? highlights : fb.highlights,
     stats: stats?.length ? stats : fb.stats,
     faqs: faqs?.length ? faqs : fb.faqs,
+  };
+}
+
+/**
+ * Our Story page content. Falls back per-section, so a half-filled `aboutPage`
+ * document in the Studio still renders complete copy: any section the editor
+ * hasn't touched yet keeps the local text instead of collapsing to nothing.
+ */
+export async function getAboutPage(): Promise<AboutPage> {
+  const fb = localAboutPage;
+  if (!isSanityConfigured) return fb;
+
+  const doc = await sanityFetch<Partial<AboutPage> | null>({
+    query: aboutPageQuery,
+    tags: [CACHE_TAGS.aboutPage],
+  });
+  if (!doc) return fb;
+
+  return {
+    seo: doc.seo ?? fb.seo,
+    hero: doc.hero ?? fb.hero,
+    story: doc.story ?? fb.story,
+    rooted: doc.rooted ?? fb.rooted,
+    // Arrays fall back on empty, not just on null: an editor who created the
+    // document but hasn't added the founders yet should still see them.
+    founders: doc.founders?.people?.length ? doc.founders : fb.founders,
+    promises: doc.promises?.items?.length ? doc.promises : fb.promises,
+    firstClient: doc.firstClient ?? fb.firstClient,
   };
 }
 

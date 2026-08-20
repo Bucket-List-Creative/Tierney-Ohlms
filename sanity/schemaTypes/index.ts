@@ -1,6 +1,6 @@
 import type { SchemaTypeDefinition } from "sanity";
-import { linkItem, cta, sectionHeader, seo, footerColumn } from "./objects";
-import { siteSettings, navigation, homePage } from "./singletons";
+import { linkItem, cta, sectionHeader, seo, footerColumn, founder } from "./objects";
+import { siteSettings, navigation, homePage, aboutPage} from "./singletons";
 import {
   service,
   feature,
@@ -18,10 +18,12 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   sectionHeader,
   seo,
   footerColumn,
+  founder,
   // singletons
   siteSettings,
   navigation,
   homePage,
+  aboutPage,
   // collections
   service,
   feature,

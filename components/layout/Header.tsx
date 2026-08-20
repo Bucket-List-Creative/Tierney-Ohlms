@@ -10,9 +10,9 @@ import { cn } from "@/lib/cn";
 import type { Navigation } from "@/lib/types";
 
 /**
- * Sticky header. Condenses 22px → 12px of padding once scrolled, frosts its
- * ground, and traces read-progress along its lower edge. Nav links underline
- * on hover and stay marked while their section owns the viewport.
+ * Compact sticky header with a single inline desktop row. It frosts its
+ * ground and traces read-progress along its lower edge. Nav links
+ * underline on hover and stay marked while their section owns the viewport.
  *
  * Full nav shows at ≥880px; below that it collapses into a sheet. The sheet
  * renders as a sibling of <header>, not inside it: the header's backdrop blur
@@ -22,7 +22,7 @@ import type { Navigation } from "@/lib/types";
 export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [headerH, setHeaderH] = useState(78);
+  const [headerH, setHeaderH] = useState(69);
   const [active, setActive] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
   const railRef = useRef<HTMLSpanElement>(null);
@@ -47,7 +47,7 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
 
     // The section that owns the line just under the header wins.
     if (anchorKey) {
-      const line = y + (headerRef.current?.offsetHeight ?? 78) + 24;
+      const line = y + (headerRef.current?.offsetHeight ?? 69) + 24;
       let current: string | null = null;
       for (const id of anchorKey.split(",")) {
         const el = document.getElementById(id);
@@ -91,7 +91,7 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
     };
   }, [menuOpen]);
 
-  const pad = scrolled ? 12 : 22;
+  const pad = scrolled ? 7 : 8;
   const portal =
     nav.portalHref && nav.portalLabel
       ? { href: nav.portalHref, label: nav.portalLabel }
@@ -117,12 +117,12 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
         style={{ backdropFilter: "blur(18px) saturate(1.6)" }}
       >
         <div
-          className="container-x flex items-center justify-between gap-6 transition-[padding] duration-[400ms] ease-out"
+          className="container-x flex items-center justify-between gap-3 transition-[padding,gap] duration-[400ms] ease-out"
           style={{ paddingTop: pad, paddingBottom: pad }}
         >
           <Link
             href="/"
-            className="group/mark relative whitespace-nowrap font-display text-[22px] tracking-[0.01em] text-ink"
+            className="group/mark relative whitespace-nowrap font-display text-[18px] leading-tight tracking-[0.01em] text-ink"
           >
             {wordmark}
             <span
@@ -132,7 +132,7 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
           </Link>
 
           {/* Desktop nav (≥880px) */}
-          <nav className="hidden items-center gap-1 text-[15px] font-medium min-[880px]:flex">
+          <nav className="hidden items-center gap-0 text-[12px] font-medium min-[880px]:flex">
             {nav.items.map((item) => {
               const on = isActive(item.href);
               return (
@@ -141,7 +141,7 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
                   href={item.href}
                   aria-current={on ? "page" : undefined}
                   className={cn(
-                    "group/nav relative px-3 py-2 transition-colors duration-300",
+                    "group/nav relative px-2 py-1.5 transition-colors duration-300",
                     on ? "text-ink" : "text-slate hover:text-ink",
                   )}
                 >
@@ -150,7 +150,7 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
                   <span
                     aria-hidden
                     className={cn(
-                      "absolute bottom-1 left-3 right-3 h-px bg-gradient-to-r from-brass to-gold transition-transform duration-[450ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
+                      "absolute bottom-0.5 left-2 right-2 h-px bg-gradient-to-r from-brass to-gold transition-transform duration-[450ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
                       on
                         ? "scale-x-100"
                         : "origin-right scale-x-0 group-hover/nav:origin-left group-hover/nav:scale-x-100",
@@ -160,13 +160,14 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
               );
             })}
 
-            <span className="mx-3 h-5 w-px bg-rule" aria-hidden />
+            <span className="mx-1.5 h-4 w-px bg-rule" aria-hidden />
 
             {portal && (
               <Button
                 href={portal.href}
                 size="sm"
                 variant="secondary"
+                className="!px-3 !py-1.5 !text-[12px]"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -174,17 +175,18 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
                 <ExternalGlyph />
               </Button>
             )}
-            <Magnetic strength={0.22} className="ml-2">
-              <Button href={nav.ctaHref} size="sm" className="btn-grain-sm">
+            <Magnetic strength={0.22} className="ml-0.5">
+              <Button href={nav.ctaHref} size="sm" className="btn-grain-sm !px-3 !py-1.5 !text-[12px]">
                 {nav.ctaLabel}
               </Button>
             </Magnetic>
           </nav>
 
           {/* Mobile bar (<880px): CTA stays visible + hamburger */}
-          <div className="flex items-center gap-3 min-[880px]:hidden">
-            <Button href={nav.ctaHref} size="sm" className="btn-grain-sm max-[400px]:hidden">
-              {nav.ctaLabel}
+          <div className="flex items-center gap-2 min-[880px]:hidden">
+            <Button href={nav.ctaHref} size="sm" className="btn-grain-sm max-[479px]:px-4">
+              <span className="max-[479px]:hidden">{nav.ctaLabel}</span>
+              <span className="hidden max-[479px]:inline">Contact</span>
             </Button>
             <button
               type="button"

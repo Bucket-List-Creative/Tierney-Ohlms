@@ -18,7 +18,7 @@ export function Accordion({
   items: AccordionItem[];
   className?: string;
 }) {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(1);
   const baseId = useId();
 
   return (
@@ -31,8 +31,7 @@ export function Accordion({
           <div
             key={i}
             className={cn(
-              "group rounded-card border-b border-rule px-4 transition-colors duration-300 max-[520px]:px-2",
-              isOpen ? "bg-white/80 shadow-[var(--shadow-rest)]" : "hover:bg-white/60",
+              "group border-b border-rule transition-[padding] duration-300 hover:pl-3",
             )}
           >
             <h3 className="m-0">
@@ -42,7 +41,7 @@ export function Accordion({
                 aria-expanded={isOpen}
                 aria-controls={panelId}
                 onClick={() => setOpen(isOpen ? null : i)}
-                className="flex w-full items-center justify-between gap-6 py-5 text-left text-[16px] font-semibold text-ink transition-colors duration-300 hover:text-brass"
+                className="flex w-full items-center justify-between gap-6 py-5 text-left font-display text-[clamp(17px,1.5vw,20px)] font-medium text-ink transition-colors duration-300"
               >
                 <span
                   className={cn(
@@ -55,10 +54,8 @@ export function Accordion({
                 <span
                   aria-hidden
                   className={cn(
-                    "relative grid h-7 w-7 shrink-0 place-items-center rounded-full border transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
-                    isOpen
-                      ? "rotate-180 border-gold bg-goldwash text-brass shadow-[var(--glow-gold)]"
-                      : "border-rule text-brass group-hover:border-gold",
+                    "relative grid h-7 w-7 shrink-0 place-items-center text-brass transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                    isOpen && "rotate-180",
                   )}
                 >
                   <span className="absolute h-[1.5px] w-3 rounded bg-current" />
@@ -81,7 +78,7 @@ export function Accordion({
               )}
             >
               <div className="overflow-hidden">
-                <p className="m-0 max-w-[62ch] pb-5 text-[15px] leading-relaxed text-slate">
+                <p className="m-0 max-w-[62ch] pb-5 text-[14.5px] leading-relaxed text-slate">
                   {item.answer}
                 </p>
               </div>

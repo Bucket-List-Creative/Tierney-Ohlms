@@ -7,6 +7,7 @@ export const CACHE_TAGS = {
   siteSettings: "siteSettings",
   navigation: "navigation",
   homePage: "homePage",
+  aboutPage: "aboutPage",
   service: "service",
   feature: "feature",
   processStep: "processStep",

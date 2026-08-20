@@ -1,158 +1,87 @@
-import { Button } from "@/components/primitives/Button";
-import { MediaFrame } from "@/components/primitives/MediaFrame";
-import { LineIcon } from "@/components/icons/LineIcon";
-import { AnimatedStats } from "@/components/sections/AnimatedStats";
-import { Orb } from "@/components/layout/Section";
-import { Magnetic } from "@/components/motion/Magnetic";
-import { Parallax } from "@/components/motion/Parallax";
-import { TextReveal, FadeIn } from "@/components/motion/TextReveal";
-import { Reveal } from "@/components/primitives/Reveal";
-import heroPhoto from "@/assets/hero.jpg";
-import type { HomePage, Highlight, Stat } from "@/lib/types";
+"use client";
 
-/**
- * Hero — warm aura over white, two drifting lights, a word-by-word headline
- * reveal, and a photograph that parallaxes a little slower than the page.
- */
-export function Hero({
-  hero,
-  stats,
-  chip,
-}: {
-  hero: HomePage["hero"];
-  stats: Stat[];
-  chip?: Highlight;
-}) {
-  return (
-    <section id="top" className="atmos aura-hero">
-      {/* Ambient light */}
-      <Orb
-        tone="gold"
-        drift="a"
-        className="-right-[12%] -top-[38%] h-[780px] w-[780px] opacity-90 max-[980px]:h-[460px] max-[980px]:w-[460px]"
-      />
-      <Orb
-        tone="bone"
-        drift="b"
-        className="-bottom-[46%] -left-[16%] h-[680px] w-[680px] max-[980px]:hidden"
-      />
+import { useEffect, useRef } from "react";
+import type { CSSProperties, ReactNode } from "react";
+import type { HomePage } from "@/lib/types";
+import styles from "./HeroScenes.module.css";
 
-      <div className="container-x relative z-[1] pb-20 pt-20 max-[980px]:pb-14 max-[980px]:pt-14">
-        <div className="grid grid-cols-[1.05fr_minmax(0,0.95fr)] items-center gap-16 max-[980px]:grid-cols-1 max-[980px]:gap-12">
-          <div className="flex min-w-0 flex-col items-start gap-7">
-            <Reveal variant="scale" duration={700}>
-              <span className="group inline-flex items-center gap-2.5 rounded-full border border-rule bg-white/70 px-3.5 py-1.5 shadow-[var(--shadow-rest)] backdrop-blur-sm max-[560px]:gap-2 max-[560px]:px-3">
-                <span
-                  className="relative flex h-1.5 w-1.5 shrink-0 items-center justify-center"
-                  aria-hidden
-                >
-                  <span className="absolute h-1.5 w-1.5 rotate-45 bg-gold" />
-                  <span
-                    className="absolute h-1.5 w-1.5 rotate-45 bg-gold"
-                    style={{ animation: "pulse-ring 3.4s ease-out infinite" }}
-                  />
-                </span>
-                <span className="text-[12px] font-semibold uppercase tracking-[0.16em] text-brass max-[560px]:text-[10.5px] max-[560px]:tracking-[0.12em]">
-                  {hero.eyebrow}
-                </span>
-              </span>
-            </Reveal>
+type HeroData = HomePage["hero"];
+type Vars = CSSProperties & { "--delay"?: string };
 
-            <TextReveal
-              as="h1"
-              text={hero.heading}
-              delay={80}
-              step={60}
-              className="m-0 max-w-[15ch] font-display text-hero text-ink"
-            />
+export function Hero({ hero }: { hero: HeroData }) {
+  const runwayRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const scenesRef = useRef<(HTMLDivElement | null)[]>([]);
+  const a = hero.artifacts!;
+  const strategy = hero.strategyScene!;
 
-            <FadeIn
-              delay={280}
-              className="m-0 max-w-[52ch] text-lead text-slate"
-            >
-              {hero.lead}
-            </FadeIn>
+  useEffect(() => {
+    const runway = runwayRef.current;
+    const track = trackRef.current;
+    if (!runway || !track) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let raf = 0;
+    let active = 0;
+    const ease = (t: number) => t < 0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+    const apply = () => {
+      raf = 0;
+      const rect = runway.getBoundingClientRect();
+      const visibleHeight = runway.querySelector<HTMLElement>(`.${styles.viewport}`)?.offsetHeight ?? window.innerHeight;
+      const progress = Math.min(1, Math.max(0, -rect.top / (rect.height-visibleHeight)));
+      const slide = progress < .3 ? 0 : progress > .7 ? 1 : ease((progress-.3)/.4);
+      track.style.transform = `translate3d(${-slide*100}vw,0,0)`;
+      const next = slide > .5 ? 1 : 0;
+      if (next !== active) {
+        active = next;
+        if (!reduce) scenesRef.current.forEach((scene,i) => scene?.classList.toggle(styles.active,i===active));
+      }
+    };
+    const queue = () => { if (!raf) raf=requestAnimationFrame(apply); };
+    if (reduce) scenesRef.current.forEach(scene => scene?.classList.add(styles.active));
+    else requestAnimationFrame(() => requestAnimationFrame(() => scenesRef.current[0]?.classList.add(styles.active)));
+    window.addEventListener("scroll",queue,{passive:true});
+    window.addEventListener("resize",queue,{passive:true});
+    apply();
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("scroll",queue); window.removeEventListener("resize",queue); };
+  },[]);
 
-            <Reveal delay={400} duration={700} className="mt-1 w-full">
-              {/* Below 520px the two actions go full width so neither reads as
-                  the leftover of the other. */}
-              <div className="flex flex-wrap items-center gap-3.5 max-[520px]:flex-col max-[520px]:items-stretch">
-                <Magnetic strength={0.24} className="max-[520px]:block">
-                  <Button
-                    href={hero.primaryCta.href}
-                    variant="primary"
-                    className="max-[520px]:w-full"
-                  >
-                    {hero.primaryCta.label}
-                    <LineIcon
-                      name="arrow-right"
-                      size={17}
-                      className="transition-transform duration-300 group-hover/btn:translate-x-1"
-                    />
-                  </Button>
-                </Magnetic>
-                <Button
-                  href={hero.secondaryCta.href}
-                  variant="secondary"
-                  className="max-[520px]:w-full"
-                >
-                  {hero.secondaryCta.label}
-                </Button>
-              </div>
-            </Reveal>
-
-            {/* Quiet proof points, woven into the copy as small words */}
-            <Reveal delay={520} duration={700} className="mt-1 w-full">
-              <div className="flex flex-col gap-4">
-                <span className="rule-fade block w-full max-w-[420px] opacity-70" aria-hidden />
-                <AnimatedStats stats={stats} variant="inline" />
-              </div>
-            </Reveal>
-          </div>
-
-          <div className="relative min-w-0">
-            <Parallax strength={-46} minWidth={980}>
-              <Reveal variant="mask" duration={1100} className="group relative">
-                {/* Offset panel behind the photo — depth without a heavy shadow. */}
-                <span
-                  aria-hidden
-                  className="absolute -bottom-6 -right-6 z-0 h-full w-full rounded-panel border border-gold/45 bg-goldwash max-[520px]:-bottom-3 max-[520px]:-right-3"
-                />
-                <div className="relative z-[1]">
-                  <MediaFrame
-                    image={hero.image}
-                    fallback={heroPhoto}
-                    alt="Financial documents and a calculator on a desk"
-                    priority
-                    zoom
-                    overlay
-                    sizes="(max-width: 980px) 100vw, 46vw"
-                    className="h-[480px] w-full shadow-[var(--shadow-hover)] max-[980px]:h-[340px] max-[520px]:h-[260px]"
-                  />
-                </div>
-
-                {chip ? (
-                  <div className="float-y glass absolute bottom-5 left-5 z-[2] flex items-center gap-3 rounded-card px-4 py-3 max-[520px]:bottom-3 max-[520px]:left-3 max-[520px]:px-3 max-[520px]:py-2.5">
-                    <span className="aura-light flex h-11 w-11 items-center justify-center rounded-btn border border-rule text-ink">
-                      <LineIcon name={chip.icon} size={20} />
-                    </span>
-                    <span className="flex flex-col">
-                      <span className="font-display text-lg leading-tight text-ink">
-                        {chip.claim}
-                      </span>
-                      <span className="text-[13px] leading-tight text-slate">
-                        {chip.caption}
-                      </span>
-                    </span>
-                  </div>
-                ) : null}
-              </Reveal>
-            </Parallax>
-          </div>
-        </div>
+  return <section ref={runwayRef} id="top" aria-label="Intro" className={styles.runway}>
+    <div
+      className={styles.viewport}
+      style={{
+        top: "var(--header-h)",
+        width: "100%",
+        height: "calc(100svh - var(--header-h))",
+      }}
+    >
+      <div ref={trackRef} className={styles.track}>
+        <Scene setRef={node => { scenesRef.current[0]=node; }}>
+          <Card className={`${styles.ledger} ${styles.edge}`} delay=".15s"><Head left={a.monthlyCloseLabel} right={a.monthlyClosePeriod}/><Rows rows={[["Revenue",a.revenue],["Expenses",a.expenses],["Net",a.net]]}/><small className={styles.checked}><b>✓</b> Reconciled</small></Card>
+          <Card className={`${styles.folder} ${styles.edge}`} delay=".3s"><Mono>Ledger</Mono><strong>{a.closeSummary}</strong><Progress value="86%"/><Mono>{a.automation}</Mono></Card>
+          <Card className={`${styles.note} ${styles.edge}`} delay=".45s"><i>{a.note}</i></Card>
+          <Card className={styles.chart} delay=".55s"><Head left="Cash flow" right={a.cashFlowChange}/><div className={styles.bars}>{[34,48,42,62,74,100].map((h,i)=><i key={h} style={{height:`${h}%`}} className={i>3?styles.darkBar:""}/>)}</div><div className={styles.months}>{["Oct","Nov","Dec","Jan","Feb","Mar"].map(x=><span key={x}>{x}</span>)}</div></Card>
+          <Card className={styles.invoice} delay=".65s"><div className={styles.head}><Mono>{a.invoiceNumber}</Mono><span className={styles.paid}>Paid</span></div><Money value={a.invoiceAmount}/><div className={styles.segment}><i/><i/><i/></div></Card>
+          <Copy eyebrow={hero.eyebrow} heading={hero.heading.replace(/\.$/,"")} emphasis="&" lead={hero.lead} level="h1"/>
+        </Scene>
+        <Scene setRef={node => { scenesRef.current[1]=node; }}>
+          <Card className={`${styles.filings} ${styles.edge}`} delay=".15s"><Mono>Filings</Mono><strong>{a.filingTitle}</strong><span>◷ {a.filingDue}</span><Progress value="72%"/><Mono>{a.filingProgress}</Mono></Card>
+          <Card className={`${styles.reminder} ${styles.edge}`} delay=".3s"><div className={styles.reminderTop}><span className={styles.iconTile}>□</span><div><strong>{a.reviewTitle}</strong><small>{a.reviewSubtitle}</small></div></div><Head left={a.reviewTime} right="45 min"/></Card>
+          <Card className={`${styles.seal} ${styles.hideMedium}`} delay=".45s"><b>&amp;</b></Card>
+          <Card className={styles.savings} delay=".55s"><Mono>Tax savings found</Mono><Money value={a.taxSavings}/><small>⌃ &nbsp; vs. prior-year filing</small></Card>
+          <Card className={styles.deadlines} delay=".65s"><Mono>Deadlines</Mono><Rows rows={[["1099s filed","Done"],["Q1 estimates","Apr 15"],["Extension review","May 01"]]}/></Card>
+          <Copy eyebrow={strategy.eyebrow} heading={strategy.heading} emphasis={strategy.emphasis} lead={strategy.lead} level="h2"/>
+        </Scene>
       </div>
-
-      <div aria-hidden className="rule-fade absolute inset-x-0 bottom-0 z-[2]" />
-    </section>
-  );
+      <div className={styles.fade} aria-hidden/>
+    </div>
+  </section>;
 }
+
+function Scene({children,setRef}:{children:ReactNode;setRef:(node:HTMLDivElement|null)=>void}){return <div ref={setRef} className={styles.scene}>{children}</div>}
+function Card({children,className,delay}:{children:ReactNode;className:string;delay:string}){return <div aria-hidden className={`${styles.card} ${className}`} style={{"--delay":delay} as Vars}>{children}</div>}
+function Mono({children}:{children:ReactNode}){return <span className={styles.mono}>{children}</span>}
+function Head({left,right}:{left:string;right:string}){return <div className={styles.head}><Mono>{left}</Mono><strong className={styles.gradient}>{right}</strong></div>}
+function Progress({value}:{value:string}){return <div className={styles.progress}><i style={{width:value}}/></div>}
+function Rows({rows}:{rows:string[][]}){return <div className={styles.rows}>{rows.map(([left,right])=><div key={left}><span>{left}</span><span className={left==="Net"||right==="Done"?styles.brass:styles.mono}>{right}</span></div>)}</div>}
+function Money({value}:{value:string}){const [whole,cents]=value.split(".");return <span className={styles.money}><sup>$</sup><span className={styles.gradient}>{whole}</span>{cents&&<small>.{cents}</small>}</span>}
+function Copy({eyebrow,heading,emphasis,lead,level}:{eyebrow:string;heading:string;emphasis?:string;lead:string;level:"h1"|"h2"}){const Heading=level;const parts=emphasis?heading.split(emphasis):[heading];return <div className={styles.copy}><div className={styles.eyebrow} style={{"--delay":".1s"} as Vars}>{eyebrow}</div><Heading style={{"--delay":".22s"} as Vars}>{parts[0]}{parts.length>1&&<><em>{emphasis}</em>{parts.slice(1).join(emphasis)}</>}</Heading><p style={{"--delay":".34s"} as Vars}>{lead}</p></div>}

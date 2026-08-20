@@ -7,6 +7,8 @@ import { Process } from "@/components/sections/Process";
 import { Faq } from "@/components/sections/Faq";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 import { Contact } from "@/components/sections/Contact";
+import { OfficeMap } from "@/components/sections/OfficeMap";
+import styles from "./home.module.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { home } = await getHomeData();
@@ -20,14 +22,15 @@ export default async function HomePage() {
   const data = await getHomeData();
 
   return (
-    <>
-      <Hero hero={data.home.hero} stats={data.stats} chip={data.highlights[0]} />
+    <div className={styles.homePage}>
+      <Hero hero={data.home.hero} />
       <Services header={data.home.servicesHeader} services={data.services} />
       <WhyUs header={data.home.whyHeader} features={data.features} />
       <Process header={data.home.processHeader} steps={data.processSteps} />
       <Faq header={data.home.faqHeader} faqs={data.faqs} />
       <CtaBanner banner={data.home.ctaBanner} />
       <Contact contact={data.home.contact} site={data.site} />
-    </>
+      <OfficeMap site={data.site} />
+    </div>
   );
 }

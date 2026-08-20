@@ -21,6 +21,8 @@ export function MediaFrame({
   priority = false,
   zoom = false,
   overlay = false,
+  fit = "cover",
+  objectPosition,
   rounded = "rounded-panel",
 }: {
   image?: SanityImage | null;
@@ -32,6 +34,8 @@ export function MediaFrame({
   priority?: boolean;
   zoom?: boolean;
   overlay?: boolean;
+  fit?: "cover" | "contain";
+  objectPosition?: string;
   rounded?: string;
 }) {
   const builder = image?.src ? urlForImage(image) : null;
@@ -39,7 +43,7 @@ export function MediaFrame({
 
   const frame = cn("relative overflow-hidden", rounded, className);
   const img = cn(
-    "object-cover",
+    fit === "cover" && "object-cover",
     zoom &&
       "transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.045] motion-reduce:transition-none motion-reduce:group-hover:scale-100",
   );
@@ -70,6 +74,7 @@ export function MediaFrame({
           placeholder={image?.lqip ? "blur" : "empty"}
           blurDataURL={image?.lqip ?? undefined}
           className={img}
+          style={objectPosition ? { objectPosition } : undefined}
         />
         {scrim}
       </div>
@@ -87,6 +92,7 @@ export function MediaFrame({
           priority={priority}
           placeholder="blur"
           className={img}
+          style={objectPosition ? { objectPosition } : undefined}
         />
         {scrim}
       </div>

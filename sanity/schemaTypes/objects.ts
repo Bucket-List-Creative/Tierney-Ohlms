@@ -130,3 +130,57 @@ export const footerColumn = defineType({
   ],
   preview: { select: { title: "title" } },
 });
+
+export const founder = defineType({
+  name: "founder",
+  title: "Founder",
+  type:"object",
+  fields:[
+    defineField({
+      name:"name",
+      title:"Name",
+      type:"string",
+      validation:(r) => r.required(),
+    }),
+    defineField({
+      name:"credential",
+      title:"Credential /role",
+      type:"string",
+      description:'e.g. "CPA, Co-founder".',
+      validation:(r)=> r.required(),
+      
+    }),
+    defineField({
+      name:"bio",
+      title:"Bio",
+      type:"text",
+      rows:6,
+   description: "The professional paragraph. Separate paragraphs with a blank line.",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name:"outsideWork",
+      title:"Outside work",
+      type:"text",
+      rows:3,
+      description: "The personal, human paragraph. Leave blank if it isn't ready yet.",
+
+    }),
+    defineField({
+      name: "photo",
+      title: "Photo",
+      type: "image",
+      options: { hotspot: true },
+      fields: [
+        {
+          name: "alt",
+          title: "Alt text",
+          type: "string",
+          validation: (r) => r.required(),
+        },
+      ],
+    }),
+  ],
+  preview: {select: {title:"name", subtitle:"credential", media:"photo"}},
+
+});
