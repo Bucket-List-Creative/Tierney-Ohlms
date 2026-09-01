@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Label, Input, Textarea, Select } from "@/components/primitives/Field";
 import { Button } from "@/components/primitives/Button";
 import { LineIcon } from "@/components/icons/LineIcon";
+import { JOTFORM_SUBMIT_URL, toJotformBody } from "@/lib/jotform";
 import { cn } from "@/lib/cn";
 
 type Errors = Partial<Record<"name" | "email" | "message", string>>;
@@ -15,10 +16,11 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const STATIC_EXPORT = process.env.NEXT_PUBLIC_STATIC_EXPORT === "true";
 
 /**
- * Contact form with inline field validation. Normally POSTs to /api/contact;
- * in a static-export build it falls back to opening a pre-filled mailto so the
- * form still works on a server-less host. On success the submit button confirms
- * and resets after 4s.
+ * Contact form with inline field validation. Submissions go to Jotform:
+ * normally through /api/contact, which forwards them server-side and reports
+ * the real result; in a static-export build there is no API route, so the
+ * browser POSTs to Jotform directly. On success the submit button confirms and
+ * resets after 4s.
  */
 export function ContactForm({
   serviceOptions,
@@ -60,22 +62,9 @@ export function ContactForm({
       string
     >;
 
-    // Static host (GitHub Pages): no server endpoint, so hand off to the user's
-    // mail client with the message pre-filled.
-    if (STATIC_EXPORT) {
-      const subject = `Website inquiry from ${payload.name ?? ""}`.trim();
-      const body = [
-        `Name: ${payload.name ?? ""}`,
-        `Company: ${payload.company ?? ""}`,
-        `Email: ${payload.email ?? ""}`,
-        `Phone: ${payload.phone ?? ""}`,
-        `Service: ${payload.service ?? ""}`,
-        "",
-        payload.message ?? "",
-      ].join("\n");
-      window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(
-        subject,
-      )}&body=${encodeURIComponent(body)}`;
+    // Honeypot: only a bot fills a field it cannot see. Show the same
+    // confirmation a human gets, and send nothing.
+    if (payload.website?.trim()) {
       setStatus("sent");
       form.reset();
       window.setTimeout(() => setStatus("idle"), 4000);
@@ -84,12 +73,24 @@ export function ContactForm({
 
     setStatus("submitting");
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error("Request failed");
+      if (STATIC_EXPORT) {
+        // Static host (GitHub Pages): no API route to proxy through, so post
+        // straight to Jotform. `no-cors` is the only way a browser may post
+        // cross-origin here; the response is opaque, so a Jotform-side
+        // rejection cannot be detected — only a network failure can.
+        await fetch(JOTFORM_SUBMIT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          body: toJotformBody(payload),
+        });
+      } else {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error("Request failed");
+      }
       setStatus("sent");
       form.reset();
       window.setTimeout(() => setStatus("idle"), 4000);
@@ -190,13 +191,31 @@ export function ContactForm({
         {errors.message ? <FieldError id="err-message">{errors.message}</FieldError> : null}
       </Label>
 
+      {/* Jotform's honeypot. Hidden from sight and from assistive tech, and
+          left out of the tab order — anything that fills it is a bot. */}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="pointer-events-none absolute h-px w-px opacity-0"
+      />
+
       {status === "error" ? (
         <p
           role="alert"
           className="m-0 flex items-start gap-2 rounded-input border border-rule bg-goldwash/60 px-3.5 py-3 text-sm font-medium text-ink"
         >
           <LineIcon name="alert" size={16} className="mt-0.5 shrink-0 text-brass" />
-          Something went wrong sending your message. Please try again or email us directly.
+          <span>
+            Something went wrong sending your message. Please try again, or email us
+            directly at{" "}
+            <a href={`mailto:${contactEmail}`} className="link-line font-semibold">
+              {contactEmail}
+            </a>
+            .
+          </span>
         </p>
       ) : null}
 
