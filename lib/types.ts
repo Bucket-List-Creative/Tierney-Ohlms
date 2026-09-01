@@ -24,6 +24,19 @@ export type SectionHeader = {
   lead?: string;
 };
 
+export type Seo = {
+  metaTitle?: string;
+  metaDescription?: string;
+  ogImage?: SanityImage | null;
+};
+
+/** A short, anonymised illustration of the work on a service detail page. */
+export type PracticeExample = {
+  _key?: string;
+  title: string;
+  body: string;
+};
+
 export type Service = {
   _id: string;
   title: string;
@@ -31,10 +44,13 @@ export type Service = {
   icon: IconKey;
   description: string; // short, used in the homepage overview
   tagline?: string; // punchy headline for the services page
-  audience?: string; // "For ..." line
+  audience?: string; // the "who it's for" line
   detail?: string; // body paragraph
+  includes?: string[]; // "What's included" bullets on the detail page
+  practiceExamples?: PracticeExample[]; // optional "in practice" block
   youGet?: string; // the "You get:" summary
   topTier?: boolean; // highlight this card
+  seo?: Seo; // overrides for the service's own page
 };
 
 export type Feature = {
@@ -56,12 +72,6 @@ export type Highlight = {
   icon: IconKey;
   claim: string; // e.g. "Up to 60%"
   caption: string; // e.g. "Lower cost than hiring in-house"
-};
-
-export type Stat = {
-  _id: string;
-  value: string; // e.g. "25+", "100%"
-  label: string;
 };
 
 export type FaqItem = {
@@ -94,12 +104,6 @@ export type Navigation = {
   /** Client portal login. Rendered only when both are set; always opens in a new tab. */
   portalLabel?: string | null;
   portalHref?: string | null;
-};
-
-export type Seo = {
-  metaTitle?: string;
-  metaDescription?: string;
-  ogImage?: SanityImage | null;
 };
 
 export type HomePage = {
@@ -164,7 +168,6 @@ export type HomeData = {
   features: Feature[];
   processSteps: ProcessStep[];
   highlights: Highlight[];
-  stats: Stat[];
   faqs: FaqItem[];
 };
 

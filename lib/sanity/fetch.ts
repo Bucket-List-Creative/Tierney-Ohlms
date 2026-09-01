@@ -12,7 +12,6 @@ export const CACHE_TAGS = {
   feature: "feature",
   processStep: "processStep",
   highlight: "highlight",
-  stat: "stat",
   faq: "faq",
   page: "page",
 } as const;

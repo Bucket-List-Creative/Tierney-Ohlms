@@ -184,3 +184,28 @@ export const founder = defineType({
   preview: {select: {title:"name", subtitle:"credential", media:"photo"}},
 
 });
+
+export const practiceExample = defineType({
+  name: "practiceExample",
+  title: "Example in practice",
+  type: "object",
+  description:
+    "A short, casual illustration of the work — not a formal case study. Keep clients anonymous unless you have written sign-off to name them.",
+  fields: [
+    defineField({
+      name: "title",
+      title: "Who",
+      type: "string",
+      description: 'Anonymised, e.g. "A multi-location retail client".',
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "body",
+      title: "What we did",
+      type: "text",
+      rows: 3,
+      validation: (r) => r.required(),
+    }),
+  ],
+  preview: { select: { title: "title", subtitle: "body" } },
+});

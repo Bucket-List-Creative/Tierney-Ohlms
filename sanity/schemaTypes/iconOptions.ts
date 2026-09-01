@@ -6,6 +6,7 @@ export const serviceIconOptions = [
   { title: "Cleanup (sparkles)", value: "cleanup" },
   { title: "Monthly close (calendar check)", value: "close" },
   { title: "Controller (gauge)", value: "controller" },
+  { title: "Shared services (network)", value: "shared" },
   { title: "Tax (institution)", value: "tax" },
   { title: "Payroll (people)", value: "payroll" },
   { title: "Automation (chip)", value: "automation" },

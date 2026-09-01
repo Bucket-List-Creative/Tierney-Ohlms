@@ -40,11 +40,20 @@ data. Nothing else is required to see the full, styled homepage.
    SANITY_REVALIDATE_SECRET="a_long_random_string"
    ```
 
-3. Seed the placeholder content (mirrors `lib/content`):
+3. Seed the content (mirrors `lib/content`):
 
    ```bash
-   npm run seed        # sanity dataset import scripts/seed.ndjson production --replace
+   SANITY_API_WRITE_TOKEN=sk... npm run sanity:push     # add --dry-run first to check
    ```
+
+   `sanity:push` `createOrReplace`s every document in `scripts/seed.ndjson` by
+   its stable `_id` over the HTTP mutation API. It is idempotent and additive:
+   re-running it updates the documents this repo owns and leaves everything else
+   in the dataset (uploaded images, editor-authored pages) alone. The token needs
+   **Editor** rights — the read token in `.env.local` cannot mutate.
+
+   `npm run seed` is the older `sanity dataset import ... --replace` path; it
+   wipes the dataset first, so only use it on an empty or throwaway dataset.
 
 4. Add `http://localhost:3000` and your production origin under
    **CORS origins** in the Sanity project API settings, then restart `npm run dev`.
@@ -75,6 +84,8 @@ the change appears without a redeploy.
 app/
   (site)/layout.tsx        fonts + header + footer + skip link
   (site)/page.tsx          homepage — composes the section components
+  (site)/services/        the service ladder + a page per service ([slug])
+  (site)/about/           Our Story
   (site)/[slug]/page.tsx   generic Sanity pages
   not-found.tsx            404 (dark aura surface)
   studio/[[...tool]]/      embedded Sanity Studio
@@ -107,7 +118,9 @@ scripts/seed.ndjson        importable placeholder dataset
 | `npm run start` | serve the production build |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run lint` | ESLint (flat config) |
-| `npm run seed` | import `scripts/seed.ndjson` into the `production` dataset |
+| `npm run sanity:push` | `createOrReplace` every doc in `scripts/seed.ndjson` into the dataset (needs `SANITY_API_WRITE_TOKEN`) |
+| `npm run sanity:push:dry` | the same, as a Sanity dry run — validates without writing |
+| `npm run seed` | legacy full-dataset import (`--replace`, **wipes the dataset**) |
 
 ---
 

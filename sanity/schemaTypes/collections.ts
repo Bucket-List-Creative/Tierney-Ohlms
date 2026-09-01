@@ -59,6 +59,22 @@ export const service = defineType({
       rows: 4,
     }),
     defineField({
+      name: "includes",
+      title: "What’s included",
+      type: "array",
+      of: [{ type: "string" }],
+      description:
+        "The bulleted scope list on the service’s own page. One line per item, no trailing punctuation.",
+    }),
+    defineField({
+      name: "practiceExamples",
+      title: "What this looks like in practice",
+      type: "array",
+      of: [{ type: "practiceExample" }],
+      description:
+        "Optional. Short, anonymised illustrations of the work. Leave empty to hide the section.",
+    }),
+    defineField({
       name: "youGet",
       title: "“You get” summary",
       type: "text",
@@ -70,6 +86,12 @@ export const service = defineType({
       type: "boolean",
       initialValue: false,
       description: "Renders this service as the dark, gold-accented featured card.",
+    }),
+    defineField({
+      name: "seo",
+      title: "SEO",
+      type: "seo",
+      description: "Overrides for this service’s own page. Falls back to the title and short description.",
     }),
   ],
   preview: { select: { title: "title", subtitle: "icon" } },
@@ -174,30 +196,6 @@ export const highlight = defineType({
     }),
   ],
   preview: { select: { title: "claim", subtitle: "caption" } },
-});
-
-export const stat = defineType({
-  name: "stat",
-  title: "Statistic",
-  type: "document",
-  orderings: [orderRankOrdering],
-  fields: [
-    orderRankField({ type: "stat" }),
-    defineField({
-      name: "value",
-      title: "Value",
-      type: "string",
-      description: 'Include any prefix/suffix, e.g. "25+" or "100%". The number animates on scroll.',
-      validation: (r) => r.required(),
-    }),
-    defineField({
-      name: "label",
-      title: "Label",
-      type: "string",
-      validation: (r) => r.required(),
-    }),
-  ],
-  preview: { select: { title: "value", subtitle: "label" } },
 });
 
 export const faq = defineType({

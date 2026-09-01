@@ -4,7 +4,6 @@ import { getHomeData } from "@/lib/data";
 import { Section, Orb } from "@/components/layout/Section";
 import { Button } from "@/components/primitives/Button";
 import { MediaFrame } from "@/components/primitives/MediaFrame";
-import { AnimatedStats } from "@/components/sections/AnimatedStats";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 import { Reveal } from "@/components/primitives/Reveal";
 import { TextReveal, FadeIn } from "@/components/motion/TextReveal";
@@ -24,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ServicesPage() {
-  const { services, stats, site } = await getHomeData();
+  const { services, site } = await getHomeData();
 
   return (
     <>
@@ -111,11 +110,6 @@ export default async function ServicesPage() {
                 </Reveal>
               </Parallax>
             </div>
-          </div>
-
-          <div className="relative z-[1] mt-14 max-[980px]:mt-10">
-            <span aria-hidden className="rule-fade mb-9 block w-full max-[980px]:mb-7" />
-            <AnimatedStats stats={stats} />
           </div>
         </div>
 
@@ -222,7 +216,15 @@ function ServiceBlock({ service, index }: { service: Service; index: number }) {
             top ? "text-white" : "text-ink",
           )}
         >
-          {service.title}
+          <Link
+            href={`/services/${service.slug}`}
+            className={cn(
+              "transition-colors duration-300",
+              top ? "hover:text-gold" : "hover:text-brass",
+            )}
+          >
+            {service.title}
+          </Link>
         </h3>
         {service.tagline ? (
           <p
@@ -285,13 +287,13 @@ function ServiceBlock({ service, index }: { service: Service; index: number }) {
           </div>
         ) : null}
         <Link
-          href="/#contact"
+          href={`/services/${service.slug}`}
           className={cn(
             "link-line mt-1 inline-flex w-fit items-center gap-1.5 text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-300",
             top ? "text-gold hover:text-white" : "text-brass hover:text-ink",
           )}
         >
-          Get started
+          Explore service
           <LineIcon
             name="arrow-right"
             size={15}
