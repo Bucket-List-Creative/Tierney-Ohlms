@@ -1,20 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getHomeData } from "@/lib/data";
-import { Section, Orb } from "@/components/layout/Section";
+import { Orb } from "@/components/layout/Section";
 import { Button } from "@/components/primitives/Button";
 import { MediaFrame } from "@/components/primitives/MediaFrame";
 import { CtaBanner } from "@/components/sections/CtaBanner";
+import { ServiceLadder } from "@/components/sections/ServiceLadder";
 import { Reveal } from "@/components/primitives/Reveal";
 import { TextReveal, FadeIn } from "@/components/motion/TextReveal";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { Parallax } from "@/components/motion/Parallax";
-import { Spotlight } from "@/components/motion/Spotlight";
 import { LineIcon } from "@/components/icons/LineIcon";
-import { IconTile } from "@/components/primitives/IconTile";
-import { cn } from "@/lib/cn";
 import servicesPhoto from "@/assets/services-hero.jpg";
-import type { Service } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Outsourced Accounting Services",
@@ -117,48 +114,7 @@ export default async function ServicesPage() {
         <div aria-hidden className="rule-fade absolute inset-x-0 bottom-0 z-[2]" />
       </section>
 
-      {/* Service ladder */}
-      <Section
-        ground="quiet"
-        atmosphere={
-          <>
-            <Orb
-              tone="gold"
-              drift="b"
-              className="-left-[16%] top-[12%] h-[560px] w-[560px] opacity-60 max-[900px]:hidden"
-            />
-            <Orb
-              tone="ink"
-              className="-right-[12%] bottom-[8%] h-[460px] w-[460px] max-[900px]:hidden"
-            />
-          </>
-        }
-      >
-        <div className="mb-12 flex max-w-[640px] flex-col gap-4">
-          <Reveal variant="left" duration={700}>
-            <span className="eyebrow">The service ladder</span>
-          </Reveal>
-          <TextReveal
-            text="Cleanup to controller."
-            emphasis="controller."
-            className="m-0 font-display text-[clamp(28px,3vw,40px)] font-medium leading-[1.14] text-ink"
-          />
-          <Reveal delay={160} duration={800}>
-            <p className="m-0 text-[15.5px] leading-relaxed text-slate">
-              The order below reflects how businesses grow with us. Start where you are today,
-              and add the next rung when you&rsquo;re ready.
-            </p>
-          </Reveal>
-        </div>
-
-        <div className="flex flex-col gap-6">
-          {services.map((service, i) => (
-            <Reveal key={service._id} variant="up" delay={i * 60} duration={850}>
-              <ServiceBlock service={service} index={i + 1} />
-            </Reveal>
-          ))}
-        </div>
-      </Section>
+      <ServiceLadder services={services} />
 
       <CtaBanner
         eyebrow="Let's talk"
@@ -175,144 +131,5 @@ export default async function ServicesPage() {
         ]}
       />
     </>
-  );
-}
-
-function ServiceBlock({ service, index }: { service: Service; index: number }) {
-  const top = service.topTier;
-  return (
-    <Spotlight
-      as="article"
-      dark={top}
-      className={cn(
-        "group grid grid-cols-[.85fr_1.4fr] gap-10 rounded-panel border p-9 transition-all duration-[450ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-[820px]:grid-cols-1 max-[820px]:gap-6 max-[767px]:p-7",
-        top
-          ? "surface-dark border-gold/30 text-white shadow-[var(--shadow-gold)] hover:-translate-y-1 hover:shadow-[0_28px_70px_-20px_rgba(201,162,39,0.6)]"
-          : "border-rule bg-white hover:-translate-y-[3px] hover:border-gold hover:shadow-[var(--shadow-hover)]",
-      )}
-    >
-      {/* Left */}
-      <div className="flex flex-col gap-4">
-        <div className="flex items-center justify-between">
-          {top ? (
-            <span className="flex h-[52px] w-[52px] items-center justify-center rounded-btn border border-dark-border bg-white/5 text-gold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5 group-hover:border-gold/70 group-hover:bg-gold/10">
-              <LineIcon name={service.icon} size={24} />
-            </span>
-          ) : (
-            <IconTile icon={service.icon} tile={52} size={24} />
-          )}
-          {top ? (
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-gold bg-gold/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-gold">
-              <LineIcon name="star" size={12} />
-              Most popular
-            </span>
-          ) : (
-            <span className="gradient-text font-display text-[34px] font-medium leading-none transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5">
-              {String(index).padStart(2, "0")}
-            </span>
-          )}
-        </div>
-        <h3
-          className={cn(
-            "m-0 font-display text-[24px] font-semibold max-[767px]:text-[22px]",
-            top ? "text-white" : "text-ink",
-          )}
-        >
-          <Link
-            href={`/services/${service.slug}`}
-            className={cn(
-              "transition-colors duration-300",
-              top ? "hover:text-gold" : "hover:text-brass",
-            )}
-          >
-            {service.title}
-          </Link>
-        </h3>
-        {service.tagline ? (
-          <p
-            className={cn(
-              "m-0 font-display text-[19px] italic leading-snug",
-              top ? "text-gold" : "text-brass",
-            )}
-          >
-            {service.tagline}
-          </p>
-        ) : null}
-        {/* Anchors the short left column against the taller copy beside it —
-            the same closing hairline the homepage puts on its process cards. */}
-        <span className="mt-auto pt-8 max-[820px]:hidden">
-          <i aria-hidden className="block h-px w-11 bg-gold" />
-        </span>
-      </div>
-
-      {/* Right */}
-      <div className="flex flex-col gap-4">
-        {service.audience ? (
-          <div className="flex flex-col gap-1.5">
-            <span className="font-mono text-[10px] uppercase tracking-[.14em] text-dark-label">
-              Who it&rsquo;s for
-            </span>
-            <p
-              className={cn(
-                "m-0 text-[15px] leading-relaxed",
-                top ? "text-white" : "text-ink",
-              )}
-            >
-              {service.audience}
-            </p>
-          </div>
-        ) : null}
-        <p
-          className={cn(
-            "m-0 text-[15px] leading-relaxed",
-            top ? "text-dark-body" : "text-slate",
-          )}
-        >
-          {service.detail ?? service.description}
-        </p>
-        {service.youGet ? (
-          <div
-            className={cn(
-              "mt-1 flex gap-3 rounded-input border-l-2 border-gold pl-4 transition-colors duration-500",
-              top ? "bg-white/[0.03]" : "bg-goldwash/40",
-              "py-2",
-            )}
-          >
-            <span className="flex flex-col gap-1">
-              <span
-                className={cn(
-                  "font-mono text-[10px] uppercase tracking-[.14em]",
-                  top ? "text-gold" : "text-brass",
-                )}
-              >
-                You get
-              </span>
-              <span
-                className={cn(
-                  "text-[15px] leading-relaxed",
-                  top ? "text-white" : "text-ink",
-                )}
-              >
-                {service.youGet}
-              </span>
-            </span>
-          </div>
-        ) : null}
-        <Link
-          href={`/services/${service.slug}`}
-          className={cn(
-            "link-line mt-1 inline-flex w-fit items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[.08em] transition-colors duration-300",
-            top ? "text-gold hover:text-white" : "text-brass hover:text-ink",
-          )}
-        >
-          Explore service
-          <LineIcon
-            name="arrow-right"
-            size={15}
-            className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1"
-          />
-        </Link>
-      </div>
-    </Spotlight>
   );
 }
