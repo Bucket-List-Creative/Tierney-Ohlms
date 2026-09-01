@@ -78,6 +78,35 @@ the change appears without a redeploy.
 
 ---
 
+## Contact form → Jotform
+
+The form keeps its own UI and validation; Jotform is only the destination. The
+field mapping lives in **`lib/jotform.ts`** — change `JOTFORM_FORM_ID` there if
+the Jotform form is ever replaced.
+
+| Form field | Jotform question |
+| --- | --- |
+| `name` | `q3_fullName[first]` + `q3_fullName[last]` (split on the first space) |
+| `company` | `q4_company` |
+| `email` | `q5_email` |
+| `phone` | `q6_phoneNumber[full]` |
+| `service` | `q7_serviceOf` |
+| `message` | `q8_howCan` |
+
+Two delivery paths share that mapping:
+
+- **Server hosts (Vercel):** the browser POSTs JSON to `/api/contact`, which
+  forwards it to Jotform server-to-server. No CORS limit, so a failed delivery
+  comes back as a real error and the form says so.
+- **Static export (GitHub Pages):** there is no API route, so the browser POSTs
+  to Jotform directly with `mode: "no-cors"`. The response is opaque, so only a
+  network failure can be detected — a Jotform-side rejection cannot be.
+
+A hidden `website` honeypot is checked on both paths: a filled one gets the same
+confirmation a human sees, and nothing is sent.
+
+---
+
 ## Project structure
 
 ```
@@ -89,7 +118,7 @@ app/
   (site)/[slug]/page.tsx   generic Sanity pages
   not-found.tsx            404 (dark aura surface)
   studio/[[...tool]]/      embedded Sanity Studio
-  api/contact/             contact form endpoint (stub — wire to email/CRM)
+  api/contact/             contact form → Jotform (see lib/jotform.ts)
   api/revalidate/          Sanity webhook → revalidateTag
   globals.css              Tailwind theme: all design tokens + grain/aura
 components/
@@ -148,8 +177,6 @@ scripts/seed.ndjson        importable placeholder dataset
   statistics, both testimonials, and service descriptions — confirm with the client.
 - Supply the **official logo SVG** (black + white) to replace the Playfair wordmark.
 - Add **real photography** for the hero + a map embed URL (`siteSettings.mapEmbedUrl`).
-- Wire `app/api/contact` to a real provider (Resend / SendGrid / HubSpot / a Sanity
-  `submission` document).
 - Optional: enable Sanity **Presentation / visual editing** (stega is already on the
   client) and add draft-mode routes.
 
