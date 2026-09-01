@@ -1,14 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Label, Input, Textarea, Select } from "@/components/primitives/Field";
 import { Button } from "@/components/primitives/Button";
+import { IconTile } from "@/components/primitives/IconTile";
 import { LineIcon } from "@/components/icons/LineIcon";
 import { JOTFORM_SUBMIT_URL, toJotformBody } from "@/lib/jotform";
 import { cn } from "@/lib/cn";
+import type { SiteSettings } from "@/lib/types";
 
 type Errors = Partial<Record<"name" | "email" | "message", string>>;
 type Status = "idle" | "submitting" | "sent" | "error";
+
+/** Everything the form needs from site settings, for the confirmation panel. */
+export type ContactDetails = Pick<
+  SiteSettings,
+  "phone" | "phoneHref" | "email" | "addressLine1" | "addressLine2" | "hours"
+>;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -19,20 +27,32 @@ const STATIC_EXPORT = process.env.NEXT_PUBLIC_STATIC_EXPORT === "true";
  * Contact form with inline field validation. Submissions go to Jotform:
  * normally through /api/contact, which forwards them server-side and reports
  * the real result; in a static-export build there is no API route, so the
- * browser POSTs to Jotform directly. On success the submit button confirms and
- * resets after 4s.
+ * browser POSTs to Jotform directly.
+ *
+ * On success the fields give way to a confirmation panel in the same shell —
+ * it says what happens next and offers the direct lines for anyone who does
+ * not want to wait. It holds until the visitor dismisses it.
  */
 export function ContactForm({
   serviceOptions,
+  site,
   embedded = false,
-  contactEmail = "info@tierneyohlms.com",
 }: {
   serviceOptions: string[];
+  site: ContactDetails;
   embedded?: boolean;
-  contactEmail?: string;
 }) {
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>("idle");
+  const confirmationRef = useRef<HTMLDivElement>(null);
+
+  const sent = status === "sent";
+
+  // Move the reading position to the confirmation, so keyboard and screen
+  // reader users land on it rather than wherever the submit button was.
+  useEffect(() => {
+    if (sent) confirmationRef.current?.focus();
+  }, [sent]);
 
   function validate(form: HTMLFormElement): Errors {
     const data = new FormData(form);
@@ -48,7 +68,7 @@ export function ContactForm({
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (status === "submitting" || status === "sent") return;
+    if (status === "submitting") return;
     const form = e.currentTarget;
     const found = validate(form);
     setErrors(found);
@@ -66,8 +86,6 @@ export function ContactForm({
     // confirmation a human gets, and send nothing.
     if (payload.website?.trim()) {
       setStatus("sent");
-      form.reset();
-      window.setTimeout(() => setStatus("idle"), 4000);
       return;
     }
 
@@ -92,26 +110,86 @@ export function ContactForm({
         if (!res.ok) throw new Error("Request failed");
       }
       setStatus("sent");
-      form.reset();
-      window.setTimeout(() => setStatus("idle"), 4000);
     } catch {
       setStatus("error");
     }
   }
 
-  const sent = status === "sent";
+  const shell = cn(
+    "relative",
+    embedded
+      ? "px-10 py-11 max-[767px]:px-6 max-[767px]:py-8"
+      : "rounded-panel border border-rule bg-white px-10 py-11 shadow-[var(--shadow-rest)] max-[767px]:px-6 max-[767px]:py-8",
+  );
+
+  if (sent) {
+    return (
+      <div
+        ref={confirmationRef}
+        tabIndex={-1}
+        role="status"
+        aria-live="polite"
+        className={cn(shell, "flex flex-col items-center gap-7 text-center outline-none")}
+        style={{ animation: "field-error-in 420ms cubic-bezier(0.16,1,0.3,1)" }}
+      >
+        <span
+          aria-hidden
+          className="aura-light grid h-16 w-16 place-items-center rounded-full border border-gold/55 text-brass shadow-[var(--glow-gold)]"
+        >
+          <LineIcon name="check" size={26} />
+        </span>
+
+        <div className="flex flex-col gap-3">
+          <h3 className="m-0 font-display text-[clamp(23px,2.4vw,30px)] font-medium leading-[1.15] text-ink">
+            Thank you — your message is <em className="gradient-text">on its way.</em>
+          </h3>
+          <p className="m-0 max-w-[46ch] text-[15px] leading-relaxed text-slate">
+            A real person reads every message. Expect a reply within one business day.
+            If it&rsquo;s urgent, reach us directly.
+          </p>
+        </div>
+
+        <span aria-hidden className="rule-fade block h-px w-full" />
+
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button href={site.phoneHref} variant="primary" size="sm">
+            <LineIcon name="phone" size={15} />
+            Call {site.phone}
+          </Button>
+          <Button href={`mailto:${site.email}`} variant="secondary" size="sm">
+            <LineIcon name="mail" size={15} />
+            {site.email}
+          </Button>
+        </div>
+
+        <div className="flex w-full flex-col gap-2.5 text-left">
+          <ContactRow icon="location" label="Visit us">
+            {site.addressLine1}
+            {site.addressLine2 ? `, ${site.addressLine2}` : ""}
+          </ContactRow>
+          {site.hours ? (
+            <ContactRow icon="clock" label="Office hours">
+              {site.hours}
+            </ContactRow>
+          ) : null}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => {
+            setErrors({});
+            setStatus("idle");
+          }}
+          className="link-line text-[13px] font-semibold uppercase tracking-[.08em] text-brass transition-colors duration-300 hover:text-ink"
+        >
+          Send another message
+        </button>
+      </div>
+    );
+  }
 
   return (
-    <form
-      noValidate
-      onSubmit={onSubmit}
-      className={cn(
-        "relative flex flex-col gap-5",
-        embedded
-          ? "px-10 py-11 max-[767px]:px-6 max-[767px]:py-8"
-          : "rounded-panel border border-rule bg-white px-10 py-11 shadow-[var(--shadow-rest)] max-[767px]:px-6 max-[767px]:py-8",
-      )}
-    >
+    <form noValidate onSubmit={onSubmit} className={cn(shell, "flex flex-col gap-5")}>
       <div className="grid grid-cols-2 gap-4 max-[500px]:grid-cols-1">
         <Label htmlFor="name">
           Full name
@@ -209,55 +287,57 @@ export function ContactForm({
         >
           <LineIcon name="alert" size={16} className="mt-0.5 shrink-0 text-brass" />
           <span>
-            Something went wrong sending your message. Please try again, or email us
-            directly at{" "}
-            <a href={`mailto:${contactEmail}`} className="link-line font-semibold">
-              {contactEmail}
+            Something went wrong sending your message. Please try again, or reach us
+            directly on{" "}
+            <a href={site.phoneHref} className="link-line font-semibold">
+              {site.phone}
+            </a>{" "}
+            or{" "}
+            <a href={`mailto:${site.email}`} className="link-line font-semibold">
+              {site.email}
             </a>
             .
           </span>
         </p>
       ) : null}
 
-      {/* While `sent`, the button reads as a confirmation rather than a
-          disabled control — `disabled` would grey out the very message we
-          want to celebrate — so it's inert via aria + pointer-events, and
-          onSubmit refuses a repeat send. */}
-      <Button
-        type="submit"
-        loading={status === "submitting"}
-        aria-disabled={sent || undefined}
-        className={cn("w-full", sent && "pointer-events-none")}
-      >
-        {sent ? (
-          <>
-            {/* The tick draws itself once, then the label follows. */}
-            <span className="grid h-5 w-5 place-items-center rounded-full bg-white/15">
-              <LineIcon name="check" size={13} className="text-white" />
-            </span>
-            Thank you — we&rsquo;ll be in touch shortly
-          </>
-        ) : (
-          <>
-            Send Message
-            <LineIcon
-              name="arrow-right"
-              size={17}
-              className="transition-transform duration-300 group-hover/btn:translate-x-1"
-            />
-          </>
-        )}
+      <Button type="submit" loading={status === "submitting"} className="w-full">
+        Send Message
+        <LineIcon
+          name="arrow-right"
+          size={17}
+          className="transition-transform duration-300 group-hover/btn:translate-x-1"
+        />
       </Button>
 
       {/* Status for assistive tech, mirrored out of the visual button state. */}
       <span role="status" aria-live="polite" className="sr-only">
-        {status === "submitting"
-          ? "Sending your message"
-          : sent
-            ? "Message sent. We'll be in touch shortly."
-            : ""}
+        {status === "submitting" ? "Sending your message" : ""}
       </span>
     </form>
+  );
+}
+
+/** One direct-contact line in the confirmation panel. */
+function ContactRow({
+  icon,
+  label,
+  children,
+}: {
+  icon: "location" | "clock";
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="group flex items-center gap-3.5 border-t border-rule py-3">
+      <IconTile icon={icon} tile={38} size={16} />
+      <span className="flex min-w-0 flex-col">
+        <span className="font-mono text-[10px] uppercase tracking-[.14em] text-dark-label">
+          {label}
+        </span>
+        <span className="text-[14px] leading-snug text-ink">{children}</span>
+      </span>
+    </div>
   );
 }
 
