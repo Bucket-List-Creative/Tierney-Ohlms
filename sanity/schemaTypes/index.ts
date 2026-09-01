@@ -1,12 +1,19 @@
 import type { SchemaTypeDefinition } from "sanity";
-import { linkItem, cta, sectionHeader, seo, footerColumn, founder } from "./objects";
+import {
+  linkItem,
+  cta,
+  sectionHeader,
+  seo,
+  footerColumn,
+  founder,
+  practiceExample,
+} from "./objects";
 import { siteSettings, navigation, homePage, aboutPage} from "./singletons";
 import {
   service,
   feature,
   processStep,
   highlight,
-  stat,
   faq,
   page,
 } from "./collections";
@@ -19,6 +26,7 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   seo,
   footerColumn,
   founder,
+  practiceExample,
   // singletons
   siteSettings,
   navigation,
@@ -29,7 +37,6 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   feature,
   processStep,
   highlight,
-  stat,
   faq,
   page,
 ];

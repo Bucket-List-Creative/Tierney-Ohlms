@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "seed": "sanity dataset import scripts/seed.ndjson tierney-ohlms --replace",
-    "sanity:deploy": "sanity deploy"
+    "sanity:deploy": "sanity deploy",
+    "sanity:push": "node scripts/push-content.mjs",
+    "sanity:push:dry": "node scripts/push-content.mjs --dry-run"
   },
   "dependencies": {
     "@sanity/icons": "^5.2.0",

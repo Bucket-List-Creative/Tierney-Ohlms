@@ -60,10 +60,27 @@ export const homePageQuery = groq`*[_type == "homePage"][0]{
   contact{ eyebrow, heading, lead, serviceOptions }
 }`;
 
-export const servicesQuery = groq`*[_type == "service"] | order(orderRank){
-  _id, title, "slug": slug.current, icon, description,
-  tagline, audience, detail, youGet, topTier
+/** Everything a service needs, on the overview list AND on its own page. */
+const serviceProjection = groq`{
+  _id,
+  title,
+  "slug": slug.current,
+  icon,
+  description,
+  tagline,
+  audience,
+  detail,
+  "includes": coalesce(includes, []),
+  "practiceExamples": coalesce(practiceExamples[]{ _key, title, body }, []),
+  youGet,
+  topTier,
+  seo{ metaTitle, metaDescription, ogImage${imageProjection} }
 }`;
+
+export const servicesQuery = groq`*[_type == "service"] | order(orderRank)${serviceProjection}`;
+
+export const serviceSlugsQuery = groq`*[_type == "service" && defined(slug.current)]
+  | order(orderRank){ "slug": slug.current }`;
 
 export const featuresQuery = groq`*[_type == "feature"] | order(orderRank){
   _id, title, description, icon
@@ -75,10 +92,6 @@ export const processStepsQuery = groq`*[_type == "processStep"] | order(index){
 
 export const highlightsQuery = groq`*[_type == "highlight"] | order(orderRank){
   _id, icon, claim, caption
-}`;
-
-export const statsQuery = groq`*[_type == "stat"] | order(orderRank){
-  _id, value, label
 }`;
 
 export const faqsQuery = groq`*[_type == "faq"] | order(orderRank){

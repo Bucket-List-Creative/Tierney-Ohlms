@@ -285,6 +285,33 @@
     color: var(--color-slate);
   }
 
+  /* Heading emphasis and display numerals — the same ink→brass gradient the
+     hero paints on its own `<em>` (HeroScenes.module.css `.copy em`), lifted
+     here so every section below the hero speaks the same language. Pair with
+     `<em>` for the italic; `-dark` is the inverse, for dark grounds. */
+  .gradient-text {
+    background-image: linear-gradient(150deg, #111111 30%, #8c6e1f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .gradient-text-dark {
+    background-image: linear-gradient(150deg, #ffffff 32%, #c9a227 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  @supports not ((background-clip: text) or (-webkit-background-clip: text)) {
+    .gradient-text {
+      color: var(--color-brass);
+      background-image: none;
+    }
+    .gradient-text-dark {
+      color: var(--color-gold);
+      background-image: none;
+    }
+  }
+
   /* Statistic numerals: ink→brass gradient, numerals only. */
   .stat-numeral {
     font-family: var(--font-display);

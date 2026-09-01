@@ -13,7 +13,6 @@ import type {
   Feature,
   ProcessStep,
   Highlight,
-  Stat,
   FaqItem,
   SiteSettings,
   Navigation,
@@ -37,10 +36,11 @@ export const siteSettings: SiteSettings = {
     {
       title: "Services",
       links: [
-        { label: "Bookkeeping & Monthly Close", href: "/services" },
-        { label: "Controller & Reporting", href: "/services" },
-        { label: "Tax Preparation & Planning", href: "/services" },
-        { label: "Systems & Automation", href: "/services" },
+        { label: "Accounting & Monthly Close", href: "/services/accounting-monthly-close" },
+        { label: "Controller & Reporting", href: "/services/controller-services-reporting" },
+        { label: "Shared Services", href: "/services/shared-services" },
+        { label: "Tax Preparation & Planning", href: "/services/tax-preparation-planning" },
+        { label: "All services", href: "/services" },
       ],
     },
     {
@@ -153,8 +153,9 @@ export const homePage: HomePage = {
     lead: "Fill out the form below and we'll get back to you shortly, usually within one business day.",
     serviceOptions: [
       "Catch-Up & Cleanup",
-      "Bookkeeping & Monthly Close",
+      "Accounting & Monthly Close",
       "Controller Services & Reporting",
+      "Shared Services",
       "Tax Preparation & Planning",
       "Payroll",
       "Systems & Automation",
@@ -171,25 +172,48 @@ export const services: Service[] = [
     description:
       "Months or years behind? We reconcile, fix, and hand you a clean starting point. No judgment.",
     tagline: "Months behind? Years? We've seen worse.",
-    audience: "For owners whose books are a mess, or barely exist.",
+    audience: "Owners months or years behind, or with books that don't reflect reality.",
     detail:
       "We reconcile every account, untangle the history, fix what's wrong, and hand you a clean starting point. Most clients come to us this way. There's no judgment here; there's just a before and an after.",
+    includes: [
+      "Full reconciliation of every general ledger account, including bank, credit card, and loans",
+      "Historical transaction cleanup and recategorization",
+      "Correction of misclassified or missing entries",
+      "A tax-ready baseline financial package",
+    ],
     youGet:
-      "Reconciled accounts, accurate historical financials, a tax-ready baseline, and a clear picture of where the business actually stands, often for the first time.",
+      "Accurate historical financials, a clean starting point, and a clear read on where the business actually stands, often for the first time.",
+    seo: {
+      metaTitle: "Catch-Up & Cleanup Bookkeeping",
+      metaDescription:
+        "Months or years behind on the books? We reconcile every account, fix the history, and hand you a tax-ready baseline you can actually trust.",
+    },
   },
   {
     _id: "service-close",
-    title: "Bookkeeping & Monthly Close",
-    slug: "bookkeeping-monthly-close",
+    title: "Accounting & Monthly Close",
+    slug: "accounting-monthly-close",
     icon: "close",
     description:
       "Bills paid, invoices out, accounts reconciled, and the books closed every month.",
     tagline: "Your books, handled. Every month, on time.",
-    audience: "For businesses that need the books to just work.",
+    audience:
+      "Businesses that need the books to just work, every month, without an in-house hire.",
     detail:
       "We run the day-to-day accounting and close the books every month: bills paid on time, invoices out and followed up, transactions categorized, accounts reconciled, and financial statements delivered with a plain-English note on what changed and why it matters.",
+    includes: [
+      "Transaction categorization and reconciliation on a monthly cadence",
+      "AP and AR management, so bills get paid on time and invoices get sent and followed up",
+      "A monthly close with financials delivered on an agreed date every month",
+      "A plain-English summary of what changed and why it matters",
+    ],
     youGet:
-      "A close that lands every month, payables and receivables handled (so cash flow stops being a guess), financials you can read in five minutes, and the end of 11pm QuickBooks sessions.",
+      "A close that lands every month, cash flow that stops being a guess, financials you can read in five minutes, and the end of 11pm QuickBooks sessions.",
+    seo: {
+      metaTitle: "Accounting & Monthly Close",
+      metaDescription:
+        "Day-to-day accounting and a monthly close that actually lands: AP and AR handled, accounts reconciled, and financials delivered on a set date each month.",
+    },
   },
   {
     _id: "service-controller",
@@ -199,12 +223,61 @@ export const services: Service[] = [
     description:
       "Controller-level oversight, budgets, forecasts, and CPA-prepared financials your bank will take seriously.",
     tagline: "Numbers you can run the business on.",
-    audience: "For owners who need more than clean books. They need to understand them.",
+    audience: "Owners who need to understand the numbers, not just receive them.",
     detail:
       "A controller-level review of every close, reporting built around what drives your business (job costs, per-location profit, margins by line), budgets and forecasts so next quarter isn't a surprise, and CPA-prepared financials your bank, bonding agent, or buyer will take seriously.",
+    includes: [
+      "Controller-level review of every close",
+      "Custom reporting built around what actually drives the business: job costs, per-location P&L, margin by line",
+      "Budgets and forecasts",
+      "CPA-prepared financials suitable for a bank, bonding agent, or buyer",
+    ],
     youGet:
-      "Oversight from people who've done this at enterprise scale, reports that answer real questions, and numbers that hold up under scrutiny.",
+      "Enterprise-level oversight, reports that answer real questions, and numbers that hold up under scrutiny.",
     topTier: true,
+    seo: {
+      metaTitle: "Controller Services & Financial Reporting",
+      metaDescription:
+        "Controller-level review of every close, custom reporting, budgets and forecasts, and CPA-prepared financials a bank, bonding agent, or buyer will take seriously.",
+    },
+  },
+  {
+    _id: "service-shared",
+    title: "Shared Services",
+    slug: "shared-services",
+    icon: "shared",
+    description:
+      "One back-office function, run end-to-end on an ongoing basis: AP, reconciliation, controls.",
+    tagline: "One function, run right, every month.",
+    audience:
+      "Businesses and private-equity-owned portfolio companies that need one specific back-office function run reliably on an ongoing basis.",
+    detail:
+      "Not every business needs the full bookkeeping-through-controller ladder. Sometimes one function is the bottleneck, and it needs an owner. We take that function, run it end-to-end on a recurring basis, and document it so it holds up without depending on any one person.",
+    practiceExamples: [
+      {
+        _key: "pe-retail",
+        title: "A multi-location retail client",
+        body: "We took over AP end to end and reconcile POS transactions across every location each month, so nothing slips through between systems.",
+      },
+      {
+        _key: "pe-distribution",
+        title: "A distribution and parts business",
+        body: "We ran a full AP walkthrough, plugged in automated bill pay, integrated it with their ERP, and documented the internal controls so the process holds up without relying on one person's memory.",
+      },
+    ],
+    includes: [
+      "AP processing and payment automation",
+      "Reconciliation across multiple locations or systems, including POS, ERP, and bill pay tools",
+      "Internal controls documentation, so the process isn't dependent on one person",
+      "Ongoing management, not a one-time project",
+    ],
+    youGet:
+      "A defined, recurring back-office function handled end-to-end, without adding headcount or hoping one employee never leaves.",
+    seo: {
+      metaTitle: "Shared Services for Back-Office Functions",
+      metaDescription:
+        "One back-office function, run end-to-end: AP processing and payment automation, multi-location and multi-system reconciliation, and documented internal controls.",
+    },
   },
   {
     _id: "service-tax",
@@ -214,10 +287,22 @@ export const services: Service[] = [
     description:
       "Returns filed right and on time, with planning that happens before year-end.",
     tagline: "Taxes without the scramble.",
-    audience: "For owners tired of the spring fire drill.",
+    audience: "Owners tired of the spring scramble.",
     detail:
       "Because we keep your books all year, tax season stops being an archaeology project. Returns get filed right and on time, and planning happens before year-end, when there's still time to do something about it.",
-    youGet: "Business and personal returns handled, proactive planning, and no more March panic.",
+    includes: [
+      "Business and personal return preparation",
+      "Quarterly estimated tax planning",
+      "Year-end tax strategy, while there's still time to act on it",
+      "Entity structure and election guidance where relevant",
+    ],
+    youGet:
+      "Returns filed right and on time, planning that happens before year-end, and no March panic.",
+    seo: {
+      metaTitle: "Tax Preparation & Planning",
+      metaDescription:
+        "Business and personal returns, quarterly estimates, and year-end strategy that happens while there is still time to act on it. No spring scramble.",
+    },
   },
   {
     _id: "service-payroll",
@@ -228,11 +313,21 @@ export const services: Service[] = [
       "Payroll that just runs: on time, taxes filed, certified payroll where projects require it.",
     tagline: "Payroll that just runs.",
     audience:
-      "For businesses where payroll eats owner time or lives on one person's shoulders.",
+      "Businesses where payroll eats owner time or lives on one person's shoulders.",
     detail:
       "We run it: on time, taxes filed, and certified payroll handled where your projects require it.",
+    includes: [
+      "Payroll processing on your schedule",
+      "Tax filings and deposits handled",
+      "Certified payroll where your projects require it",
+    ],
     youGet:
-      "Employees paid correctly every time, filings done, and one less thing that's yours to remember.",
+      "Employees paid correctly every time, filings done, and one less recurring task on your plate.",
+    seo: {
+      metaTitle: "Outsourced Payroll",
+      metaDescription:
+        "Payroll processed on your schedule, tax filings and deposits handled, and certified payroll where projects require it.",
+    },
   },
   {
     _id: "service-automation",
@@ -242,11 +337,22 @@ export const services: Service[] = [
     description:
       "We modernize your back office and automate the busywork: AI-assisted, CPA-reviewed, data-private.",
     tagline: "Your back office, brought up to speed.",
-    audience: "For businesses running on spreadsheets, paper, or a system nobody trusts.",
+    audience: "Businesses running on spreadsheets, paper, or a system nobody trusts.",
     detail:
-      "We move you onto a modern stack (QuickBooks Online, NetSuite, or Xero), connect the tools you already use, and automate the busywork: receipts that file themselves, bills that route for approval, invoices that chase themselves, reports that show up finished. We use AI and the newest accounting tools wherever they make the work faster and more accurate, and every number still gets reviewed by a CPA. The machines do the typing; our people do the thinking.",
+      "We move you onto a modern stack, connect the tools you already use, and automate the busywork: receipts that file themselves, bills that route for approval, invoices that chase themselves, reports that show up finished. We use AI and the newest accounting tools wherever they make the work faster and more accurate, and every number still gets reviewed by a CPA. The machines do the typing; our people do the thinking.",
+    includes: [
+      "Migration to a modern stack: QuickBooks Online, NetSuite, or Xero",
+      "Integration of the tools you already run, including AP automation, expense tools, and bill pay",
+      "Automated workflows for receipts, approval routing, invoice follow-up, and recurring reports",
+      "CPA review of every automated output",
+    ],
     youGet:
-      "Dramatically less manual entry, a faster close, fewer errors, and a back office that mostly runs itself, with humans accountable for every number in it.",
+      "Less manual entry, a faster close, and fewer errors, with a human accountable for every number.",
+    seo: {
+      metaTitle: "Accounting Systems & Automation",
+      metaDescription:
+        "Migration to QuickBooks Online, NetSuite, or Xero, integration of the tools you already run, and automated workflows with CPA review of every output.",
+    },
   },
 ];
 
@@ -353,13 +459,6 @@ export const highlights: Highlight[] = [
   },
 ];
 
-export const stats: Stat[] = [
-  { _id: "stat-years", value: "25+", label: "Years in business" },
-  { _id: "stat-clients", value: "500+", label: "Clients served" },
-  { _id: "stat-industries", value: "12", label: "Industries supported" },
-  { _id: "stat-certified", value: "100%", label: "Certified professionals" },
-];
-
 export const faqs: FaqItem[] = [
   {
     _id: "faq-remote",
@@ -401,7 +500,6 @@ export const localHomeData: HomeData = {
   features,
   processSteps,
   highlights,
-  stats,
   faqs,
 };
 

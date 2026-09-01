@@ -9,7 +9,6 @@ import {
   featuresQuery,
   processStepsQuery,
   highlightsQuery,
-  statsQuery,
   faqsQuery,
   pageBySlugQuery,
   pageSlugsQuery,
@@ -25,7 +24,6 @@ import type {
   Feature,
   ProcessStep,
   Highlight,
-  Stat,
   FaqItem,
   GenericPage,
 } from "@/lib/types";
@@ -40,7 +38,7 @@ export async function getHomeData(): Promise<HomeData> {
     return localHomeData;
   }
 
-  const [site, nav, home, services, features, processSteps, highlights, stats, faqs] =
+  const [site, nav, home, services, features, processSteps, highlights, faqs] =
     await Promise.all([
       sanityFetch<SiteSettings>({ query: siteSettingsQuery, tags: [CACHE_TAGS.siteSettings] }),
       sanityFetch<Navigation>({ query: navigationQuery, tags: [CACHE_TAGS.navigation] }),
@@ -49,7 +47,6 @@ export async function getHomeData(): Promise<HomeData> {
       sanityFetch<Feature[]>({ query: featuresQuery, tags: [CACHE_TAGS.feature] }),
       sanityFetch<ProcessStep[]>({ query: processStepsQuery, tags: [CACHE_TAGS.processStep] }),
       sanityFetch<Highlight[]>({ query: highlightsQuery, tags: [CACHE_TAGS.highlight] }),
-      sanityFetch<Stat[]>({ query: statsQuery, tags: [CACHE_TAGS.stat] }),
       sanityFetch<FaqItem[]>({ query: faqsQuery, tags: [CACHE_TAGS.faq] }),
     ]);
 
@@ -78,9 +75,25 @@ export async function getHomeData(): Promise<HomeData> {
     features: features?.length ? features : fb.features,
     processSteps: processSteps?.length ? processSteps : fb.processSteps,
     highlights: highlights?.length ? highlights : fb.highlights,
-    stats: stats?.length ? stats : fb.stats,
     faqs: faqs?.length ? faqs : fb.faqs,
   };
+}
+
+/**
+ * A single service by slug, for /services/[slug]. Reads from the same resolved
+ * list as every other surface, so the detail page can never disagree with the
+ * ladder that links into it — and the local mirror keeps the pages alive
+ * before Sanity is seeded.
+ */
+export async function getService(slug: string): Promise<Service | null> {
+  const { services } = await getHomeData();
+  return services.find((s) => s.slug === slug) ?? null;
+}
+
+/** Slugs for `generateStaticParams` — every service, in ladder order. */
+export async function getServiceSlugs(): Promise<string[]> {
+  const { services } = await getHomeData();
+  return services.map((s) => s.slug).filter(Boolean);
 }
 
 /**
