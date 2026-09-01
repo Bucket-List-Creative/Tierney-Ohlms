@@ -12,6 +12,7 @@ import { cn } from "@/lib/cn";
  */
 export function TextReveal({
   text,
+  emphasis,
   as: Tag = "h2",
   className,
   delay = 0,
@@ -20,6 +21,12 @@ export function TextReveal({
   style,
 }: {
   text: string;
+  /**
+   * Trailing phrase of `text` to render as the site's italic ink→brass `<em>`
+   * — the same emphasis the homepage puts on the last phrase of every heading.
+   * Ignored unless `text` actually ends with it.
+   */
+  emphasis?: string;
   as?: ElementType;
   className?: string;
   /** ms before the first word moves */
@@ -35,6 +42,12 @@ export function TextReveal({
     disabled: reduced,
   });
   const words = text.split(" ");
+  // Emphasis is applied per word, so the words keep their own reveal bands and
+  // the heading stays one selectable string.
+  const emphasisFrom =
+    emphasis && text.endsWith(emphasis)
+      ? words.length - emphasis.trim().split(" ").length
+      : words.length;
 
   return (
     <Tag ref={ref as never} className={className} style={style}>
@@ -58,7 +71,11 @@ export function TextReveal({
                 }ms, opacity ${Math.round(duration * 0.7)}ms ease ${delay + i * step}ms`,
               }}
             >
-              {word}
+              {i >= emphasisFrom ? (
+                <em className="gradient-text">{word}</em>
+              ) : (
+                word
+              )}
             </span>
           </span>
           {i < words.length - 1 ? " " : null}

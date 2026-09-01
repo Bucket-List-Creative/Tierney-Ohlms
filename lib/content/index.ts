@@ -36,10 +36,11 @@ export const siteSettings: SiteSettings = {
     {
       title: "Services",
       links: [
-        { label: "Bookkeeping & Monthly Close", href: "/services" },
-        { label: "Controller & Reporting", href: "/services" },
-        { label: "Tax Preparation & Planning", href: "/services" },
-        { label: "Systems & Automation", href: "/services" },
+        { label: "Accounting & Monthly Close", href: "/services/accounting-monthly-close" },
+        { label: "Controller & Reporting", href: "/services/controller-services-reporting" },
+        { label: "Shared Services", href: "/services/shared-services" },
+        { label: "Tax Preparation & Planning", href: "/services/tax-preparation-planning" },
+        { label: "All services", href: "/services" },
       ],
     },
     {

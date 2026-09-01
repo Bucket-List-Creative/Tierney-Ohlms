@@ -46,7 +46,7 @@ export default async function ServicesPage() {
               <Reveal variant="left" duration={700}>
                 <nav
                   aria-label="Breadcrumb"
-                  className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-slate"
+                  className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[.14em] text-dark-label"
                 >
                   <Link href="/" className="link-line transition-colors hover:text-ink">
                     Home
@@ -56,16 +56,17 @@ export default async function ServicesPage() {
                 </nav>
               </Reveal>
               <Reveal variant="left" delay={80} duration={700}>
-                <span className="eyebrow eyebrow-rule">Services</span>
+                <span className="eyebrow">Services</span>
               </Reveal>
               <TextReveal
                 as="h1"
                 text="Everything an accounting department does, under one roof."
+                emphasis="under one roof."
                 delay={120}
                 step={50}
                 className="m-0 max-w-[17ch] font-display text-hero text-ink"
               />
-              <FadeIn delay={300} className="m-0 max-w-[56ch] text-lead text-slate">
+              <FadeIn delay={300} className="m-0 max-w-[56ch] text-[15.5px] leading-relaxed text-slate">
                 Everything an owner-operated business needs, under one roof, on a modern
                 stack, for one flat monthly fee. Start wherever you are, and grow into the rest.
               </FadeIn>
@@ -135,14 +136,15 @@ export default async function ServicesPage() {
       >
         <div className="mb-12 flex max-w-[640px] flex-col gap-4">
           <Reveal variant="left" duration={700}>
-            <span className="eyebrow eyebrow-rule">The service ladder</span>
+            <span className="eyebrow">The service ladder</span>
           </Reveal>
           <TextReveal
             text="Cleanup to controller."
-            className="m-0 font-display text-h2 text-ink"
+            emphasis="controller."
+            className="m-0 font-display text-[clamp(28px,3vw,40px)] font-medium leading-[1.14] text-ink"
           />
           <Reveal delay={160} duration={800}>
-            <p className="m-0 text-lead leading-relaxed text-slate">
+            <p className="m-0 text-[15.5px] leading-relaxed text-slate">
               The order below reflects how businesses grow with us. Start where you are today,
               and add the next rung when you&rsquo;re ready.
             </p>
@@ -186,7 +188,7 @@ function ServiceBlock({ service, index }: { service: Service; index: number }) {
         "group grid grid-cols-[.85fr_1.4fr] gap-10 rounded-panel border p-9 transition-all duration-[450ms] ease-[cubic-bezier(0.16,1,0.3,1)] max-[820px]:grid-cols-1 max-[820px]:gap-6 max-[767px]:p-7",
         top
           ? "surface-dark border-gold/30 text-white shadow-[var(--shadow-gold)] hover:-translate-y-1 hover:shadow-[0_28px_70px_-20px_rgba(201,162,39,0.6)]"
-          : "border-rule bg-white/75 shadow-[var(--shadow-rest)] backdrop-blur-sm hover:-translate-y-1 hover:border-gold/55 hover:bg-white hover:shadow-[var(--shadow-gold)]",
+          : "border-rule bg-white hover:-translate-y-[3px] hover:border-gold hover:shadow-[var(--shadow-hover)]",
       )}
     >
       {/* Left */}
@@ -205,7 +207,7 @@ function ServiceBlock({ service, index }: { service: Service; index: number }) {
               Most popular
             </span>
           ) : (
-            <span className="font-mono text-[13px] font-medium tracking-[0.1em] text-brass transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5">
+            <span className="gradient-text font-display text-[34px] font-medium leading-none transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5">
               {String(index).padStart(2, "0")}
             </span>
           )}
@@ -236,19 +238,29 @@ function ServiceBlock({ service, index }: { service: Service; index: number }) {
             {service.tagline}
           </p>
         ) : null}
+        {/* Anchors the short left column against the taller copy beside it —
+            the same closing hairline the homepage puts on its process cards. */}
+        <span className="mt-auto pt-8 max-[820px]:hidden">
+          <i aria-hidden className="block h-px w-11 bg-gold" />
+        </span>
       </div>
 
       {/* Right */}
       <div className="flex flex-col gap-4">
         {service.audience ? (
-          <p
-            className={cn(
-              "m-0 text-[13px] font-semibold uppercase tracking-[0.12em]",
-              top ? "text-dark-label" : "text-slate",
-            )}
-          >
-            {service.audience}
-          </p>
+          <div className="flex flex-col gap-1.5">
+            <span className="font-mono text-[10px] uppercase tracking-[.14em] text-dark-label">
+              Who it&rsquo;s for
+            </span>
+            <p
+              className={cn(
+                "m-0 text-[15px] leading-relaxed",
+                top ? "text-white" : "text-ink",
+              )}
+            >
+              {service.audience}
+            </p>
+          </div>
         ) : null}
         <p
           className={cn(
@@ -269,7 +281,7 @@ function ServiceBlock({ service, index }: { service: Service; index: number }) {
             <span className="flex flex-col gap-1">
               <span
                 className={cn(
-                  "text-[11px] font-semibold uppercase tracking-[0.14em]",
+                  "font-mono text-[10px] uppercase tracking-[.14em]",
                   top ? "text-gold" : "text-brass",
                 )}
               >
@@ -289,7 +301,7 @@ function ServiceBlock({ service, index }: { service: Service; index: number }) {
         <Link
           href={`/services/${service.slug}`}
           className={cn(
-            "link-line mt-1 inline-flex w-fit items-center gap-1.5 text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors duration-300",
+            "link-line mt-1 inline-flex w-fit items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[.08em] transition-colors duration-300",
             top ? "text-gold hover:text-white" : "text-brass hover:text-ink",
           )}
         >
