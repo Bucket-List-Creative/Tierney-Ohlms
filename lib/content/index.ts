@@ -27,6 +27,17 @@ export const siteSettings: SiteSettings = {
   email: "info@tierneyohlms.com",
   addressLine1: "1015 Locust Street, Suite 1000",
   addressLine2: "Saint Louis, MO 63101",
+  // Structured mirror of the two display lines above, for JSON-LD. Keep in sync.
+  address: {
+    streetAddress: "1015 Locust Street, Suite 1000",
+    addressLocality: "Saint Louis",
+    addressRegion: "MO",
+    postalCode: "63101",
+    addressCountry: "US",
+  },
+  // 1015 Locust Building, geocoded from the street address. Matches the marker
+  // in mapEmbedUrl below — keep the two in step.
+  geo: { latitude: 38.6304, longitude: -90.1949 },
   mapEmbedUrl:
     "https://www.openstreetmap.org/export/embed.html?bbox=-90.2019%2C38.6264%2C-90.1879%2C38.6344&layer=mapnik&marker=38.6304%2C-90.1949",
   footerBlurb:
@@ -125,21 +136,25 @@ export const homePage: HomePage = {
   servicesHeader: {
     eyebrow: "Services",
     heading: "Everything, under one roof.",
+    emphasis: "one roof.",
     lead: "From cleanup to controller oversight: a full accounting department on a modern stack, for one flat monthly fee. Start wherever you are, and grow into the rest.",
   },
   whyHeader: {
     eyebrow: "Why Tierney & Ohlms",
     heading: "The difference expert support makes.",
+    emphasis: "support",
     lead: "Partner with us and get CPA-level expertise, modern tools, and a team that scales with you, without the cost of hiring in-house.",
   },
   processHeader: {
     eyebrow: "How it works",
     heading: "A clear path from day one.",
+    emphasis: "day one.",
     lead: "Getting started is simple. Here's how we take accounting off your plate and keep it running smoothly.",
   },
   faqHeader: {
     eyebrow: "FAQ",
     heading: "Questions, answered.",
+    emphasis: "answered.",
     lead: "A few of the things businesses ask us most. Have another question? Reach out any time.",
   },
   ctaBanner: {
@@ -150,6 +165,7 @@ export const homePage: HomePage = {
   contact: {
     eyebrow: "Contact",
     heading: "Send us a message.",
+    emphasis: "message.",
     lead: "Fill out the form below and we'll get back to you shortly, usually within one business day.",
     serviceOptions: [
       "Catch-Up & Cleanup",

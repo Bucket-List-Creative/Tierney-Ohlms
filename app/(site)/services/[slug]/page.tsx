@@ -12,6 +12,7 @@ import { Parallax } from "@/components/motion/Parallax";
 import { LineIcon } from "@/components/icons/LineIcon";
 import { IconTile } from "@/components/primitives/IconTile";
 import type { Service } from "@/lib/types";
+import { absoluteUrl } from "@/lib/seo/urls";
 
 type Params = { slug: string };
 
@@ -30,6 +31,7 @@ export async function generateMetadata({
   const service = await getService(slug);
   if (!service) return {};
   return {
+    alternates: { canonical: absoluteUrl(`/services/${slug}`) },
     title: service.seo?.metaTitle ?? service.title,
     description: service.seo?.metaDescription ?? service.description,
   };

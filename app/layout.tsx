@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { playfair, inter, jetbrainsMono } from "@/lib/fonts";
+import { siteIsLive, siteUrl } from "@/lib/seo/urls";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://tierneyohlms.com",
-  ),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Tierney & Ohlms | Accounting & Advisory",
     template: "%s · Tierney & Ohlms",
@@ -16,6 +15,11 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Tierney & Ohlms",
   },
+  // Belt and braces alongside robots.txt: a disallowed URL can still be
+  // indexed if it is linked from elsewhere, whereas a noindex directive on the
+  // page itself keeps it out of results. Applied unless the deployment is
+  // explicitly marked live, so previews stay out of search by default.
+  ...(siteIsLive ? {} : { robots: { index: false, follow: false } }),
 };
 
 export default function RootLayout({

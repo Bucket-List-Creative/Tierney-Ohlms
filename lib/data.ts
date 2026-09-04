@@ -12,6 +12,7 @@ import {
   faqsQuery,
   pageBySlugQuery,
   pageSlugsQuery,
+  sitemapEntriesQuery,
 } from "@/lib/sanity/queries";
 import { localHomeData, aboutPage as localAboutPage } from "@/lib/content";
 import type {
@@ -140,4 +141,56 @@ export async function getPage(slug: string): Promise<GenericPage | null> {
     params: { slug },
     tags: [CACHE_TAGS.page],
   });
+}
+
+/** A route the sitemap should list, with a real modification date if we have one. */
+export type SitemapRoute = { path: string; lastModified?: string };
+
+/** Routes that exist regardless of CMS content. */
+const STATIC_ROUTES = ["/", "/about", "/services"];
+
+/**
+ * Every indexable route, for app/sitemap.ts.
+ *
+ * `lastModified` is omitted rather than defaulted: a sitemap where every entry
+ * claims to have changed at build time tells search engines nothing, and the
+ * local content mirror has no edit dates to report.
+ */
+export async function getSitemapRoutes(): Promise<SitemapRoute[]> {
+  const routes: SitemapRoute[] = STATIC_ROUTES.map((path) => ({ path }));
+
+  if (!isSanityConfigured) {
+    // No CMS yet — list the service routes the local mirror renders.
+    return [
+      ...routes,
+      ...localHomeData.services
+        .filter((service) => service.slug)
+        .map((service) => ({ path: `/services/${service.slug}` })),
+    ];
+  }
+
+  const data = await sanityFetch<{
+    services: { slug: string; _updatedAt?: string }[] | null;
+    pages: { slug: string; _updatedAt?: string }[] | null;
+  }>({
+    query: sitemapEntriesQuery,
+    tags: [CACHE_TAGS.service, CACHE_TAGS.page],
+  });
+
+  const services: { slug: string; _updatedAt?: string }[] = data?.services?.length
+    ? data.services
+    : localHomeData.services.map((service) => ({ slug: service.slug }));
+
+  return [
+    ...routes,
+    ...services
+      .filter((entry) => entry.slug)
+      .map((entry) => ({
+        path: `/services/${entry.slug}`,
+        lastModified: entry._updatedAt,
+      })),
+    ...(data?.pages ?? [])
+      .filter((entry) => entry.slug)
+      .map((entry) => ({ path: `/${entry.slug}`, lastModified: entry._updatedAt })),
+  ];
 }

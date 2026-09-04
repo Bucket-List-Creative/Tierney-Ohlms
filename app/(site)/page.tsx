@@ -9,10 +9,12 @@ import { CtaBanner } from "@/components/sections/CtaBanner";
 import { Contact } from "@/components/sections/Contact";
 import { OfficeMap } from "@/components/sections/OfficeMap";
 import styles from "./home.module.css";
+import { absoluteUrl } from "@/lib/seo/urls";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { home } = await getHomeData();
   return {
+    alternates: { canonical: absoluteUrl("/") },
     title: home.seo?.metaTitle,
     description: home.seo?.metaDescription,
   };

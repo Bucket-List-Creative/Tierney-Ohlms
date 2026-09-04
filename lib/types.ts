@@ -21,6 +21,8 @@ export type Cta = { label: string; href: string; variant?: CtaVariant };
 export type SectionHeader = {
   eyebrow?: string;
   heading: string;
+  /** Phrase within `heading` rendered in the gold gradient em. */
+  emphasis?: string;
   lead?: string;
 };
 
@@ -82,6 +84,19 @@ export type FaqItem = {
 
 export type FooterColumn = { title: string; links: LinkItem[] };
 
+export type PostalAddress = {
+  streetAddress?: string;
+  addressLocality?: string;
+  addressRegion?: string;
+  postalCode?: string;
+  addressCountry?: string;
+};
+
+export type GeoPoint = {
+  latitude?: number;
+  longitude?: number;
+};
+
 export type SiteSettings = {
   wordmark: string;
   phone: string;
@@ -90,6 +105,8 @@ export type SiteSettings = {
   addressLine1: string;
   addressLine2: string;
   hours?: string;
+  address?: PostalAddress;
+  geo?: GeoPoint;
   mapEmbedUrl?: string | null;
   footerBlurb: string;
   copyrightName: string;
@@ -154,6 +171,8 @@ export type HomePage = {
   contact: {
     eyebrow: string;
     heading: string;
+    /** Phrase within `heading` rendered in the gold gradient em. */
+    emphasis?: string;
     lead?: string;
     serviceOptions: string[];
   };

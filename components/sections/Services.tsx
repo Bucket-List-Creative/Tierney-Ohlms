@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/primitives/Button";
 import { LineIcon } from "@/components/icons/LineIcon";
 import type { SectionHeader as HeaderData, Service } from "@/lib/types";
+import { EmphasisText } from "@/components/primitives/EmphasisText";
 
 export function Services({ header, services }: { header: HeaderData; services: Service[] }) {
   const [active, setActive] = useState(0);
@@ -13,7 +14,7 @@ export function Services({ header, services }: { header: HeaderData; services: S
     <div className="container-x py-24 max-[767px]:py-16">
       <header className="mb-14 flex max-w-[600px] flex-col gap-4 max-[767px]:mb-10">
         <span className="eyebrow text-gold">{header.eyebrow}</span>
-        <h2 className="m-0 font-display text-[clamp(28px,3vw,40px)] font-medium leading-[1.14]">Everything, under <em className="gradient-text-dark">one roof.</em></h2>
+        <h2 className="m-0 font-display text-[clamp(28px,3vw,40px)] font-medium leading-[1.14]"><EmphasisText text={header.heading} emphasis={header.emphasis} className="gradient-text-dark" /></h2>
         <p className="m-0 text-[15.5px] leading-relaxed text-dark-body">{header.lead}</p>
       </header>
       <div className="grid grid-cols-[1.05fr_.95fr] items-start gap-16 max-[980px]:grid-cols-1">

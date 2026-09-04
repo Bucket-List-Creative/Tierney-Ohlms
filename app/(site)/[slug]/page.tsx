@@ -4,6 +4,7 @@ import { Section, Orb } from "@/components/layout/Section";
 import { SectionHeader } from "@/components/sections/SectionHeader";
 import { TextReveal } from "@/components/motion/TextReveal";
 import { getPage, getPageSlugs } from "@/lib/data";
+import { absoluteUrl } from "@/lib/seo/urls";
 
 type Params = { slug: string };
 
@@ -21,6 +22,7 @@ export async function generateMetadata({
   const page = await getPage(slug);
   if (!page) return {};
   return {
+    alternates: { canonical: absoluteUrl(`/${slug}`) },
     title: page.seo?.metaTitle ?? page.title,
     description: page.seo?.metaDescription,
   };
