@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { playfair, inter, jetbrainsMono } from "@/lib/fonts";
-import { siteUrl } from "@/lib/seo/urls";
+import { siteIsLive, siteUrl } from "@/lib/seo/urls";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,6 +15,11 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Tierney & Ohlms",
   },
+  // Belt and braces alongside robots.txt: a disallowed URL can still be
+  // indexed if it is linked from elsewhere, whereas a noindex directive on the
+  // page itself keeps it out of results. Applied unless the deployment is
+  // explicitly marked live, so previews stay out of search by default.
+  ...(siteIsLive ? {} : { robots: { index: false, follow: false } }),
 };
 
 export default function RootLayout({

@@ -21,3 +21,22 @@ export function absoluteUrl(path = "/"): string {
   const suffix = path.startsWith("/") ? path : `/${path}`;
   return suffix === "/" ? `${siteUrl}/` : `${siteUrl}${suffix.replace(/\/+$/, "")}`;
 }
+
+/**
+ * Whether this deployment may be indexed.
+ *
+ * Fails closed by design: only the exact string "true" opens the site up.
+ * A missing, empty, misspelled or differently-cased value leaves the
+ * deployment blocked, so the failure mode of forgetting the variable is an
+ * unindexed preview rather than a staging environment competing with
+ * production in search results.
+ *
+ * NEXT_PUBLIC_ values are inlined at build time, so flipping this requires a
+ * redeploy, and it must be set per environment in the host's config — not
+ * only in .env.example.
+ *
+ * Canonicals and structured data are deliberately NOT gated: they stay
+ * correct underneath so a preview build can be inspected for what it will
+ * emit once live.
+ */
+export const siteIsLive = process.env.NEXT_PUBLIC_SITE_LIVE === "true";
