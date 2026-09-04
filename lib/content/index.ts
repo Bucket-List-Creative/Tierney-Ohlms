@@ -35,8 +35,9 @@ export const siteSettings: SiteSettings = {
     postalCode: "63101",
     addressCountry: "US",
   },
-  // Carried over from the current live site's ProfessionalService markup.
-  geo: { latitude: 38.6321, longitude: -90.1919 },
+  // 1015 Locust Building, geocoded from the street address. Matches the marker
+  // in mapEmbedUrl below — keep the two in step.
+  geo: { latitude: 38.6304, longitude: -90.1949 },
   mapEmbedUrl:
     "https://www.openstreetmap.org/export/embed.html?bbox=-90.2019%2C38.6264%2C-90.1879%2C38.6344&layer=mapnik&marker=38.6304%2C-90.1949",
   footerBlurb:
