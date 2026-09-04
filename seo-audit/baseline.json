@@ -1,0 +1,108 @@
+[
+  {
+    "url": "http://localhost:3000/",
+    "final_url": "http://localhost:3000/",
+    "status": 200,
+    "error": null,
+    "bytes": 146401,
+    "title": "Tierney & Ohlms | Bookkeeping & Controller Services \u00b7 Tierney & Ohlms",
+    "title_len": 69,
+    "description": "Expert outsourced bookkeeping and controller services for growing businesses. Professional CPA-level accounting from startup to enterprise.",
+    "description_len": 139,
+    "canonical": "https://www.tierneyohlms.com",
+    "robots_meta": null,
+    "x_robots_tag": null,
+    "html_lang": "en",
+    "og": {
+      "og:title": "Tierney & Ohlms | Bookkeeping & Controller Services \u00b7 Tierney & Ohlms",
+      "og:description": "Expert outsourced bookkeeping and controller services for growing businesses. Professional CPA-level accounting from startup to enterprise.",
+      "og:site_name": "Tierney & Ohlms",
+      "og:type": "website"
+    },
+    "twitter": {
+      "twitter:card": "summary",
+      "twitter:title": "Tierney & Ohlms | Bookkeeping & Controller Services \u00b7 Tierney & Ohlms",
+      "twitter:description": "Expert outsourced bookkeeping and controller services for growing businesses. Professional CPA-level accounting from startup to enterprise."
+    },
+    "h1": [
+      "Expert bookkeeping and controller services"
+    ],
+    "h1_count": 1,
+    "h2_count": 8,
+    "h3_count": 15,
+    "hreflang": [],
+    "jsonld_blocks": 1,
+    "jsonld_types": [
+      "Organization",
+      "AccountingService",
+      "WebSite"
+    ],
+    "jsonld_errors": [],
+    "links_internal": 37,
+    "links_external": 4,
+    "images_total": 1,
+    "images_missing_alt": 0,
+    "images_empty_alt": 0,
+    "images_no_dims": 1,
+    "images_srcset": 1,
+    "semantic": {
+      "main": true,
+      "nav": true,
+      "header": true,
+      "footer": true
+    }
+  },
+  {
+    "url": "http://localhost:3000/about",
+    "final_url": "http://localhost:3000/about",
+    "status": 200,
+    "error": null,
+    "bytes": 131215,
+    "title": "Our Story | Tierney & Ohlms \u00b7 Tierney & Ohlms",
+    "title_len": 45,
+    "description": "Two St. Louis CPAs started Tierney & Ohlms on nights and weekends to give every business the financial clarity the big firms reserve for their biggest clients.",
+    "description_len": 159,
+    "canonical": "https://www.tierneyohlms.com/about",
+    "robots_meta": null,
+    "x_robots_tag": null,
+    "html_lang": "en",
+    "og": {
+      "og:title": "Our Story | Tierney & Ohlms \u00b7 Tierney & Ohlms",
+      "og:description": "Two St. Louis CPAs started Tierney & Ohlms on nights and weekends to give every business the financial clarity the big firms reserve for their biggest clients.",
+      "og:site_name": "Tierney & Ohlms",
+      "og:type": "website"
+    },
+    "twitter": {
+      "twitter:card": "summary",
+      "twitter:title": "Our Story | Tierney & Ohlms \u00b7 Tierney & Ohlms",
+      "twitter:description": "Two St. Louis CPAs started Tierney & Ohlms on nights and weekends to give every business the financial clarity the big firms reserve for their biggest clients."
+    },
+    "h1": [
+      "We built the firm these businesses deserve."
+    ],
+    "h1_count": 1,
+    "h2_count": 6,
+    "h3_count": 2,
+    "hreflang": [],
+    "jsonld_blocks": 1,
+    "jsonld_types": [
+      "Organization",
+      "AccountingService",
+      "WebSite"
+    ],
+    "jsonld_errors": [],
+    "links_internal": 30,
+    "links_external": 2,
+    "images_total": 2,
+    "images_missing_alt": 0,
+    "images_empty_alt": 0,
+    "images_no_dims": 2,
+    "images_srcset": 2,
+    "semantic": {
+      "main": true,
+      "nav": true,
+      "header": true,
+      "footer": true
+    }
+  }
+]

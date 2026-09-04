@@ -23,26 +23,42 @@ export const siteSettings = defineType({
       title: "Phone (display)",
       type: "string",
       group: "contact",
+      description: "Shown in the header, footer and contact block.",
+      validation: (r) => r.required(),
     }),
     defineField({
       name: "phoneHref",
       title: "Phone (tel: link)",
       type: "string",
       group: "contact",
-      description: "e.g. tel:+13145550100",
+      description: "e.g. tel:+13145550100 — also the telephone in structured data.",
+      validation: (r) =>
+        r.required().custom((value) =>
+          typeof value !== "string" || /^tel:\+?[0-9]+$/.test(value)
+            ? true
+            : 'Must look like "tel:+13148281564" — no spaces, dashes or brackets.',
+        ),
     }),
-    defineField({ name: "email", title: "Email", type: "string", group: "contact" }),
+    defineField({
+      name: "email",
+      title: "Email",
+      type: "string",
+      group: "contact",
+      validation: (r) => r.required().email(),
+    }),
     defineField({
       name: "addressLine1",
       title: "Address line 1",
       type: "string",
       group: "contact",
+      validation: (r) => r.required(),
     }),
     defineField({
       name: "addressLine2",
       title: "Address line 2",
       type: "string",
       group: "contact",
+      validation: (r) => r.required(),
     }),
     defineField({ name: "hours", title: "Business hours", type: "string", group: "contact" }),
     defineField({
@@ -51,29 +67,43 @@ export const siteSettings = defineType({
       type: "object",
       group: "contact",
       description:
-        "The same address as above, split into parts so search engines can read it. Keep it in sync with the two display lines — those are what appear in the footer and contact block.",
+        "The same address as above, split into parts so search engines can read it. Keep it in sync with the two display lines — those are what appear in the footer and contact block. Required: clearing any part of it strips the address out of the site's structured data.",
       options: { collapsible: true, collapsed: true },
+      validation: (r) => r.required(),
       fields: [
         {
           name: "streetAddress",
           title: "Street address",
           type: "string",
           description: 'Including any suite, e.g. "1015 Locust Street, Suite 1000".',
+          validation: (r) => r.required(),
         },
-        { name: "addressLocality", title: "City", type: "string" },
+        {
+          name: "addressLocality",
+          title: "City",
+          type: "string",
+          validation: (r) => r.required(),
+        },
         {
           name: "addressRegion",
           title: "State",
           type: "string",
           description: 'Two-letter code, e.g. "MO".',
+          validation: (r) => r.required().length(2),
         },
-        { name: "postalCode", title: "ZIP code", type: "string" },
+        {
+          name: "postalCode",
+          title: "ZIP code",
+          type: "string",
+          validation: (r) => r.required(),
+        },
         {
           name: "addressCountry",
           title: "Country",
           type: "string",
           description: 'Two-letter code, e.g. "US".',
           initialValue: "US",
+          validation: (r) => r.required().length(2),
         },
       ],
     }),
@@ -83,11 +113,22 @@ export const siteSettings = defineType({
       type: "object",
       group: "contact",
       description:
-        "Latitude and longitude of the office, used in structured data. Right-click the exact spot in Google Maps to read them off.",
+        "Latitude and longitude of the office, used in structured data. Right-click the exact spot in Google Maps to read them off. Required: clearing either value strips the coordinates out of the site's structured data.",
       options: { collapsible: true, collapsed: true },
+      validation: (r) => r.required(),
       fields: [
-        { name: "latitude", title: "Latitude", type: "number" },
-        { name: "longitude", title: "Longitude", type: "number" },
+        {
+          name: "latitude",
+          title: "Latitude",
+          type: "number",
+          validation: (r) => r.required().min(-90).max(90),
+        },
+        {
+          name: "longitude",
+          title: "Longitude",
+          type: "number",
+          validation: (r) => r.required().min(-180).max(180),
+        },
       ],
     }),
     defineField({
