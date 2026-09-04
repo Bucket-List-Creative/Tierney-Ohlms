@@ -15,10 +15,12 @@ import type { IconKey } from "@/components/icons/registry";
 import type { Founder } from "@/lib/types";
 import paulOhlmsPhoto from "@/public/img/Paul Ohlms.jpg";
 import danTierneyPhoto from "@/public/img/Dan Tierney.jpg";
+import { absoluteUrl } from "@/lib/seo/urls";
 
 export async function generateMetadata(): Promise<Metadata> {
   const about = await getAboutPage();
   return {
+    alternates: { canonical: absoluteUrl("/about") },
     title: about.seo?.metaTitle ?? "Our Story",
     description: about.seo?.metaDescription,
   };

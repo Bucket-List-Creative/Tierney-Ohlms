@@ -46,6 +46,51 @@ export const siteSettings = defineType({
     }),
     defineField({ name: "hours", title: "Business hours", type: "string", group: "contact" }),
     defineField({
+      name: "address",
+      title: "Address (structured)",
+      type: "object",
+      group: "contact",
+      description:
+        "The same address as above, split into parts so search engines can read it. Keep it in sync with the two display lines — those are what appear in the footer and contact block.",
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        {
+          name: "streetAddress",
+          title: "Street address",
+          type: "string",
+          description: 'Including any suite, e.g. "1015 Locust Street, Suite 1000".',
+        },
+        { name: "addressLocality", title: "City", type: "string" },
+        {
+          name: "addressRegion",
+          title: "State",
+          type: "string",
+          description: 'Two-letter code, e.g. "MO".',
+        },
+        { name: "postalCode", title: "ZIP code", type: "string" },
+        {
+          name: "addressCountry",
+          title: "Country",
+          type: "string",
+          description: 'Two-letter code, e.g. "US".',
+          initialValue: "US",
+        },
+      ],
+    }),
+    defineField({
+      name: "geo",
+      title: "Map coordinates",
+      type: "object",
+      group: "contact",
+      description:
+        "Latitude and longitude of the office, used in structured data. Right-click the exact spot in Google Maps to read them off.",
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        { name: "latitude", title: "Latitude", type: "number" },
+        { name: "longitude", title: "Longitude", type: "number" },
+      ],
+    }),
+    defineField({
       name: "mapEmbedUrl",
       title: "Map embed URL",
       type: "url",

@@ -12,8 +12,10 @@ import { Magnetic } from "@/components/motion/Magnetic";
 import { Parallax } from "@/components/motion/Parallax";
 import { LineIcon } from "@/components/icons/LineIcon";
 import servicesPhoto from "@/assets/services-hero.jpg";
+import { absoluteUrl } from "@/lib/seo/urls";
 
 export const metadata: Metadata = {
+  alternates: { canonical: absoluteUrl("/services") },
   title: "Outsourced Accounting Services",
   description:
     "From cleanup to controller oversight: bookkeeping, monthly close, CPA-prepared financials, tax, payroll, and automation. One flat monthly fee.",

@@ -27,6 +27,16 @@ export const siteSettings: SiteSettings = {
   email: "info@tierneyohlms.com",
   addressLine1: "1015 Locust Street, Suite 1000",
   addressLine2: "Saint Louis, MO 63101",
+  // Structured mirror of the two display lines above, for JSON-LD. Keep in sync.
+  address: {
+    streetAddress: "1015 Locust Street, Suite 1000",
+    addressLocality: "Saint Louis",
+    addressRegion: "MO",
+    postalCode: "63101",
+    addressCountry: "US",
+  },
+  // Carried over from the current live site's ProfessionalService markup.
+  geo: { latitude: 38.6321, longitude: -90.1919 },
   mapEmbedUrl:
     "https://www.openstreetmap.org/export/embed.html?bbox=-90.2019%2C38.6264%2C-90.1879%2C38.6344&layer=mapnik&marker=38.6304%2C-90.1949",
   footerBlurb:

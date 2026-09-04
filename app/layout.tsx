@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { playfair, inter, jetbrainsMono } from "@/lib/fonts";
+import { siteUrl } from "@/lib/seo/urls";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://tierneyohlms.com",
-  ),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Tierney & Ohlms | Accounting & Advisory",
     template: "%s · Tierney & Ohlms",

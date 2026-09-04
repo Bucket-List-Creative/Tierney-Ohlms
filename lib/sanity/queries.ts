@@ -20,6 +20,8 @@ export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{
   addressLine1,
   addressLine2,
   hours,
+  address{ streetAddress, addressLocality, addressRegion, postalCode, addressCountry },
+  geo{ latitude, longitude },
   mapEmbedUrl,
   footerBlurb,
   copyrightName,
@@ -132,4 +134,15 @@ export const aboutPageQuery = groq`*[_type == "aboutPage"][0]{
     "items": coalesce(items, [])
   },
   firstClient{ eyebrow, heading, body }
+}`;
+
+/**
+ * Everything the sitemap needs: the slug of each CMS-driven route plus the
+ * document's real last-modified date, so `lastmod` reflects an actual edit
+ * rather than the time of the last deploy.
+ */
+export const sitemapEntriesQuery = groq`{
+  "services": *[_type == "service" && defined(slug.current)]
+    | order(orderRank){ "slug": slug.current, _updatedAt },
+  "pages": *[_type == "page" && defined(slug.current)]{ "slug": slug.current, _updatedAt }
 }`;

@@ -84,6 +84,19 @@ export type FaqItem = {
 
 export type FooterColumn = { title: string; links: LinkItem[] };
 
+export type PostalAddress = {
+  streetAddress?: string;
+  addressLocality?: string;
+  addressRegion?: string;
+  postalCode?: string;
+  addressCountry?: string;
+};
+
+export type GeoPoint = {
+  latitude?: number;
+  longitude?: number;
+};
+
 export type SiteSettings = {
   wordmark: string;
   phone: string;
@@ -92,6 +105,8 @@ export type SiteSettings = {
   addressLine1: string;
   addressLine2: string;
   hours?: string;
+  address?: PostalAddress;
+  geo?: GeoPoint;
   mapEmbedUrl?: string | null;
   footerBlurb: string;
   copyrightName: string;
