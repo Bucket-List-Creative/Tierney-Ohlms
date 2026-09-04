@@ -78,6 +78,13 @@ export const sectionHeader = defineType({
       validation: (r) => r.required(),
     }),
     defineField({
+      name: "emphasis",
+      title: "Emphasised phrase",
+      type: "string",
+      description:
+        'The part of the heading shown in gold italic — copy it exactly as it appears in the heading, e.g. "one roof." Leave blank for no emphasis.',
+    }),
+    defineField({
       name: "lead",
       title: "Lead paragraph",
       type: "text",

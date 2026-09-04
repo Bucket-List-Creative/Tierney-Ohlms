@@ -125,21 +125,25 @@ export const homePage: HomePage = {
   servicesHeader: {
     eyebrow: "Services",
     heading: "Everything, under one roof.",
+    emphasis: "one roof.",
     lead: "From cleanup to controller oversight: a full accounting department on a modern stack, for one flat monthly fee. Start wherever you are, and grow into the rest.",
   },
   whyHeader: {
     eyebrow: "Why Tierney & Ohlms",
     heading: "The difference expert support makes.",
+    emphasis: "support",
     lead: "Partner with us and get CPA-level expertise, modern tools, and a team that scales with you, without the cost of hiring in-house.",
   },
   processHeader: {
     eyebrow: "How it works",
     heading: "A clear path from day one.",
+    emphasis: "day one.",
     lead: "Getting started is simple. Here's how we take accounting off your plate and keep it running smoothly.",
   },
   faqHeader: {
     eyebrow: "FAQ",
     heading: "Questions, answered.",
+    emphasis: "answered.",
     lead: "A few of the things businesses ask us most. Have another question? Reach out any time.",
   },
   ctaBanner: {
@@ -150,6 +154,7 @@ export const homePage: HomePage = {
   contact: {
     eyebrow: "Contact",
     heading: "Send us a message.",
+    emphasis: "message.",
     lead: "Fill out the form below and we'll get back to you shortly, usually within one business day.",
     serviceOptions: [
       "Catch-Up & Cleanup",

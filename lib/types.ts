@@ -21,6 +21,8 @@ export type Cta = { label: string; href: string; variant?: CtaVariant };
 export type SectionHeader = {
   eyebrow?: string;
   heading: string;
+  /** Phrase within `heading` rendered in the gold gradient em. */
+  emphasis?: string;
   lead?: string;
 };
 
@@ -154,6 +156,8 @@ export type HomePage = {
   contact: {
     eyebrow: string;
     heading: string;
+    /** Phrase within `heading` rendered in the gold gradient em. */
+    emphasis?: string;
     lead?: string;
     serviceOptions: string[];
   };

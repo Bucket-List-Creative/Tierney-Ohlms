@@ -260,6 +260,13 @@ export const homePage = defineType({
           type: "string",
           validation: (r) => r.required(),
         },
+        {
+          name: "emphasis",
+          title: "Emphasised phrase",
+          type: "string",
+          description:
+            'The part of the heading shown in gold italic — copy it exactly as it appears in the heading, e.g. "message." Leave blank for no emphasis.',
+        },
         { name: "lead", title: "Lead", type: "text", rows: 2 },
         {
           name: "serviceOptions",

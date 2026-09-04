@@ -10,7 +10,7 @@ const imageProjection = groq`{
 }`;
 
 const ctaProjection = groq`{ label, href, variant }`;
-const headerProjection = groq`{ eyebrow, heading, lead }`;
+const headerProjection = groq`{ eyebrow, heading, emphasis, lead }`;
 
 export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{
   wordmark,
@@ -57,7 +57,7 @@ export const homePageQuery = groq`*[_type == "homePage"][0]{
   processHeader${headerProjection},
   faqHeader${headerProjection},
   ctaBanner{ heading, lead, cta${ctaProjection} },
-  contact{ eyebrow, heading, lead, serviceOptions }
+  contact{ eyebrow, heading, emphasis, lead, serviceOptions }
 }`;
 
 /** Everything a service needs, on the overview list AND on its own page. */
