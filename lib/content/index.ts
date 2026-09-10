@@ -25,11 +25,11 @@ export const siteSettings: SiteSettings = {
   phone: "(314) 828-1564",
   phoneHref: "tel:+13148281564",
   email: "info@tierneyohlms.com",
-  addressLine1: "1015 Locust Street, Suite 1000",
-  addressLine2: "Saint Louis, MO 63101",
+  addressLine1: "1015 Locust St Unit 1000",
+  addressLine2: "St. Louis, MO 63101",
   // Structured mirror of the two display lines above, for JSON-LD. Keep in sync.
   address: {
-    streetAddress: "1015 Locust Street, Suite 1000",
+    streetAddress: "1015 Locust St Unit 1000",
     addressLocality: "Saint Louis",
     addressRegion: "MO",
     postalCode: "63101",
@@ -39,15 +39,15 @@ export const siteSettings: SiteSettings = {
   // in mapEmbedUrl below — keep the two in step.
   geo: { latitude: 38.6304, longitude: -90.1949 },
   mapEmbedUrl:
-    "https://www.openstreetmap.org/export/embed.html?bbox=-90.2019%2C38.6264%2C-90.1879%2C38.6344&layer=mapnik&marker=38.6304%2C-90.1949",
+    "https://www.google.com/maps?q=1015%20Locust%20St%20Unit%201000%2C%20St.%20Louis%2C%20MO%2063101&output=embed",
   footerBlurb:
-    "Expert outsourced bookkeeping and controller services for growing businesses, from startup to enterprise.",
+    "Expert outsourced accounting and controller services for companies from $2 million to $300 million in revenue.",
   copyrightName: "Tierney & Ohlms",
   footerColumns: [
     {
       title: "Services",
       links: [
-        { label: "Accounting & Monthly Close", href: "/services/accounting-monthly-close" },
+        { label: "Day to Day Staff Accounting", href: "/services/accounting-monthly-close" },
         { label: "Controller & Reporting", href: "/services/controller-services-reporting" },
         { label: "Shared Services", href: "/services/shared-services" },
         { label: "Tax Preparation & Planning", href: "/services/tax-preparation-planning" },
@@ -95,14 +95,14 @@ export const navigation: Navigation = {
 
 export const homePage: HomePage = {
   seo: {
-    metaTitle: "Tierney & Ohlms | Bookkeeping & Controller Services",
+    metaTitle: "Tierney & Ohlms | Outsourced Accounting & Controller Services",
     metaDescription:
-      "Expert outsourced bookkeeping and controller services for growing businesses. Professional CPA-level accounting from startup to enterprise.",
+      "Outsourced accounting and controller services for companies with $2M–$300M in revenue, including bookkeeping, monthly close, reporting, and shared services.",
   },
   hero: {
-    eyebrow: "Bookkeeping & Controller Services",
-    heading: "Expert bookkeeping and controller services.",
-    lead: "Outsource your accounting with confidence. From day-to-day bookkeeping to controller-level expertise, we handle your financials so you can focus on growing your business.",
+    eyebrow: "Outsourced Accounting & Controller Services",
+    heading: "Expert Outsourcing Accounting to Controller Services",
+    lead: "Outsource your accounting with confidence. From day-to-day staff accounting to controller-level expertise, we handle your financials so you can focus on growing your business.",
     primaryCta: { label: "Get Started Today", href: "/#contact", variant: "primary" },
     secondaryCta: { label: "Explore Services", href: "/services", variant: "secondary" },
     image: null,
@@ -137,7 +137,7 @@ export const homePage: HomePage = {
     eyebrow: "Services",
     heading: "Everything, under one roof.",
     emphasis: "one roof.",
-    lead: "From cleanup to controller oversight: a full accounting department on a modern stack, for one flat monthly fee. Start wherever you are, and grow into the rest.",
+    lead: "Start with the support your business needs: cleanup and accounting department support, full outsourcing, or shared services. Add tax, payroll, and automation where they help.",
   },
   whyHeader: {
     eyebrow: "Why Tierney & Ohlms",
@@ -169,9 +169,11 @@ export const homePage: HomePage = {
     lead: "Fill out the form below and we'll get back to you shortly, usually within one business day.",
     serviceOptions: [
       "Catch-Up & Cleanup",
-      "Accounting & Monthly Close",
+      "Day to Day Staff Accounting",
       "Controller Services & Reporting",
       "Shared Services",
+      "Accounts Payable Management",
+      "Accounting & Accounts Payable Software Migration",
       "Tax Preparation & Planning",
       "Payroll",
       "Systems & Automation",
@@ -207,7 +209,7 @@ export const services: Service[] = [
   },
   {
     _id: "service-close",
-    title: "Accounting & Monthly Close",
+    title: "Day to Day Staff Accounting",
     slug: "accounting-monthly-close",
     icon: "close",
     description:
@@ -226,9 +228,9 @@ export const services: Service[] = [
     youGet:
       "A close that lands every month, cash flow that stops being a guess, financials you can read in five minutes, and the end of 11pm QuickBooks sessions.",
     seo: {
-      metaTitle: "Accounting & Monthly Close",
+      metaTitle: "Day to Day Staff Accounting",
       metaDescription:
-        "Day-to-day accounting and a monthly close that actually lands: AP and AR handled, accounts reconciled, and financials delivered on a set date each month.",
+        "Day-to-day staff accounting and bookkeeping support: AP and AR, reconciliations, monthly close, and financial reporting from an outsourced accounting team.",
     },
   },
   {
@@ -268,7 +270,7 @@ export const services: Service[] = [
     audience:
       "Businesses and private-equity-owned portfolio companies that need one specific back-office function run reliably on an ongoing basis.",
     detail:
-      "Not every business needs the full bookkeeping-through-controller ladder. Sometimes one function is the bottleneck, and it needs an owner. We take that function, run it end-to-end on a recurring basis, and document it so it holds up without depending on any one person.",
+      "Not every business needs a fully outsourced accounting department. Sometimes one function is the bottleneck, and it needs an owner. We take that function, run it end-to-end on a recurring basis, and document it so it holds up without depending on any one person.",
     practiceExamples: [
       {
         _key: "pe-retail",
@@ -437,7 +439,7 @@ export const processSteps: ProcessStep[] = [
     index: "03",
     title: "Manage",
     description:
-      "We handle day-to-day bookkeeping, reporting, and compliance on a dependable monthly cadence.",
+      "We handle day-to-day staff accounting, reporting, and compliance on a dependable monthly cadence.",
   },
   {
     _id: "step-advise",
@@ -492,13 +494,13 @@ export const faqs: FaqItem[] = [
     _id: "faq-software",
     question: "What accounting software do you use?",
     answer:
-      "We work in the leading cloud accounting platforms and layer in automation where it helps, so your books stay accurate and always up to date.",
+      "We work with Microsoft Dynamics, Xero, QuickBooks, NetSuite, and bespoke industry ERPs. We assess your existing setup and connect accounting, reporting, and automation around the systems your business uses.",
   },
   {
     _id: "faq-scale",
     question: "Can you scale with us as we grow?",
     answer:
-      "Absolutely. Our support flexes from startup bookkeeping to enterprise controller services, adjusting as your needs change.",
+      "Yes. We serve companies from $2 million to $300 million in revenue in different capacities. Companies around $2 million–$20 million often start with cleanup, support for their accounting team, or full outsourcing. Larger companies can engage us for shared services, with tax, payroll, and automation added where needed.",
   },
   {
     _id: "faq-start",
@@ -528,7 +530,7 @@ export const aboutPage: AboutPage = {
   hero: {
     eyebrow: "Our Story",
     heading: "We built the firm these businesses deserve.",
-    lead: "What started as nights-and-weekends bookkeeping for a handful of companies is now a full accounting team, working with clients in St. Louis and across the country.",
+    lead: "What started as nights-and-weekends accounting for a handful of companies is now a full accounting team, working with clients in St. Louis and across the country.",
   },
   story: {
     eyebrow: "The story",
@@ -544,7 +546,7 @@ export const aboutPage: AboutPage = {
     eyebrow: "Rooted in St. Louis",
     heading: "A St. Louis firm, through and through.",
     body: [
-      "Tierney & Ohlms is a St. Louis firm through and through. Paul was born and raised in O'Fallon, MO, went to school here, and still has most of his family in the St. Louis metro. Both founders are raising their families in the area, so the businesses they serve are quite literally their neighbors.",
+      "Paul and Dan were born and raised in St. Louis, went to school here, and still have most of their family in the St. Louis metro. Both founders are raising their families in the area and are involved in making St. Louis a better place for small businesses to grow.",
       "St. Louis is a small town, and reputation matters. The firm gives every client, no matter their size, the same high level of service, and most of its growth has come through referrals from existing clients, one trusted introduction at a time. Fittingly, the very first client came through a referral too.",
     ].join("\n\n"),
     pullQuote:
@@ -565,7 +567,7 @@ export const aboutPage: AboutPage = {
       {
         name: "Dan Tierney",
         credential: "CPA, Co-founder",
-        bio: "Dan is a CPA who had talked with Paul for years about building a firm dedicated to small businesses. A conversation with a local banker reinforced what they already believed: St. Louis small businesses needed more support, and affordable, modern solutions existed to give it to them. Dan loves getting to know clients, understanding their challenges, and making accounting a valuable part of the business rather than a burden, clear financial insight and efficient processes that help owners make better decisions, save time, and grow.",
+        bio: "Dan believes great accounting starts with understanding the people behind the business. A CPA and co-founder of Tierney & Ohlms, he takes the time to learn each client’s goals and challenges, then helps turn financial information into practical decisions. He and Paul built the firm around a shared conviction: small businesses deserve attentive service, modern tools, and clear financial insight. Dan brings that commitment to every client relationship, helping owners simplify their processes, regain time, and plan for growth with confidence.",
         // outsideWork intentionally omitted — Dan has not sent his paragraph yet.
         photo: null,
       },
@@ -573,16 +575,14 @@ export const aboutPage: AboutPage = {
   },
   promises: {
     eyebrow: "What we promise",
-    heading: "What you can count on.",
+    heading: "A response within 24 hours. Your business deserves it.",
     items: [
-      "A response within 24 hours.",
-      "Staying ahead of the curve on industry changes, we demo and investigate treasury solutions, ERPs, and automation and process tools for accounting departments.",
-      "Private, data-safe AI with a CPA reviewing every output. Client financials are never used to train models.",
+      "Responsiveness is a commitment we take personally. When you reach out, you hear back from our team within 24 hours. Your questions get our attention, and you know who is working on the next step.",
     ],
   },
   firstClient: {
     eyebrow: "The first client",
-    heading: "A barrel company and a banker's introduction.",
-    body: "Our first non-family client was a barrel company that needed financials a bank would trust to approve a loan. Their legacy firm was mostly tax preparers doing some accounting on the side, so the books were behind and not something a lender would accept. A local banker introduced us, and from the moment we met them the need was obvious. We cleaned up the prior financials, built out a full accounting process, and set a real close timeline. That experience validated the vision and became the foundation of the firm.",
+    heading: "A Bourbon Company and a banker's introduction.",
+    body: "Our first non-family client was a bourbon company that needed financials a bank would trust to approve a loan. Their legacy firm was mostly tax preparers doing some accounting on the side, so the books were behind and not something a lender would accept. A local banker introduced us, and from the moment we met them the need was obvious. We cleaned up the prior financials, built out a full accounting process, and set a real close timeline. That experience validated the vision and became the foundation of the firm.",
   },
 };

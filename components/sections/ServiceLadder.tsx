@@ -12,9 +12,9 @@ const STOP = 0.62;
 const clamp01 = (n: number) => (n < 0 ? 0 : n > 1 ? 1 : n);
 
 /**
- * The service ladder as a full-bleed scroll story: the stage is pinned while
+ * Where you fit as a full-bleed scroll story: the stage is pinned while
  * each service takes it in turn — the title lands first, then its copy and
- * link fade up under it — and a floating side tab swaps the whole section for
+ * link fade up under it — and a right-aligned toolbar swaps the whole section for
  * a grid of everything at once.
  *
  * The runway is a tall spacer; nothing here animates layout, only opacity and
@@ -134,30 +134,28 @@ export function ServiceLadder({ services }: { services: Service[] }) {
     <section
       ref={sectionRef}
       id="ladder"
-      aria-label="The service ladder"
+      aria-label="Where you fit"
       className="relative mesh-dark border-y border-white/10 text-white"
     >
-      {/* Floating mode toggle — rides alongside the section in both modes. */}
-      <div className="pointer-events-none absolute inset-y-0 right-6 z-30 max-[980px]:hidden">
-        <div className="sticky top-[46svh]">
-          <button
-            type="button"
-            onClick={toggle}
-            aria-pressed={grid}
-            className="float-y pointer-events-auto inline-flex items-center gap-2.5 rounded-full border border-gold/45 bg-white/[.06] px-3 py-5 font-mono text-[11px] uppercase tracking-[.14em] text-gold backdrop-blur-sm transition-colors duration-300 [writing-mode:vertical-rl] hover:border-gold hover:bg-gold/15 hover:text-white"
-          >
-            <LineIcon
-              name={grid ? "arrow-up-right" : "arrow-right"}
-              size={14}
-              className="rotate-90"
-            />
-            {grid ? "Back to the ladder" : "Show all services"}
-          </button>
+      {/* Normal-flow toolbar aligned with the right edge of the content. */}
+      {!reduced && (
+        <div className="border-b border-white/10 bg-ink">
+          <div className="container-x flex min-h-16 w-full items-center justify-end py-3">
+            <button
+              type="button"
+              onClick={toggle}
+              aria-pressed={grid}
+              className="inline-flex items-center gap-2.5 rounded-btn border border-gold/45 bg-ink px-4 py-2 font-mono text-[11px] uppercase tracking-[.14em] text-gold"
+            >
+              {grid ? "Explore entry points" : "View entry points"}
+              <LineIcon name={grid ? "arrow-up-right" : "arrow-right"} size={14} />
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {grid ? (
-        <GridView services={services} onToggle={toggle} reduced={reduced} />
+        <GridView services={services} />
       ) : (
         <div
           ref={runwayRef}
@@ -169,10 +167,10 @@ export function ServiceLadder({ services }: { services: Service[] }) {
           >
             {/* Persistent section header */}
             <div className="container-x flex shrink-0 flex-col items-center gap-2 pt-9 text-center max-[767px]:pt-7">
-              <span className="eyebrow text-gold">The service ladder</span>
+              <span className="eyebrow text-gold">Where you fit</span>
               <p className="m-0 max-w-[46ch] text-[14px] leading-relaxed text-dark-body max-[767px]:text-[13px]">
-                The order below reflects how businesses grow with us. Start where you
-                are today, and add the next rung when you&rsquo;re ready.
+                Choose the entry point that fits your company and your team.
+                Each engagement is shaped around the support you need.
               </p>
             </div>
 
@@ -229,7 +227,7 @@ export function ServiceLadder({ services }: { services: Service[] }) {
 
                   <span data-lift style={{ opacity: i === 0 ? 1 : 0 }} className="mt-2">
                     <Button href={`/services/${service.slug}`} variant="inverse" size="sm">
-                      Explore {service.title}
+                      Explore support
                       <LineIcon name="arrow-right" size={15} />
                     </Button>
                   </span>
@@ -250,7 +248,7 @@ export function ServiceLadder({ services }: { services: Service[] }) {
                         "rounded-full border px-2.5 py-1 font-mono text-[10px] tracking-[.12em] transition-all duration-300",
                         i === active
                           ? "border-gold bg-gold/15 text-gold"
-                          : "border-white/15 text-white/45 hover:border-white/40 hover:text-white/80",
+                          : "border-white/15 text-white/45",
                       )}
                     >
                       <span className="sr-only">Go to </span>
@@ -268,14 +266,7 @@ export function ServiceLadder({ services }: { services: Service[] }) {
                 />
               </div>
 
-              <button
-                type="button"
-                onClick={toggle}
-                className="mt-1 hidden items-center gap-2 rounded-full border border-gold/45 bg-white/[.06] px-4 py-2 font-mono text-[11px] uppercase tracking-[.14em] text-gold transition-colors duration-300 hover:border-gold hover:text-white max-[980px]:inline-flex"
-              >
-                Show all services
-                <LineIcon name="arrow-right" size={14} />
-              </button>
+
             </div>
           </div>
         </div>
@@ -287,34 +278,21 @@ export function ServiceLadder({ services }: { services: Service[] }) {
 /** All services at once — the same content without the pinning. */
 function GridView({
   services,
-  onToggle,
-  reduced,
 }: {
   services: Service[];
-  onToggle: () => void;
-  reduced: boolean;
 }) {
   return (
     <div className="container-x py-24 max-[767px]:py-16">
       <header className="mb-12 flex max-w-[620px] flex-col gap-4">
-        <span className="eyebrow text-gold">The service ladder</span>
+        <span className="eyebrow text-gold">Where you fit</span>
         <h2 className="m-0 font-display text-[clamp(28px,3vw,40px)] font-medium leading-[1.14]">
-          Everything, <em className="gradient-text-dark">at once.</em>
+          Support that <em className="gradient-text-dark">fits.</em>
         </h2>
         <p className="m-0 text-[15.5px] leading-relaxed text-dark-body">
-          The order reflects how businesses grow with us. Start where you are today, and
-          add the next rung when you&rsquo;re ready.
+          Choose the entry point that fits your company and your team.
+          Each engagement is shaped around the support you need.
         </p>
-        {!reduced ? (
-          <button
-            type="button"
-            onClick={onToggle}
-            className="mt-2 inline-flex w-fit items-center gap-2 rounded-full border border-gold/45 bg-white/[.06] px-4 py-2 font-mono text-[11px] uppercase tracking-[.14em] text-gold transition-colors duration-300 hover:border-gold hover:text-white max-[980px]:inline-flex min-[981px]:hidden"
-          >
-            Back to the ladder
-            <LineIcon name="arrow-right" size={14} />
-          </button>
-        ) : null}
+
       </header>
 
       <div className="grid grid-cols-3 gap-5 max-[980px]:grid-cols-2 max-[640px]:grid-cols-1">
@@ -349,7 +327,7 @@ function GridView({
               {service.description}
             </p>
             <span className="link-line mt-auto inline-flex w-fit items-center gap-1.5 pt-4 text-[12px] font-semibold uppercase tracking-[.08em] text-gold transition-colors duration-300 group-hover:text-white">
-              Explore service
+              Explore support
               <LineIcon
                 name="arrow-right"
                 size={14}

@@ -1,0 +1,232 @@
+[
+  {
+    "patch": {
+      "id": "siteSettings",
+      "set": {
+        "footerColumns": [
+          {
+            "_key": "fc1",
+            "_type": "footerColumn",
+            "title": "Services",
+            "links": [
+              {
+                "_key": "l1",
+                "_type": "linkItem",
+                "label": "Day to Day Staff Accounting",
+                "href": "/services/accounting-monthly-close"
+              },
+              {
+                "_key": "l2",
+                "_type": "linkItem",
+                "label": "Controller & Reporting",
+                "href": "/services/controller-services-reporting"
+              },
+              {
+                "_key": "l3",
+                "_type": "linkItem",
+                "label": "Shared Services",
+                "href": "/services/shared-services"
+              },
+              {
+                "_key": "l4",
+                "_type": "linkItem",
+                "label": "Tax Preparation & Planning",
+                "href": "/services/tax-preparation-planning"
+              },
+              {
+                "_key": "l5",
+                "_type": "linkItem",
+                "label": "All services",
+                "href": "/services"
+              }
+            ]
+          },
+          {
+            "_key": "fc2",
+            "_type": "footerColumn",
+            "title": "Company",
+            "links": [
+              {
+                "_key": "l5",
+                "_type": "linkItem",
+                "label": "Why Choose Us",
+                "href": "/#why"
+              },
+              {
+                "_key": "l6",
+                "_type": "linkItem",
+                "label": "How It Works",
+                "href": "/#process"
+              },
+              {
+                "_key": "l7",
+                "_type": "linkItem",
+                "label": "FAQ",
+                "href": "/#faq"
+              },
+              {
+                "_key": "l8",
+                "_type": "linkItem",
+                "label": "Contact",
+                "href": "/#contact"
+              }
+            ]
+          },
+          {
+            "_key": "fc3",
+            "_type": "footerColumn",
+            "title": "Contact",
+            "links": [
+              {
+                "_key": "l9",
+                "_type": "linkItem",
+                "label": "(314) 828-1564",
+                "href": "tel:+13148281564"
+              },
+              {
+                "_key": "l10",
+                "_type": "linkItem",
+                "label": "info@tierneyohlms.com",
+                "href": "mailto:info@tierneyohlms.com"
+              }
+            ]
+          }
+        ],
+        "addressLine1": "1015 Locust St Unit 1000",
+        "addressLine2": "St. Louis, MO 63101",
+        "address.streetAddress": "1015 Locust St Unit 1000",
+        "mapEmbedUrl": "https://www.google.com/maps?q=1015%20Locust%20St%20Unit%201000%2C%20St.%20Louis%2C%20MO%2063101&output=embed",
+        "footerBlurb": "Expert outsourced accounting and controller services for companies from $2 million to $300 million in revenue."
+      }
+    }
+  },
+  {
+    "patch": {
+      "id": "homePage",
+      "set": {
+        "hero.heading": "Expert Outsourcing Accounting to Controller Services",
+        "hero.lead": "Outsource your accounting with confidence. From day-to-day staff accounting to controller-level expertise, we handle your financials so you can focus on growing your business.",
+        "contact.serviceOptions": [
+          "Catch-Up & Cleanup",
+          "Day to Day Staff Accounting",
+          "Controller Services & Reporting",
+          "Shared Services",
+          "Accounts Payable Management",
+          "Accounting & Accounts Payable Software Migration",
+          "Tax Preparation & Planning",
+          "Payroll",
+          "Systems & Automation"
+        ],
+        "seo.metaTitle": "Tierney & Ohlms | Outsourced Accounting & Controller Services",
+        "seo.metaDescription": "Outsourced accounting and controller services for companies with $2M–$300M in revenue, including bookkeeping, monthly close, reporting, and shared services.",
+        "hero.eyebrow": "Outsourced Accounting & Controller Services",
+        "servicesHeader.eyebrow": "Services",
+        "servicesHeader.heading": "Everything, under one roof.",
+        "servicesHeader.emphasis": "one roof.",
+        "servicesHeader.lead": "Start with the support your business needs: cleanup and accounting department support, full outsourcing, or shared services. Add tax, payroll, and automation where they help."
+      }
+    }
+  },
+  {
+    "patch": {
+      "id": "service-close",
+      "set": {
+        "title": "Day to Day Staff Accounting",
+        "seo.metaTitle": "Day to Day Staff Accounting",
+        "seo.metaDescription": "Day-to-day staff accounting and bookkeeping support: AP and AR, reconciliations, monthly close, and financial reporting from an outsourced accounting team."
+      }
+    }
+  },
+  {
+    "patch": {
+      "id": "service-shared",
+      "set": {
+        "detail": "Not every business needs a fully outsourced accounting department. Sometimes one function is the bottleneck, and it needs an owner. We take that function, run it end-to-end on a recurring basis, and document it so it holds up without depending on any one person."
+      }
+    }
+  },
+  {
+    "patch": {
+      "id": "process-manage",
+      "set": {
+        "description": "We handle day-to-day staff accounting, reporting, and compliance on a dependable monthly cadence."
+      }
+    }
+  },
+  {
+    "patch": {
+      "id": "faq-software",
+      "set": {
+        "answer": "We work with Microsoft Dynamics, Xero, QuickBooks, NetSuite, and bespoke industry ERPs. We assess your existing setup and connect accounting, reporting, and automation around the systems your business uses."
+      }
+    }
+  },
+  {
+    "patch": {
+      "id": "faq-scale",
+      "set": {
+        "answer": "Yes. We serve companies from $2 million to $300 million in revenue in different capacities. Companies around $2 million–$20 million often start with cleanup, support for their accounting team, or full outsourcing. Larger companies can engage us for shared services, with tax, payroll, and automation added where needed."
+      }
+    }
+  },
+  {
+    "patch": {
+      "id": "aboutPage",
+      "set": {
+        "hero.lead": "What started as nights-and-weekends accounting for a handful of companies is now a full accounting team, working with clients in St. Louis and across the country.",
+        "rooted.body": "Paul and Dan were born and raised in St. Louis, went to school here, and still have most of their family in the St. Louis metro. Both founders are raising their families in the area and are involved in making St. Louis a better place for small businesses to grow.\n\nSt. Louis is a small town, and reputation matters. The firm gives every client, no matter their size, the same high level of service, and most of its growth has come through referrals from existing clients, one trusted introduction at a time. Fittingly, the very first client came through a referral too.",
+        "promises.heading": "A response within 24 hours. Your business deserves it.",
+        "promises.items": [
+          "Responsiveness is a commitment we take personally. When you reach out, you hear back from our team within 24 hours. Your questions get our attention, and you know who is working on the next step."
+        ],
+        "firstClient.heading": "A Bourbon Company and a banker's introduction.",
+        "firstClient.body": "Our first non-family client was a bourbon company that needed financials a bank would trust to approve a loan. Their legacy firm was mostly tax preparers doing some accounting on the side, so the books were behind and not something a lender would accept. A local banker introduced us, and from the moment we met them the need was obvious. We cleaned up the prior financials, built out a full accounting process, and set a real close timeline. That experience validated the vision and became the foundation of the firm.",
+        "founders.people[name==\"Dan Tierney\"].bio": "Dan believes great accounting starts with understanding the people behind the business. A CPA and co-founder of Tierney & Ohlms, he takes the time to learn each client’s goals and challenges, then helps turn financial information into practical decisions. He and Paul built the firm around a shared conviction: small businesses deserve attentive service, modern tools, and clear financial insight. Dan brings that commitment to every client relationship, helping owners simplify their processes, regain time, and plan for growth with confidence."
+      }
+    }
+  },
+  {
+    "patch": {
+      "id": "navigation",
+      "set": {
+        "items": [
+          {
+            "_key": "n1",
+            "_type": "linkItem",
+            "href": "/services",
+            "label": "Services"
+          },
+          {
+            "_key": "our-story",
+            "label": "Our Story",
+            "href": "/about"
+          },
+          {
+            "_key": "n2",
+            "_type": "linkItem",
+            "href": "/#why",
+            "label": "Why Us"
+          },
+          {
+            "_key": "n3",
+            "_type": "linkItem",
+            "href": "/#process",
+            "label": "How It Works"
+          },
+          {
+            "_key": "n4",
+            "_type": "linkItem",
+            "href": "/#faq",
+            "label": "FAQ"
+          },
+          {
+            "_key": "n5",
+            "_type": "linkItem",
+            "href": "/#contact",
+            "label": "Contact"
+          }
+        ]
+      }
+    }
+  }
+]

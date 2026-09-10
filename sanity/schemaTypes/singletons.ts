@@ -477,8 +477,10 @@ export const aboutPage = defineType({
         { name: "heading", title: "Heading", type: "string" },
         {
           name: "items",
-          title: "Promises",
+          title: "Response commitment",
+          description: "One highlighted promise: our response within 24 hours.",
           type: "array",
+          validation: (r) => r.max(1),
           of: [{ type: "string" }],
         },
       ],

@@ -28,8 +28,8 @@
   --color-dark-link: #d6d6d6;
 
   /* ---- Typography ---- */
-  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
-  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-poppins), system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-poppins), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
 
   /* Fluid scale — the same ladder as the brand guide, interpolated between
@@ -110,7 +110,7 @@
   --grain: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http://www.w3.org/2000/svg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27n%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.9%27%20numOctaves%3D%273%27%20stitchTiles%3D%27stitch%27/%3E%3CfeColorMatrix%20type%3D%27saturate%27%20values%3D%270%27/%3E%3C/filter%3E%3Crect%20width%3D%27160%27%20height%3D%27160%27%20filter%3D%27url%28%23n%29%27%20opacity%3D%270.5%27/%3E%3C/svg%3E");
   --grain-soft: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http://www.w3.org/2000/svg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27n%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.9%27%20numOctaves%3D%273%27%20stitchTiles%3D%27stitch%27/%3E%3CfeColorMatrix%20type%3D%27saturate%27%20values%3D%270%27/%3E%3C/filter%3E%3Crect%20width%3D%27160%27%20height%3D%27160%27%20filter%3D%27url%28%23n%29%27%20opacity%3D%270.22%27/%3E%3C/svg%3E");
   /* Header height, published by the Header so sheets/anchors can sit under it. */
-  --header-h: 69px;
+  --header-h: 89px;
 }
 
 @layer base {
@@ -286,7 +286,7 @@
   }
 
   /* Heading emphasis and display numerals — the same ink→brass gradient the
-     hero paints on its own `<em>` (HeroScenes.module.css `.copy em`), lifted
+     hero paints on its own `<em>` (hero/HeroWorkspace.module.css `.copy em`), lifted
      here so every section below the hero speaks the same language. Pair with
      `<em>` for the italic; `-dark` is the inverse, for dark grounds. */
   .gradient-text {
@@ -644,88 +644,21 @@
 
   /* --- Buttons --------------------------------------------------------- */
 
-  /* Primary "grain" button — aura enters upper-left, never crosses the label. */
+  /* Black-and-gold resting surface; feedback is limited to pressing. */
   .btn-grain {
-    background-color: #111;
+    background-color: var(--color-ink);
     background-image: var(--grain),
-      radial-gradient(
-        140% 190% at 12% 0%,
-        rgba(201, 162, 39, 0.42),
-        rgba(201, 162, 39, 0) 68%
-      );
+      radial-gradient(140% 190% at 12% 0%, rgba(201, 162, 39, 0.25), transparent 68%);
     background-blend-mode: soft-light, normal;
-    color: #fff;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16), 0 10px 26px -12px rgba(201, 162, 39, 0.5);
-    transition:
-      background-image 0.4s ease,
-      box-shadow 0.4s var(--ease-out-expo),
-      transform 0.24s var(--ease-out-expo);
-  }
-  .btn-grain:hover {
-    background-image: var(--grain),
-      radial-gradient(
-        150% 210% at 30% 0%,
-        rgba(201, 162, 39, 0.62),
-        rgba(201, 162, 39, 0) 72%
-      );
-    color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18), 0 18px 40px -14px rgba(201, 162, 39, 0.72);
-  }
-  /* Slightly tighter aura for the compact header CTA. */
-  .btn-grain-sm {
-    background-image: var(--grain),
-      radial-gradient(
-        140% 190% at 12% 0%,
-        rgba(201, 162, 39, 0.4),
-        rgba(201, 162, 39, 0) 68%
-      );
-  }
-  .btn-grain-sm:hover {
-    background-image: var(--grain),
-      radial-gradient(
-        150% 210% at 30% 0%,
-        rgba(201, 162, 39, 0.6),
-        rgba(201, 162, 39, 0) 72%
-      );
+    color: var(--color-white);
+    border: 1px solid var(--color-ink);
   }
 
-  /* Shared press physics for every button-like control. */
-  .btn-press {
-    transform: translateZ(0);
-    transition:
-      transform 0.24s var(--ease-out-expo),
-      box-shadow 0.4s var(--ease-out-expo),
-      background-color 0.3s ease,
-      border-color 0.3s ease,
-      color 0.3s ease;
+  :where(button, .btn-press) {
+    transition: box-shadow 100ms ease;
   }
-  .btn-press:hover {
-    transform: translateY(-2px);
-  }
-  .btn-press:active {
-    transform: translateY(0) scale(0.985);
-    transition-duration: 0.09s;
-  }
-
-  /* Click ripple — a single expanding ring, positioned at the pointer. */
-  .ripple {
-    position: absolute;
-    border-radius: 9999px;
-    transform: translate(-50%, -50%) scale(0);
-    background: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 0.55),
-      rgba(255, 255, 255, 0) 70%
-    );
-    animation: ripple-out 0.62s var(--ease-out-soft) forwards;
-    pointer-events: none;
-  }
-  .ripple-ink {
-    background: radial-gradient(
-      circle,
-      rgba(17, 17, 17, 0.18),
-      rgba(17, 17, 17, 0) 70%
-    );
+  :where(button, .btn-press):active:not(:disabled):not([aria-disabled="true"]) {
+    box-shadow: inset 0 0 0 2px var(--color-brass);
   }
 
   /* --- Forms --- */
@@ -828,8 +761,6 @@
   }
   .card-surface:hover,
   .card-surface:focus-within,
-  .btn-press:hover,
-  .btn-press:active,
   .card-lift:hover {
     transform: none !important;
   }

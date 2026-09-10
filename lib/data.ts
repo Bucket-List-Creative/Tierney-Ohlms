@@ -68,9 +68,20 @@ export async function getHomeData(): Promise<HomeData> {
         },
       }
     : fb.home;
+  // Our Story is a core route; older CMS menus may predate its launch.
+  const resolvedNav = nav ?? fb.nav;
+  const navItems = [...(resolvedNav.items?.length ? resolvedNav.items : fb.nav.items)];
+  if (!navItems.some((item) => item.href.replace(/\/$/, "") === "/about")) {
+    const servicesIndex = navItems.findIndex((item) => item.href === "/services");
+    navItems.splice(servicesIndex >= 0 ? servicesIndex + 1 : 0, 0, {
+      label: "Our Story",
+      href: "/about",
+    });
+  }
+
   return {
     site: site ?? fb.site,
-    nav: nav ?? fb.nav,
+    nav: { ...resolvedNav, items: navItems },
     home: mergedHome,
     services: services?.length ? services : fb.services,
     features: features?.length ? features : fb.features,

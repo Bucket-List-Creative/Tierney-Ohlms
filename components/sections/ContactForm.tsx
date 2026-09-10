@@ -180,7 +180,7 @@ export function ContactForm({
             setErrors({});
             setStatus("idle");
           }}
-          className="link-line text-[13px] font-semibold uppercase tracking-[.08em] text-brass transition-colors duration-300 hover:text-ink"
+          className="text-[13px] font-semibold uppercase tracking-[.08em] text-brass"
         >
           Send another message
         </button>
@@ -306,7 +306,7 @@ export function ContactForm({
         <LineIcon
           name="arrow-right"
           size={17}
-          className="transition-transform duration-300 group-hover/btn:translate-x-1"
+          className="transition-transform duration-300"
         />
       </Button>
 

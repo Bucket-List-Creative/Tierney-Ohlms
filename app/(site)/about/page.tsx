@@ -9,9 +9,7 @@ import { MediaFrame } from "@/components/primitives/MediaFrame";
 import { IconTile } from "@/components/primitives/IconTile";
 import { Reveal } from "@/components/primitives/Reveal";
 import { TextReveal, FadeIn } from "@/components/motion/TextReveal";
-import { Magnetic } from "@/components/motion/Magnetic";
 import { LineIcon } from "@/components/icons/LineIcon";
-import type { IconKey } from "@/components/icons/registry";
 import type { Founder } from "@/lib/types";
 import paulOhlmsPhoto from "@/public/img/Paul Ohlms.jpg";
 import danTierneyPhoto from "@/public/img/Dan Tierney.jpg";
@@ -37,9 +35,6 @@ function paragraphs(body?: string): string[] {
     .map((p) => p.trim())
     .filter(Boolean);
 }
-
-/** One icon per promise, in order; extra promises fall back to a check. */
-const PROMISE_ICONS: IconKey[] = ["clock", "automation", "peace"];
 
 const FOUNDER_PHOTOS = {
   "Paul Ohlms": paulOhlmsPhoto,
@@ -102,16 +97,16 @@ export default async function AboutPage() {
 
             <Reveal delay={420} duration={700} className="mt-1">
               <div className="flex flex-wrap gap-3.5">
-                <Magnetic strength={0.24}>
+                <span className="inline-flex">
                   <Button href="/#contact" variant="primary">
                     Get Started
                     <LineIcon
                       name="arrow-right"
                       size={17}
-                      className="transition-transform duration-300 group-hover/btn:translate-x-1"
+                      className="transition-transform duration-300"
                     />
                   </Button>
-                </Magnetic>
+                </span>
                 <Button href="/services" variant="secondary">
                   Explore Services
                 </Button>
@@ -245,21 +240,13 @@ export default async function AboutPage() {
           className="mb-12"
           showEyebrowRule={false}
         />
-        <div className="grid grid-cols-3 gap-6 max-[900px]:grid-cols-1">
-          {promises.items.map((item, i) => (
-            <Reveal key={item} variant="up" delay={i * 80} duration={800}>
-              <article className="group flex h-full flex-col gap-5 rounded-panel border border-rule bg-white/75 p-8 shadow-[var(--shadow-rest)] backdrop-blur-sm transition-all duration-[450ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:border-gold/55 hover:bg-white hover:shadow-[var(--shadow-gold)] max-[767px]:p-7">
-                <div className="flex items-center justify-between">
-                  <IconTile icon={PROMISE_ICONS[i] ?? "check"} tile={52} size={24} />
-                  <span className="font-mono text-[13px] font-medium tracking-[0.1em] text-brass transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                </div>
-                <p className="m-0 text-[15.5px] leading-relaxed text-slate">{item}</p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal variant="up" duration={800}>
+          <article className="mx-auto flex max-w-[900px] flex-col items-center gap-6 rounded-panel border border-gold/45 bg-goldwash p-12 text-center max-[767px]:p-7">
+            <IconTile icon="clock" tile={64} size={30} />
+            <span className="font-display text-[clamp(64px,10vw,112px)] font-medium leading-none text-ink">24 hours</span>
+            <p className="m-0 max-w-[58ch] text-[18px] leading-relaxed text-slate">{promises.items[0]}</p>
+          </article>
+        </Reveal>
       </Section>
 
       {/* The first client */}
