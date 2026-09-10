@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { playfair, inter, jetbrainsMono } from "@/lib/fonts";
+import { poppins, jetbrainsMono } from "@/lib/fonts";
 import { siteIsLive, siteUrl } from "@/lib/seo/urls";
 import "./globals.css";
 
@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${poppins.variable} ${jetbrainsMono.variable}`}
     >
       <body>
         {/* Scroll entrances are inline-styled from the client. Without JS they

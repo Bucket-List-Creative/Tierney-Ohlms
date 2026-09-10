@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Button } from "@/components/primitives/Button";
 import { Orb } from "@/components/layout/Section";
-import { Magnetic } from "@/components/motion/Magnetic";
 import { Reveal } from "@/components/primitives/Reveal";
 import { LineIcon } from "@/components/icons/LineIcon";
 
@@ -43,16 +42,16 @@ export default function NotFound() {
         </Reveal>
         <Reveal delay={320} duration={800} className="mt-2">
           <div className="flex flex-wrap justify-center gap-4">
-            <Magnetic strength={0.24}>
+            <span className="inline-flex">
               <Button href="/" variant="inverse">
                 Back to Home
                 <LineIcon
                   name="arrow-right"
                   size={17}
-                  className="transition-transform duration-300 group-hover/btn:translate-x-1"
+                  className="transition-transform duration-300"
                 />
               </Button>
-            </Magnetic>
+            </span>
             <Button href="/#contact" variant="inverse-outline">
               Contact Us
             </Button>

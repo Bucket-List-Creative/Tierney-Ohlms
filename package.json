@@ -11,7 +11,9 @@
     "seed": "sanity dataset import scripts/seed.ndjson tierney-ohlms --replace",
     "sanity:deploy": "sanity deploy",
     "sanity:push": "node scripts/push-content.mjs",
-    "sanity:push:dry": "node scripts/push-content.mjs --dry-run"
+    "sanity:push:dry": "node scripts/push-content.mjs --dry-run",
+    "sanity:sync": "node scripts/push-content.mjs --patch-file scripts/positioning-updates.json",
+    "sanity:sync:check": "npm run sanity:sync -- --validate-only"
   },
   "dependencies": {
     "@sanity/icons": "^5.2.0",
