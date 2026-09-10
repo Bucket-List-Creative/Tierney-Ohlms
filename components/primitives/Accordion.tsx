@@ -31,7 +31,7 @@ export function Accordion({
           <div
             key={i}
             className={cn(
-              "group border-b border-rule transition-[padding] duration-300 hover:pl-3",
+              "group border-b border-rule",
             )}
           >
             <h3 className="m-0">

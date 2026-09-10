@@ -7,7 +7,6 @@ import { Button } from "@/components/primitives/Button";
 import { Reveal } from "@/components/primitives/Reveal";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 import { TextReveal, FadeIn } from "@/components/motion/TextReveal";
-import { Magnetic } from "@/components/motion/Magnetic";
 import { Parallax } from "@/components/motion/Parallax";
 import { LineIcon } from "@/components/icons/LineIcon";
 import { IconTile } from "@/components/primitives/IconTile";
@@ -133,16 +132,16 @@ export default async function ServiceDetailPage({
 
               <Reveal delay={420} duration={700} className="mt-2">
                 <div className="flex flex-wrap gap-3.5">
-                  <Magnetic strength={0.24}>
+                  <span className="inline-flex">
                     <Button href="/#contact" variant="primary">
                       Get Started
                       <LineIcon
                         name="arrow-right"
                         size={17}
-                        className="transition-transform duration-300 group-hover/btn:translate-x-1"
+                        className="transition-transform duration-300"
                       />
                     </Button>
-                  </Magnetic>
+                  </span>
                   <Button href={site.phoneHref} variant="secondary">
                     <LineIcon name="phone" size={16} />
                     Call {site.phone}
@@ -286,14 +285,14 @@ export default async function ServiceDetailPage({
               <span className="eyebrow">Keep exploring</span>
             </Reveal>
             <TextReveal
-              text="The rest of the ladder."
-              emphasis="the ladder."
+              text="More ways we can help."
+              emphasis="help."
               className="m-0 font-display text-[clamp(28px,3vw,40px)] font-medium leading-[1.14]"
             />
             <Reveal delay={160} duration={800}>
               <p className="m-0 text-[15.5px] leading-relaxed text-slate">
-                Every service stands on its own, and they stack. Start where you are
-                today, and add the next rung when you&rsquo;re ready.
+                Build a scope around your team, from accounting support and full
+                outsourcing to shared services, with add-ons where needed.
               </p>
             </Reveal>
           </header>
@@ -311,7 +310,7 @@ export default async function ServiceDetailPage({
 
           <div className="mt-11">
             <Button href="/services" variant="secondary" size="sm">
-              See the full service ladder
+              Find your entry point
               <LineIcon name="arrow-right" size={15} />
             </Button>
           </div>

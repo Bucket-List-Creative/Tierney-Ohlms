@@ -50,7 +50,7 @@
   flex-direction: column;
   align-items: center;
   color: var(--color-ink);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-sans);
   font-weight: 800;
   line-height: 0.82;
   letter-spacing: -0.065em;

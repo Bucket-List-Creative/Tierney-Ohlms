@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/primitives/Button";
-import { Magnetic } from "@/components/motion/Magnetic";
 import { useRafScroll } from "@/lib/motion";
 import { cn } from "@/lib/cn";
 import type { Navigation } from "@/lib/types";
@@ -14,15 +13,15 @@ import type { Navigation } from "@/lib/types";
  * ground and traces read-progress along its lower edge. Nav links
  * underline on hover and stay marked while their section owns the viewport.
  *
- * Full nav shows at ≥880px; below that it collapses into a sheet. The sheet
+ * Full nav shows at ≥1200px; below that it collapses into a sheet. The sheet
  * renders as a sibling of <header>, not inside it: the header's backdrop blur
  * makes it a containing block for fixed children, which would pin the sheet to
- * the ~70px header box instead of the viewport.
+ * the header box instead of the viewport.
  */
 export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [headerH, setHeaderH] = useState(69);
+  const [headerH, setHeaderH] = useState(89);
   const [active, setActive] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
   const railRef = useRef<HTMLSpanElement>(null);
@@ -47,7 +46,7 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
 
     // The section that owns the line just under the header wins.
     if (anchorKey) {
-      const line = y + (headerRef.current?.offsetHeight ?? 69) + 24;
+      const line = y + (headerRef.current?.offsetHeight ?? 89) + 24;
       let current: string | null = null;
       for (const id of anchorKey.split(",")) {
         const el = document.getElementById(id);
@@ -80,7 +79,7 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
       if (e.key === "Escape") setMenuOpen(false);
     };
     // Passing the breakpoint reveals the desktop nav; drop the sheet with it.
-    const mq = window.matchMedia("(min-width: 880px)");
+    const mq = window.matchMedia("(min-width: 1200px)");
     const onChange = () => mq.matches && setMenuOpen(false);
     document.addEventListener("keydown", onKey);
     mq.addEventListener("change", onChange);
@@ -91,7 +90,12 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
     };
   }, [menuOpen]);
 
-  const pad = scrolled ? 7 : 8;
+  const pad = scrolled ? 17 : 18;
+  const isSectionLink = (href: string) => href.startsWith("/#") || href.startsWith("#");
+  const linkGroups = [
+    { label: "Pages", items: nav.items.filter((item) => !isSectionLink(item.href)) },
+    { label: "Explore the homepage", items: nav.items.filter((item) => isSectionLink(item.href)) },
+  ].filter((group) => group.items.length > 0);
   const portal =
     nav.portalHref && nav.portalLabel
       ? { href: nav.portalHref, label: nav.portalLabel }
@@ -117,12 +121,12 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
         style={{ backdropFilter: "blur(18px) saturate(1.6)" }}
       >
         <div
-          className="container-x flex items-center justify-between gap-3 transition-[padding,gap] duration-[400ms] ease-out"
+          className="container-x flex w-full items-center justify-between gap-3 min-[1200px]:gap-8 transition-[padding,gap] duration-[400ms] ease-out"
           style={{ paddingTop: pad, paddingBottom: pad }}
         >
           <Link
             href="/"
-            className="group/mark relative whitespace-nowrap font-display text-[18px] leading-tight tracking-[0.01em] text-ink"
+            className="group/mark relative shrink-0 whitespace-nowrap font-display text-[18px] leading-tight tracking-[0.01em] text-ink"
           >
             {wordmark}
             <span
@@ -131,60 +135,36 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
             />
           </Link>
 
-          {/* Desktop nav (≥880px) */}
-          <nav className="hidden items-center gap-0 text-[12px] font-medium min-[880px]:flex">
-            {nav.items.map((item) => {
-              const on = isActive(item.href);
-              return (
-                <Link
-                  key={item.href + item.label}
-                  href={item.href}
-                  aria-current={on ? "page" : undefined}
-                  className={cn(
-                    "group/nav relative px-2 py-1.5 transition-colors duration-300",
-                    on ? "text-ink" : "text-slate hover:text-ink",
-                  )}
-                >
-                  {item.label}
-                  {/* Hover: sweeps in from the left. Active: stays put. */}
-                  <span
-                    aria-hidden
-                    className={cn(
-                      "absolute bottom-0.5 left-2 right-2 h-px bg-gradient-to-r from-brass to-gold transition-transform duration-[450ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
-                      on
-                        ? "scale-x-100"
-                        : "origin-right scale-x-0 group-hover/nav:origin-left group-hover/nav:scale-x-100",
-                    )}
-                  />
-                </Link>
-              );
-            })}
-
-            <span className="mx-1.5 h-4 w-px bg-rule" aria-hidden />
-
-            {portal && (
-              <Button
-                href={portal.href}
-                size="sm"
-                variant="secondary"
-                className="!px-3 !py-1.5 !text-[12px]"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {portal.label}
-                <ExternalGlyph />
-              </Button>
-            )}
-            <Magnetic strength={0.22} className="ml-0.5">
-              <Button href={nav.ctaHref} size="sm" className="btn-grain-sm !px-3 !py-1.5 !text-[12px]">
-                {nav.ctaLabel}
-              </Button>
-            </Magnetic>
+          {/* Keep page links, homepage sections, and actions in distinct groups. */}
+          <nav aria-label="Main navigation" className="hidden items-center gap-8 whitespace-nowrap text-[12px] font-medium min-[1200px]:flex">
+            {linkGroups.map((group) => (
+              <ul key={group.label} aria-label={group.label} className="m-0 flex list-none items-center gap-4 p-0">
+                {group.items.map((item) => {
+                  const on = isActive(item.href);
+                  return (
+                    <li key={item.href + item.label}>
+                      <Link href={item.href} aria-current={on ? (isSectionLink(item.href) ? "location" : "page") : undefined}
+                        className={cn("inline-flex border-b py-2", on ? "border-brass text-ink" : "border-transparent text-slate")}>
+                        {item.label}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            ))}
+            <div className="ml-2 flex items-center gap-3">
+              {portal && (
+                <Button href={portal.href} size="sm" variant="secondary" className="!px-3 !py-2 !text-[12px]" target="_blank" rel="noopener noreferrer">
+                  {portal.label}<ExternalGlyph />
+                </Button>
+              )}
+              <Button href={nav.ctaHref} size="sm" className="!px-3 !py-2 !text-[12px]">{nav.ctaLabel}</Button>
+            </div>
           </nav>
 
-          {/* Mobile bar (<880px): CTA stays visible + hamburger */}
-          <div className="flex items-center gap-2 min-[880px]:hidden">
-            <Button href={nav.ctaHref} size="sm" className="btn-grain-sm max-[479px]:px-4">
+          {/* Mobile bar (<1200px): CTA stays visible + hamburger */}
+          <div className="flex items-center gap-2 min-[1200px]:hidden">
+            <Button href={nav.ctaHref} size="sm" className="max-[479px]:px-4">
               <span className="max-[479px]:hidden">{nav.ctaLabel}</span>
               <span className="hidden max-[479px]:inline">Contact</span>
             </Button>
@@ -194,7 +174,7 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
               aria-expanded={menuOpen}
               aria-controls="mobile-nav"
               onClick={() => setMenuOpen((v) => !v)}
-              className="flex h-11 w-11 items-center justify-center rounded-input border border-rule bg-white/70 text-ink transition-colors duration-300 hover:border-stroke active:scale-95"
+              className="flex h-11 w-11 items-center justify-center rounded-input border border-rule bg-white/70 text-ink transition-colors duration-300"
             >
               <MenuGlyph open={menuOpen} />
             </button>
@@ -214,42 +194,24 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
         id="mobile-nav"
         hidden={!menuOpen}
         style={{ top: headerH }}
-        className="container-x mesh-quiet fixed inset-x-0 bottom-0 z-[95] flex flex-col overflow-y-auto overscroll-contain pb-[max(2rem,env(safe-area-inset-bottom))] pt-6 min-[880px]:hidden"
+        className="container-x mesh-quiet fixed inset-x-0 bottom-0 z-[95] flex flex-col overflow-y-auto overscroll-contain pb-[max(2rem,env(safe-area-inset-bottom))] pt-6 min-[1200px]:hidden"
       >
-        <nav className="flex flex-col">
-          {nav.items.map((item, i) => (
-            <Link
-              key={item.href + item.label}
-              href={item.href}
-              onClick={() => setMenuOpen(false)}
-              style={{
-                transition:
-                  "opacity 520ms cubic-bezier(0.16,1,0.3,1), transform 520ms cubic-bezier(0.16,1,0.3,1)",
-                transitionDelay: menuOpen ? `${60 + i * 45}ms` : "0ms",
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? "translateY(0)" : "translateY(14px)",
-              }}
-              className="group/row flex items-center justify-between gap-4 border-b border-rule py-4 text-lg font-medium text-ink"
-            >
-              {item.label}
-              <span
-                aria-hidden
-                className="text-stroke transition-transform duration-300 group-active/row:translate-x-1"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="m9 18 6-6-6-6" />
-                </svg>
-              </span>
-            </Link>
+        <nav aria-label="Mobile navigation" className="flex flex-col gap-7">
+          {linkGroups.map((group) => (
+            <div key={group.label}>
+              <p className="m-0 pb-2 text-[11px] font-semibold uppercase tracking-[.14em] text-brass">{group.label}</p>
+              <ul aria-label={group.label} className="m-0 list-none p-0">
+                {group.items.map((item) => (
+                  <li key={item.href + item.label}>
+                    <Link href={item.href} onClick={() => setMenuOpen(false)}
+                      aria-current={isActive(item.href) ? (isSectionLink(item.href) ? "location" : "page") : undefined}
+                      className={cn("flex items-center justify-between gap-4 border-b border-rule py-4 text-lg font-medium", isActive(item.href) ? "text-brass" : "text-ink")}>
+                      {item.label}<span aria-hidden className="text-brass">↗</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </nav>
         <div
@@ -295,7 +257,7 @@ function ExternalGlyph() {
       strokeWidth="2.25"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="opacity-60 transition-transform duration-300 group-hover/btn:translate-x-[1px] group-hover/btn:-translate-y-[1px]"
+      className="opacity-60 transition-transform duration-300"
       aria-hidden
     >
       <path d="M7 17 17 7" />

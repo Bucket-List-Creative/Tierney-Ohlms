@@ -45,6 +45,40 @@ const apiVersion = pick("NEXT_PUBLIC_SANITY_API_VERSION") || "2025-01-01";
 const token = pick("SANITY_API_WRITE_TOKEN");
 const dryRun = process.argv.includes("--dry-run");
 
+const docs = readFileSync(resolve(root, "scripts/seed.ndjson"), "utf8")
+  .split("\n")
+  .map((line) => line.trim())
+  .filter(Boolean)
+  .map((line) => JSON.parse(line));
+
+// A targeted update changes only the supplied fields, preserving all others.
+const patchFileIndex = process.argv.indexOf("--patch-file");
+const patchFile = patchFileIndex >= 0 ? process.argv[patchFileIndex + 1] : null;
+if (patchFileIndex >= 0 && (!patchFile || patchFile.startsWith("--"))) {
+  throw new Error("--patch-file requires a JSON file path");
+}
+const mutations = patchFile
+  ? JSON.parse(readFileSync(resolve(root, patchFile), "utf8"))
+  : docs.map((doc) => ({ createOrReplace: doc }));
+if (patchFile && (!Array.isArray(mutations) || mutations.some((m) =>
+  !m.patch?.id || !m.patch?.set || Object.keys(m).some((k) => k !== "patch") ||
+  Object.keys(m.patch).some((k) => !["id", "set"].includes(k))
+))) {
+  throw new Error("Patch file must contain only field-level id/set patches");
+}
+
+// Initialize missing target documents without replacing anything already in Studio.
+const requestMutations = patchFile ? mutations.flatMap((mutation) => {
+  const seed = docs.find((doc) => doc._id === mutation.patch.id);
+  if (!seed) throw new Error(`No seed document for ${mutation.patch.id}`);
+  return [{ createIfNotExists: seed }, mutation];
+}) : mutations;
+
+if (process.argv.includes("--validate-only")) {
+  console.log(`Validated ${mutations.length} ${patchFile ? "targeted patches" : "seed documents"}; no network requests made.`);
+  process.exit(0);
+}
+
 if (!projectId) {
   console.error("Missing NEXT_PUBLIC_SANITY_PROJECT_ID.");
   process.exit(1);
@@ -58,30 +92,28 @@ if (!token) {
   process.exit(1);
 }
 
-const docs = readFileSync(resolve(root, "scripts/seed.ndjson"), "utf8")
-  .split("\n")
-  .map((line) => line.trim())
-  .filter(Boolean)
-  .map((line) => JSON.parse(line));
-
-const mutations = docs.map((doc) => ({ createOrReplace: doc }));
-
 const url =
   `https://${projectId}.api.sanity.io/v${apiVersion}/data/mutate/${dataset}` +
   `?returnIds=true${dryRun ? "&dryRun=true" : ""}`;
 
-const res = await fetch(url, {
-  method: "POST",
-  headers: {
-    Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({ mutations }),
-});
-
-const body = await res.json();
-if (!res.ok || body.error) {
-  console.error("Push failed:", JSON.stringify(body, null, 2));
+try {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ mutations: requestMutations }),
+    signal: AbortSignal.timeout(30000),
+  });
+  const body = await res.json();
+  if (!res.ok || body.error) {
+    console.error(`Sanity sync failed (HTTP ${res.status}). Check token permissions and patch validation.`);
+    process.exit(1);
+  }
+} catch (error) {
+  // Never dump request objects: SDK/network errors can contain auth headers.
+  console.error("Sanity sync could not complete:", error.cause?.code ?? error.name);
   process.exit(1);
 }
 
@@ -91,8 +123,8 @@ const counts = docs.reduce((acc, d) => {
 }, {});
 
 console.log(
-  `${dryRun ? "[dry run] " : ""}Pushed ${docs.length} documents to ${projectId}/${dataset}:`,
+  `${dryRun ? "[dry run] " : ""}Applied ${mutations.length} ${patchFile ? "targeted patches" : "documents"} to ${projectId}/${dataset}:`,
 );
-for (const [type, n] of Object.entries(counts).sort()) {
+for (const [type, n] of (patchFile ? [] : Object.entries(counts).sort())) {
   console.log(`  ${type.padEnd(14)} ${n}`);
 }
