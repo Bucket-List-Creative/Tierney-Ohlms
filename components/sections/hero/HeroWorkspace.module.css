@@ -15,7 +15,7 @@
      --fade         document opacity for one chapter
      --copyFade --copyRise --copyScale   the headline plane
      --fgDolly --fgFade                  the foreground papers
-     --clarity --exit                    ground crispness, handoff to Services
+     --clarity                           ground crispness
    =========================================================================== */
 
 :root,
@@ -51,7 +51,6 @@
   --px: 0;
   --py: 0;
   --clarity: 0;
-  --exit: 0;
   --fgDolly: 0px;
   --fgFade: 1;
 }
@@ -719,32 +718,15 @@
 
 /* ------------------------------------------------------- exit + chrome --- */
 
-/* The handoff into Services.
+/* The foot of the workspace. Its only job is to settle documents that drift
+   past the bottom edge into the paper — it is NOT a transition.
 
-   Short on purpose. Any long ramp from near-white paper to black passes
-   through grey for its whole length, which is exactly the muddy field this
-   replaced — softening the gradient only makes MORE grey. So this is a 140px
-   edge treatment in the Services palette (#0b0a08 -> #000 with its gold cast
-   and grain), arriving only in the last stretch of the runway. The hero stays
-   clean paper right up to the boundary, and the boundary itself has no seam.
-
-   To drop the blend entirely and butt paper straight against Services, delete
-   this rule and its <div> in Hero.tsx; nothing else depends on it. */
-.veil {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 3;
-  height: 140px;
-  background-image: var(--grain),
-    radial-gradient(80% 140% at 22% 100%, rgba(201, 162, 39, 0.3), rgba(201, 162, 39, 0) 66%),
-    linear-gradient(180deg, rgba(11, 10, 8, 0) 0%, #0b0a08 62%, #000 100%);
-  background-blend-mode: soft-light, normal, normal;
-  opacity: var(--exit);
-  pointer-events: none;
-}
-
+   The hero deliberately ends on clean paper and lets Services start at its
+   own boundary with its own surface. Painting an approximation of that
+   surface down here cannot work: `.mesh-dark` positions its gold radial
+   against its own box, so a copy inside the hero never lines up, and you get
+   a visible seam with a grey band above it. Every other section on the site
+   changes ground on a crisp edge; this one does too. */
 .fade {
   position: absolute;
   right: 0;
@@ -753,8 +735,6 @@
   z-index: 3;
   height: 100px;
   background: linear-gradient(transparent, #faf8f5);
-  /* Hands the bottom edge over to the veil rather than mixing with it. */
-  opacity: calc(1 - var(--exit));
   pointer-events: none;
 }
 .cue {
@@ -958,8 +938,7 @@
     opacity: 0.35;
   }
   .foreground,
-  .cue,
-  .veil {
+  .cue {
     display: none;
   }
   .noteSway,

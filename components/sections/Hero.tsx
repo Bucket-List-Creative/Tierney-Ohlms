@@ -330,9 +330,8 @@ export function Hero({ hero }: { hero: HeroData }) {
           </Foreground>
         </div>
 
-        {/* ---- Handoff ---------------------------------------------- */}
+        {/* ---- Foot of the workspace --------------------------------- */}
         <div aria-hidden className={styles.fade} />
-        <div aria-hidden className={styles.veil} />
         <div aria-hidden className={styles.cue}>
           <svg viewBox="0 0 24 24">
             <path d="M12 5v14M6 13l6 6 6-6" />

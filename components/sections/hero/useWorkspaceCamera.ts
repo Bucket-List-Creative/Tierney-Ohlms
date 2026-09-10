@@ -117,7 +117,9 @@ export function useWorkspaceCamera({
         // looking at an empty frame between the two.
         const bArrive = outCubic(span(p, 0.4, 0.6));
         const bAdvance = span(p, 0.4, 1);
-        const bExit = push(span(p, 0.86, 1));
+        // Held late on purpose: the boundary into Services should arrive while
+        // the workspace is still visibly departing, not after a blank beat.
+        const bExit = push(span(p, 0.9, 1));
         set(panelB, "--dolly", `${((1 - bArrive) * -780 + bExit * 520).toFixed(1)}px`);
         set(panelB, "--spread", bExit.toFixed(4));
         set(panelB, "--scatter", (0.34 - outCubic(bAdvance) * 0.3).toFixed(4));
@@ -125,7 +127,7 @@ export function useWorkspaceCamera({
         set(
           panelB,
           "--copyFade",
-          (span(p, 0.48, 0.6) * (1 - span(p, 0.88, 1))).toFixed(4),
+          (span(p, 0.48, 0.6) * (1 - span(p, 0.89, 0.99))).toFixed(4),
         );
         set(panelB, "--copyRise", `${(bExit * -40).toFixed(1)}px`);
         set(panelB, "--copyScale", (1 + bExit * 0.05).toFixed(4));
@@ -138,7 +140,6 @@ export function useWorkspaceCamera({
         set(viewport, "--fgFade", (1 - span(p, 0.16, 0.38)).toFixed(4));
         set(viewport, "--gDolly", `${(p * 140).toFixed(1)}px`);
         set(viewport, "--clarity", outCubic(p).toFixed(4));
-        set(viewport, "--exit", span(p, 0.88, 1).toFixed(4));
         set(viewport, "--cueFade", (1 - span(p, 0.02, 0.1)).toFixed(4));
 
         // Chapter two arms its micro-interactions as it comes into view, and
