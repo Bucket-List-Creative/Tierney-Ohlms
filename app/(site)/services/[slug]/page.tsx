@@ -84,7 +84,7 @@ export default async function ServiceDetailPage({
               <Reveal variant="left" duration={700}>
                 <nav
                   aria-label="Breadcrumb"
-                  className="flex flex-wrap items-center gap-2 font-mono text-[10px] uppercase tracking-[.14em] text-dark-label"
+                  className="flex flex-wrap items-center gap-2 font-mono text-[10px] max-[767px]:text-[11.5px] uppercase tracking-[.14em] text-dark-label"
                 >
                   <Link href="/" className="link-line transition-colors hover:text-ink">
                     Home
@@ -214,7 +214,7 @@ export default async function ServiceDetailPage({
             <Reveal variant="up" duration={850}>
               <div className="grid items-center gap-10 min-[981px]:grid-cols-[1fr_auto]">
                 <div>
-                  <span className="font-mono text-[11px] uppercase tracking-[.14em] text-gold">
+                  <span className="font-mono text-[11px] max-[767px]:text-[12px] uppercase tracking-[.14em] text-gold">
                     What you get
                   </span>
                   <p className="mb-0 mt-3 max-w-[46ch] font-display text-[clamp(21px,2.1vw,28px)] italic leading-snug">
@@ -259,7 +259,7 @@ export default async function ServiceDetailPage({
                   duration={850}
                 >
                   <article className="flex h-full flex-col gap-4 rounded-panel border border-rule bg-white p-8 transition duration-300 hover:-translate-y-[3px] hover:border-gold hover:shadow-[var(--shadow-hover)] max-[560px]:p-7">
-                    <span className="font-mono text-[10px] uppercase tracking-[.14em] text-dark-label">
+                    <span className="font-mono text-[10px] max-[767px]:text-[11.5px] uppercase tracking-[.14em] text-dark-label">
                       Engagement {String(i + 1).padStart(2, "0")}
                     </span>
                     <h3 className="m-0 font-display text-[22px] font-semibold text-ink">
@@ -358,10 +358,10 @@ function ServiceBrief({
   return (
     <article className="relative z-[1] flex flex-col gap-5 rounded-panel border border-rule bg-white p-8 shadow-[0_24px_48px_rgba(17,17,17,0.09)] max-[560px]:p-7">
       <div className="flex items-center justify-between gap-3">
-        <span className="font-mono text-[10px] uppercase tracking-[.14em] text-dark-label">
+        <span className="font-mono text-[10px] max-[767px]:text-[11.5px] uppercase tracking-[.14em] text-dark-label">
           Service brief
         </span>
-        <span className="font-mono text-[10px] uppercase tracking-[.14em] text-brass">
+        <span className="font-mono text-[10px] max-[767px]:text-[11.5px] uppercase tracking-[.14em] text-brass">
           {step} / {total}
         </span>
       </div>
@@ -369,7 +369,7 @@ function ServiceBrief({
       <IconTile icon={service.icon} tile={44} size={19} />
 
       <div className="flex flex-col gap-2">
-        <span className="font-mono text-[10px] uppercase tracking-[.14em] text-dark-label">
+        <span className="font-mono text-[10px] max-[767px]:text-[11.5px] uppercase tracking-[.14em] text-dark-label">
           Who it&rsquo;s for
         </span>
         <p className="m-0 text-[15px] leading-relaxed text-ink">
@@ -385,7 +385,7 @@ function ServiceBrief({
             key={label}
             className="flex min-h-[32px] items-center justify-between gap-4 border-b border-rule text-[12px] last:border-b-0"
           >
-            <span className="font-mono text-[10px] uppercase tracking-[.12em] text-dark-label">
+            <span className="font-mono text-[10px] max-[767px]:text-[11.5px] uppercase tracking-[.12em] text-dark-label">
               {label}
             </span>
             <span className="text-right text-ink">{value}</span>
@@ -420,7 +420,7 @@ function ServiceTeaser({ service, index }: { service: Service; index: number }) 
     >
       <div className="flex items-center justify-between">
         <IconTile icon={service.icon} tile={44} size={19} />
-        <span className="font-mono text-[10px] uppercase tracking-[.14em] text-dark-label">
+        <span className="font-mono text-[10px] max-[767px]:text-[11.5px] uppercase tracking-[.14em] text-dark-label">
           {String(index).padStart(2, "0")}
         </span>
       </div>

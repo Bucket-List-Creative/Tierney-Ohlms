@@ -40,7 +40,11 @@ export type Place = {
   o?: number;
   /** Height, for the foreground paper stock that has no interior. */
   h?: number;
-  /** Phone placement (<=600px). Falls back to the desktop values. */
+  /** Tablet placement (601-900px). Falls back to the desktop values. */
+  xm?: string;
+  ym?: string;
+  wm?: number;
+  /** Phone placement (<=600px). Falls back to the tablet, then desktop. */
   xs?: string;
   ys?: string;
   ws?: number;
@@ -67,6 +71,9 @@ function placeVars(p: Place): CSSProperties {
     "--sheen": p.sheen === undefined ? undefined : `${p.sheen}%`,
     "--o": p.o,
     "--h": px(p.h),
+    "--xm": p.xm,
+    "--ym": p.ym,
+    "--wm": p.wm === undefined ? undefined : `${p.wm}px`,
     "--xs": p.xs,
     "--ys": p.ys,
     "--ws": p.ws === undefined ? undefined : `${p.ws}px`,

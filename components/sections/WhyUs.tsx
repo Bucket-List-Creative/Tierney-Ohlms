@@ -32,7 +32,7 @@ export function WhyUs({ header, features }: { header: HeaderData; features: Feat
         </article>}
         {grid.map(feature => <article key={feature._id} className="flex flex-col gap-3.5 rounded-panel border border-rule bg-white p-6 transition duration-300 hover:-translate-y-[3px] hover:shadow-[var(--shadow-hover)]"><IconTile icon={feature.icon} tile={44} size={19}/><h3 className="m-0 font-display text-[18px] font-semibold">{feature.title}</h3><p className="m-0 text-[14px] leading-relaxed text-slate">{feature.description}</p></article>)}
         {closing && <article className="mesh-dark grid items-center gap-10 rounded-panel p-9 text-white min-[981px]:col-span-3 min-[981px]:grid-cols-[1fr_auto] max-[560px]:p-7">
-          <div><span className="font-mono text-[11px] uppercase tracking-[.14em] text-gold">{closing.title}</span><p className="mb-0 mt-3 max-w-[42ch] font-display text-[clamp(21px,2.1vw,28px)] italic leading-snug">{closing.description}</p></div>
+          <div><span className="font-mono text-[11px] max-[767px]:text-[12px] uppercase tracking-[.14em] text-gold">{closing.title}</span><p className="mb-0 mt-3 max-w-[42ch] font-display text-[clamp(21px,2.1vw,28px)] italic leading-snug">{closing.description}</p></div>
           <Button href="/#contact" variant="inverse">Talk to our team <LineIcon name="arrow-right" size={16}/></Button>
         </article>}
       </div>

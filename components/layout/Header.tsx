@@ -126,7 +126,7 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
         >
           <Link
             href="/"
-            className="group/mark relative shrink-0 whitespace-nowrap font-display text-[18px] leading-tight tracking-[0.01em] text-ink"
+            className="group/mark relative inline-flex min-h-11 shrink-0 items-center whitespace-nowrap font-display text-[18px] leading-tight tracking-[0.01em] text-ink"
           >
             {wordmark}
             <span
@@ -199,7 +199,7 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
         <nav aria-label="Mobile navigation" className="flex flex-col gap-7">
           {linkGroups.map((group) => (
             <div key={group.label}>
-              <p className="m-0 pb-2 text-[11px] font-semibold uppercase tracking-[.14em] text-brass">{group.label}</p>
+              <p className="m-0 pb-2 text-[11px] max-[767px]:text-[12px] font-semibold uppercase tracking-[.14em] text-brass">{group.label}</p>
               <ul aria-label={group.label} className="m-0 list-none p-0">
                 {group.items.map((item) => (
                   <li key={item.href + item.label}>

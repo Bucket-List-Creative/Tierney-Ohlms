@@ -42,13 +42,15 @@ const CHAPTER_ONE: Record<string, Place> = {
     x: "12%", y: "20%", w: 250, z: -180, o: 0.94,
     ox: -26, oy: 34, tx: 4, ty: 8, tz: -6,
     dx: -190, dy: -130, dz: 280, delay: 150, sheen: -12,
-    xs: "6%", ys: "9%", ws: 152,
+    xm: "20%", ym: "14%", wm: 200,
+    xs: "27%", ys: "10%", ws: 142,
   },
   books: {
     x: "88%", y: "18%", w: 240, z: -90,
     ox: 30, oy: -18, ty: -9, tz: 5,
     dx: 200, dy: -145, dz: 300, delay: 300, sheen: 8,
-    xs: "97%", ys: "13%", ws: 150,
+    xm: "80%", ym: "12%", wm: 195,
+    xs: "73%", ys: "14%", ws: 140,
   },
   note: {
     x: "31%", y: "16%", w: 174, z: 30,
@@ -59,12 +61,14 @@ const CHAPTER_ONE: Record<string, Place> = {
     x: "14%", y: "80%", w: 258, z: -250, o: 0.9,
     ox: 22, oy: 26, ty: 6, tz: 4,
     dx: -180, dy: 160, dz: 250, delay: 550, sheen: 14,
-    xs: "19%", ys: "93%", ws: 158,
+    xm: "22%", ym: "84%", wm: 205,
+    xs: "46%", ys: "83%", ws: 160,
   },
   invoice: {
     x: "87%", y: "78%", w: 246, z: 50,
     ox: -24, oy: 20, ty: -7, tz: -5,
     dx: 215, dy: 140, dz: 330, delay: 650, sheen: -6,
+    xm: "79%", ym: "86%", wm: 200,
   },
 };
 
@@ -73,13 +77,15 @@ const CHAPTER_TWO: Record<string, Place> = {
     x: "12.5%", y: "20%", w: 244, z: -170, o: 0.94,
     ox: 18, oy: -22, ty: 7, tz: -4,
     dx: -185, dy: -120, dz: 270, delay: 150, sheen: -10,
-    xs: "6%", ys: "9%", ws: 152,
+    xm: "20%", ym: "14%", wm: 200,
+    xs: "27%", ys: "10%", ws: 142,
   },
   review: {
     x: "87.5%", y: "22%", w: 238, z: -70,
     ox: -20, oy: 24, ty: -6, tz: 5,
     dx: 195, dy: -130, dz: 290, delay: 300, sheen: 10,
-    xs: "97%", ys: "13%", ws: 150,
+    xm: "80%", ym: "12%", wm: 195,
+    xs: "73%", ys: "14%", ws: 140,
   },
   seal: {
     x: "77%", y: "10%", w: 84, z: 70,
@@ -90,12 +96,14 @@ const CHAPTER_TWO: Record<string, Place> = {
     x: "13.5%", y: "79%", w: 258, z: -230, o: 0.92,
     ox: -16, oy: 20, ty: 6, tz: -3,
     dx: -175, dy: 155, dz: 250, delay: 550, sheen: 12,
-    xs: "19%", ys: "93%", ws: 158,
+    xm: "22%", ym: "84%", wm: 205,
+    xs: "46%", ys: "83%", ws: 160,
   },
   deadlines: {
     x: "87%", y: "77%", w: 248, z: -30,
     ox: 22, oy: -18, ty: -7, tz: 4,
     dx: 205, dy: 135, dz: 310, delay: 650, sheen: -4,
+    xm: "79%", ym: "86%", wm: 200,
   },
 };
 

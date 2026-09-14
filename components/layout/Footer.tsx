@@ -31,7 +31,10 @@ export function Footer({ site }: { site: SiteSettings }) {
               key={col.title}
               delay={80 + i * 70}
               duration={800}
-              className="flex flex-col gap-3"
+              // Touch pointers get 12px of padding on every .link-line, which
+              // already separates the rows; drop the gap so the column does not
+              // balloon on a phone.
+              className="flex flex-col gap-3 [@media(pointer:coarse)]:gap-0"
             >
               <div className="text-[13px] font-semibold uppercase tracking-[0.12em] text-dark-label">
                 {col.title}

@@ -50,7 +50,7 @@ export default async function ServicesPage() {
             <Reveal variant="left" duration={700}>
               <nav
                 aria-label="Breadcrumb"
-                className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-slate"
+                className="flex items-center gap-2 font-mono text-[11px] max-[767px]:text-[12px] uppercase tracking-[0.14em] text-slate"
               >
                 <Link href="/" className="link-line transition-colors hover:text-ink">
                   Home

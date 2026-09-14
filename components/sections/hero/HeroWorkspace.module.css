@@ -178,8 +178,8 @@
   transform: translate(-50%, -50%)
     translate3d(calc(var(--ox, 0px) * var(--scatter)), calc(var(--oy, 0px) * var(--scatter)), 0)
     translate3d(
-      calc(var(--dx, 0px) * var(--spread)),
-      calc(var(--dy, 0px) * var(--spread)),
+      calc(var(--dx, 0px) * var(--spread) * var(--dk, 1)),
+      calc(var(--dy, 0px) * var(--spread) * var(--dk, 1)),
       calc(var(--dz, 0px) * var(--spread) * var(--zk, 1))
     )
     translateZ(calc(var(--z, 0px) * var(--zk, 1)))
@@ -815,8 +815,16 @@
   .hideMd {
     display: none;
   }
+  /* Tablet gets its own placement for the same reason the phone does: the
+     desktop coordinates put a 250px card at 12% of a 768px stage, which hangs
+     it half off the edge. Same override-the-declaration trick, since the
+     coordinates are authored inline. */
   .doc {
+    left: var(--xm, var(--x));
+    top: var(--ym, var(--y));
+    width: var(--wm, var(--w));
     --zk: 0.7;
+    --dk: 0.7;
   }
   .copy p {
     font-size: 16px;
@@ -836,20 +844,27 @@
     display: none;
   }
   /* Placement is authored inline, so a media query cannot override the custom
-     property — it overrides the declarations that read it instead. Three
-     documents survive here, pushed into the corners and cropped by the frame
-     so the centre column belongs entirely to the type. */
+     property — it overrides the declarations that read it instead.
+
+     Three documents survive here, and unlike desktop they sit FULLY inside
+     the frame: a card cropped by the edge reads as depth on a 1440px stage
+     and as a broken layout at 390px. They occupy the two bands the centred
+     type leaves empty, above the eyebrow and below the lead.
+
+     --dk holds the drift back to match, so they travel with the camera
+     instead of leaving the screen on the first flick. */
   .doc {
-    left: var(--xs, var(--x));
-    top: var(--ys, var(--y));
-    width: var(--ws, var(--w));
+    left: var(--xs, var(--xm, var(--x)));
+    top: var(--ys, var(--ym, var(--y)));
+    width: var(--ws, var(--wm, var(--w)));
     --zk: 0.45;
+    --dk: 0.42;
     /* Held back so the headline always wins the contrast. */
-    opacity: calc(var(--fade) * 0.7);
+    opacity: calc(var(--fade) * 0.8);
   }
   .copy {
     gap: 14px;
-    padding: 0 20px 72px;
+    padding: 0 20px 40px;
   }
   .eyebrow {
     font-size: 10.5px;
