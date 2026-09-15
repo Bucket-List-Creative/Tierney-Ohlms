@@ -5,6 +5,7 @@ import { SectionHeader } from "@/components/sections/SectionHeader";
 import { TextReveal } from "@/components/motion/TextReveal";
 import { getPage, getPageSlugs } from "@/lib/data";
 import { absoluteUrl } from "@/lib/seo/urls";
+import { pageMetadata } from "@/lib/seo/metadata";
 
 type Params = { slug: string };
 
@@ -21,11 +22,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const page = await getPage(slug);
   if (!page) return {};
-  return {
-    alternates: { canonical: absoluteUrl(`/${slug}`) },
-    title: page.seo?.metaTitle ?? page.title,
-    description: page.seo?.metaDescription,
-  };
+  return pageMetadata({
+    path: `/${slug}`,
+    seo: page.seo,
+    fallbackTitle: page.title,
+  });
 }
 
 /** Generic content page — Services / Industries / About / Contact detail pages. */

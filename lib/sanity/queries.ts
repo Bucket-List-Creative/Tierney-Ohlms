@@ -14,6 +14,7 @@ const headerProjection = groq`{ eyebrow, heading, emphasis, lead }`;
 
 export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{
   wordmark,
+  ogImage${imageProjection},
   phone,
   phoneHref,
   email,

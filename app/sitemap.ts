@@ -3,6 +3,14 @@ import { getSitemapRoutes } from "@/lib/data";
 import { absoluteUrl, siteIsLive } from "@/lib/seo/urls";
 
 /**
+ * `output: export` refuses a metadata route that has not opted into being
+ * static. Everything here is build-time already — getSitemapRoutes() resolves at build time
+ * — so this is a declaration, not a behaviour change. Without it the
+ * GitHub Pages deploy fails at "Collecting page data".
+ */
+export const dynamic = "force-static";
+
+/**
  * Empty unless NEXT_PUBLIC_SITE_LIVE is exactly "true" — a preview build
  * should not hand a crawler a list of its URLs, and robots.txt does not
  * advertise this route while blocked.

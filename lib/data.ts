@@ -97,6 +97,17 @@ export async function getHomeData(): Promise<HomeData> {
  * ladder that links into it — and the local mirror keeps the pages alive
  * before Sanity is seeded.
  */
+/**
+ * The site-wide social share image, for pages with none of their own.
+ *
+ * Reads through `getHomeData`, which Next dedupes per request, so calling this
+ * from a `generateMetadata` that already renders other data is free.
+ */
+export async function getDefaultOgImage() {
+  const { site } = await getHomeData();
+  return site.ogImage ?? null;
+}
+
 export async function getService(slug: string): Promise<Service | null> {
   const { services } = await getHomeData();
   return services.find((s) => s.slug === slug) ?? null;
