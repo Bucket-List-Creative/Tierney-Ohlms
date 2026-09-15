@@ -169,7 +169,7 @@ export async function getPage(slug: string): Promise<GenericPage | null> {
 export type SitemapRoute = { path: string; lastModified?: string };
 
 /** Routes that exist regardless of CMS content. */
-const STATIC_ROUTES = ["/", "/about", "/services"];
+const STATIC_ROUTES = ["/", "/about", "/services", "/privacy", "/terms"];
 
 /**
  * Every indexable route, for app/sitemap.ts.

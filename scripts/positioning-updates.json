@@ -118,7 +118,7 @@
           "Systems & Automation"
         ],
         "seo.metaTitle": "Tierney & Ohlms | Outsourced Accounting & Controller Services",
-        "seo.metaDescription": "Outsourced accounting and controller services for companies with $2M–$300M in revenue, including bookkeeping, monthly close, reporting, and shared services.",
+        "seo.metaDescription": "Outsourced accounting and controller services for companies with $2M\u2013$300M in revenue, including bookkeeping, monthly close, reporting, and shared services.",
         "hero.eyebrow": "Outsourced Accounting & Controller Services",
         "servicesHeader.eyebrow": "Services",
         "servicesHeader.heading": "Everything, under one roof.",
@@ -165,7 +165,7 @@
     "patch": {
       "id": "faq-scale",
       "set": {
-        "answer": "Yes. We serve companies from $2 million to $300 million in revenue in different capacities. Companies around $2 million–$20 million often start with cleanup, support for their accounting team, or full outsourcing. Larger companies can engage us for shared services, with tax, payroll, and automation added where needed."
+        "answer": "Yes. We serve companies from $2 million to $300 million in revenue in different capacities. Companies around $2 million\u2013$20 million often start with cleanup, support for their accounting team, or full outsourcing. Larger companies can engage us for shared services, with tax, payroll, and automation added where needed."
       }
     }
   },
@@ -181,7 +181,7 @@
         ],
         "firstClient.heading": "A Bourbon Company and a banker's introduction.",
         "firstClient.body": "Our first non-family client was a bourbon company that needed financials a bank would trust to approve a loan. Their legacy firm was mostly tax preparers doing some accounting on the side, so the books were behind and not something a lender would accept. A local banker introduced us, and from the moment we met them the need was obvious. We cleaned up the prior financials, built out a full accounting process, and set a real close timeline. That experience validated the vision and became the foundation of the firm.",
-        "founders.people[name==\"Dan Tierney\"].bio": "Dan believes great accounting starts with understanding the people behind the business. A CPA and co-founder of Tierney & Ohlms, he takes the time to learn each client’s goals and challenges, then helps turn financial information into practical decisions. He and Paul built the firm around a shared conviction: small businesses deserve attentive service, modern tools, and clear financial insight. Dan brings that commitment to every client relationship, helping owners simplify their processes, regain time, and plan for growth with confidence."
+        "founders.people[name==\"Dan Tierney\"].bio": "Dan believes great accounting starts with understanding the people behind the business. A CPA and co-founder of Tierney & Ohlms, he takes the time to learn each client\u2019s goals and challenges, then helps turn financial information into practical decisions. He and Paul built the firm around a shared conviction: small businesses deserve attentive service, modern tools, and clear financial insight. Dan brings that commitment to every client relationship, helping owners simplify their processes, regain time, and plan for growth with confidence."
       }
     }
   },
@@ -224,6 +224,27 @@
             "_type": "linkItem",
             "href": "/#contact",
             "label": "Contact"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "patch": {
+      "id": "siteSettings",
+      "set": {
+        "legalLinks": [
+          {
+            "_key": "g1",
+            "_type": "linkItem",
+            "label": "Privacy Policy",
+            "href": "/privacy"
+          },
+          {
+            "_key": "g2",
+            "_type": "linkItem",
+            "label": "Terms of Service",
+            "href": "/terms"
           }
         ]
       }
