@@ -2,6 +2,14 @@ import type { MetadataRoute } from "next";
 import { absoluteUrl, siteIsLive } from "@/lib/seo/urls";
 
 /**
+ * `output: export` refuses a metadata route that has not opted into being
+ * static. Everything here is build-time already — siteIsLive is a build-time inlined NEXT_PUBLIC_ value
+ * — so this is a declaration, not a behaviour change. Without it the
+ * GitHub Pages deploy fails at "Collecting page data".
+ */
+export const dynamic = "force-static";
+
+/**
  * Blocked unless NEXT_PUBLIC_SITE_LIVE is exactly "true", so previews and any
  * environment missing the flag cannot be crawled. No sitemap is advertised
  * while blocked either — there is nothing there to crawl.

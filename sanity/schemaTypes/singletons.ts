@@ -60,6 +60,23 @@ export const siteSettings = defineType({
       group: "contact",
       validation: (r) => r.required(),
     }),
+    defineField({
+      name: "ogImage",
+      title: "Default social share image",
+      type: "image",
+      group: "brand",
+      description:
+        "Used when a page has no social image of its own. 1200x630 works everywhere. Without this, links to the site share with no image at all.",
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt text",
+          type: "string",
+          description: "Describes the image for screen readers and when it fails to load.",
+        }),
+      ],
+    }),
     defineField({ name: "hours", title: "Business hours", type: "string", group: "contact" }),
     defineField({
       name: "address",

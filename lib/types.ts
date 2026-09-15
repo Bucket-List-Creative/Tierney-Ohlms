@@ -99,6 +99,8 @@ export type GeoPoint = {
 
 export type SiteSettings = {
   wordmark: string;
+  /** Site-wide social share image, used when a page has none of its own. */
+  ogImage?: SanityImage | null;
   phone: string;
   phoneHref: string;
   email: string;

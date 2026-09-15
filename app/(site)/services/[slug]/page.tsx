@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getHomeData, getService, getServiceSlugs } from "@/lib/data";
+import { getDefaultOgImage, getHomeData, getService, getServiceSlugs } from "@/lib/data";
 import { Orb } from "@/components/layout/Section";
 import { Button } from "@/components/primitives/Button";
 import { Reveal } from "@/components/primitives/Reveal";
@@ -12,6 +12,7 @@ import { LineIcon } from "@/components/icons/LineIcon";
 import { IconTile } from "@/components/primitives/IconTile";
 import type { Service } from "@/lib/types";
 import { absoluteUrl } from "@/lib/seo/urls";
+import { pageMetadata } from "@/lib/seo/metadata";
 
 type Params = { slug: string };
 
@@ -29,11 +30,15 @@ export async function generateMetadata({
   const { slug } = await params;
   const service = await getService(slug);
   if (!service) return {};
-  return {
-    alternates: { canonical: absoluteUrl(`/services/${slug}`) },
-    title: service.seo?.metaTitle ?? service.title,
-    description: service.seo?.metaDescription ?? service.description,
-  };
+  return pageMetadata({
+    path: `/services/${slug}`,
+    seo: {
+      ...service.seo,
+      metaDescription: service.seo?.metaDescription ?? service.description,
+    },
+    fallbackTitle: service.title,
+    fallbackImage: await getDefaultOgImage(),
+  });
 }
 
 /**

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAboutPage, getHomeData } from "@/lib/data";
+import { getAboutPage, getDefaultOgImage, getHomeData } from "@/lib/data";
 import { Section, Orb } from "@/components/layout/Section";
 import { SectionHeader } from "@/components/sections/SectionHeader";
 import { CtaBanner } from "@/components/sections/CtaBanner";
@@ -14,14 +14,16 @@ import type { Founder } from "@/lib/types";
 import paulOhlmsPhoto from "@/public/img/Paul Ohlms.jpg";
 import danTierneyPhoto from "@/public/img/Dan Tierney.jpg";
 import { absoluteUrl } from "@/lib/seo/urls";
+import { pageMetadata } from "@/lib/seo/metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
   const about = await getAboutPage();
-  return {
-    alternates: { canonical: absoluteUrl("/about") },
-    title: about.seo?.metaTitle ?? "Our Story",
-    description: about.seo?.metaDescription,
-  };
+  return pageMetadata({
+    path: "/about",
+    seo: about.seo,
+    fallbackTitle: "Our Story",
+    fallbackImage: await getDefaultOgImage(),
+  });
 }
 
 /**

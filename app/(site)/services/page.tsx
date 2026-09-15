@@ -9,13 +9,16 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { TextReveal, FadeIn } from "@/components/motion/TextReveal";
 import { LineIcon } from "@/components/icons/LineIcon";
 import { absoluteUrl } from "@/lib/seo/urls";
+import { pageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  alternates: { canonical: absoluteUrl("/services") },
-  title: "Outsourced Accounting Services",
-  description:
-    "From cleanup to controller oversight: bookkeeping, monthly close, CPA-prepared financials, tax, payroll, and automation. One flat monthly fee.",
-};
+export const metadata: Metadata = pageMetadata({
+  path: "/services",
+  seo: {
+    metaDescription:
+      "From cleanup to controller oversight: bookkeeping, monthly close, CPA-prepared financials, tax, payroll, and automation. One flat monthly fee.",
+  },
+  fallbackTitle: "Outsourced Accounting Services",
+});
 
 export default async function ServicesPage() {
   const { services, site } = await getHomeData();

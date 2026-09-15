@@ -1,0 +1,669 @@
+[
+  {
+    "url": "out/404.html",
+    "final_url": "out/404.html",
+    "status": 200,
+    "error": null,
+    "bytes": 16440,
+    "title": "Page not found \u00b7 Tierney & Ohlms",
+    "title_len": 32,
+    "description": "Precise accounting, proactive tax strategy, and financial insight for businesses and individuals. A partner, not just an accountant.",
+    "description_len": 132,
+    "canonical": null,
+    "robots_meta": "noindex, nofollow",
+    "x_robots_tag": null,
+    "html_lang": "en",
+    "og": {
+      "og:title": "Page not found \u00b7 Tierney & Ohlms",
+      "og:description": "Precise accounting, proactive tax strategy, and financial insight for businesses and individuals. A partner, not just an accountant.",
+      "og:site_name": "Tierney & Ohlms",
+      "og:type": "website"
+    },
+    "twitter": {
+      "twitter:card": "summary",
+      "twitter:title": "Page not found \u00b7 Tierney & Ohlms",
+      "twitter:description": "Precise accounting, proactive tax strategy, and financial insight for businesses and individuals. A partner, not just an accountant."
+    },
+    "h1": [
+      "This page has been reconciled elsewhere."
+    ],
+    "h1_count": 1,
+    "h2_count": 0,
+    "h3_count": 0,
+    "hreflang": [],
+    "jsonld_blocks": 0,
+    "jsonld_types": [],
+    "jsonld_errors": [],
+    "links_internal": 2,
+    "links_external": 0,
+    "images_total": 0,
+    "images_missing_alt": 0,
+    "images_empty_alt": 0,
+    "images_no_dims": 0,
+    "images_srcset": 0,
+    "semantic": {
+      "main": true,
+      "nav": false,
+      "header": false,
+      "footer": false
+    }
+  },
+  {
+    "url": "out/404/index.html",
+    "final_url": "out/404/index.html",
+    "status": 200,
+    "error": null,
+    "bytes": 16440,
+    "title": "Page not found \u00b7 Tierney & Ohlms",
+    "title_len": 32,
+    "description": "Precise accounting, proactive tax strategy, and financial insight for businesses and individuals. A partner, not just an accountant.",
+    "description_len": 132,
+    "canonical": null,
+    "robots_meta": "noindex, nofollow",
+    "x_robots_tag": null,
+    "html_lang": "en",
+    "og": {
+      "og:title": "Page not found \u00b7 Tierney & Ohlms",
+      "og:description": "Precise accounting, proactive tax strategy, and financial insight for businesses and individuals. A partner, not just an accountant.",
+      "og:site_name": "Tierney & Ohlms",
+      "og:type": "website"
+    },
+    "twitter": {
+      "twitter:card": "summary",
+      "twitter:title": "Page not found \u00b7 Tierney & Ohlms",
+      "twitter:description": "Precise accounting, proactive tax strategy, and financial insight for businesses and individuals. A partner, not just an accountant."
+    },
+    "h1": [
+      "This page has been reconciled elsewhere."
+    ],
+    "h1_count": 1,
+    "h2_count": 0,
+    "h3_count": 0,
+    "hreflang": [],
+    "jsonld_blocks": 0,
+    "jsonld_types": [],
+    "jsonld_errors": [],
+    "links_internal": 2,
+    "links_external": 0,
+    "images_total": 0,
+    "images_missing_alt": 0,
+    "images_empty_alt": 0,
+    "images_no_dims": 0,
+    "images_srcset": 0,
+    "semantic": {
+      "main": true,
+      "nav": false,
+      "header": false,
+      "footer": false
+    }
+  },
+  {
+    "url": "out/_not-found/index.html",
+    "final_url": "out/_not-found/index.html",
+    "status": 200,
+    "error": null,
+    "bytes": 16440,
+    "title": "Page not found \u00b7 Tierney & Ohlms",
+    "title_len": 32,
+    "description": "Precise accounting, proactive tax strategy, and financial insight for businesses and individuals. A partner, not just an accountant.",
+    "description_len": 132,
+    "canonical": null,
+    "robots_meta": "noindex, nofollow",
+    "x_robots_tag": null,
+    "html_lang": "en",
+    "og": {
+      "og:title": "Page not found \u00b7 Tierney & Ohlms",
+      "og:description": "Precise accounting, proactive tax strategy, and financial insight for businesses and individuals. A partner, not just an accountant.",
+      "og:site_name": "Tierney & Ohlms",
+      "og:type": "website"
+    },
+    "twitter": {
+      "twitter:card": "summary",
+      "twitter:title": "Page not found \u00b7 Tierney & Ohlms",
+      "twitter:description": "Precise accounting, proactive tax strategy, and financial insight for businesses and individuals. A partner, not just an accountant."
+    },
+    "h1": [
+      "This page has been reconciled elsewhere."
+    ],
+    "h1_count": 1,
+    "h2_count": 0,
+    "h3_count": 0,
+    "hreflang": [],
+    "jsonld_blocks": 0,
+    "jsonld_types": [],
+    "jsonld_errors": [],
+    "links_internal": 2,
+    "links_external": 0,
+    "images_total": 0,
+    "images_missing_alt": 0,
+    "images_empty_alt": 0,
+    "images_no_dims": 0,
+    "images_srcset": 0,
+    "semantic": {
+      "main": true,
+      "nav": false,
+      "header": false,
+      "footer": false
+    }
+  },
+  {
+    "url": "out/about/index.html",
+    "final_url": "out/about/index.html",
+    "status": 200,
+    "error": null,
+    "bytes": 103757,
+    "title": "Our Story \u00b7 Tierney & Ohlms",
+    "title_len": 27,
+    "description": "Two St. Louis CPAs started Tierney & Ohlms on nights and weekends to give every business the financial clarity the big firms reserve for their biggest clients.",
+    "description_len": 159,
+    "canonical": "https://www.tierneyohlms.com/about/",
+    "robots_meta": "noindex, nofollow",
+    "x_robots_tag": null,
+    "html_lang": "en",
+    "og": {
+      "og:title": "Our Story",
+      "og:description": "Two St. Louis CPAs started Tierney & Ohlms on nights and weekends to give every business the financial clarity the big firms reserve for their biggest clients.",
+      "og:url": "https://www.tierneyohlms.com/about/"
+    },
+    "twitter": {
+      "twitter:card": "summary",
+      "twitter:title": "Our Story",
+      "twitter:description": "Two St. Louis CPAs started Tierney & Ohlms on nights and weekends to give every business the financial clarity the big firms reserve for their biggest clients."
+    },
+    "h1": [
+      "We built the firm these businesses deserve."
+    ],
+    "h1_count": 1,
+    "h2_count": 6,
+    "h3_count": 2,
+    "hreflang": [],
+    "jsonld_blocks": 1,
+    "jsonld_types": [
+      "Organization",
+      "AccountingService",
+      "WebSite"
+    ],
+    "jsonld_errors": [],
+    "links_internal": 26,
+    "links_external": 2,
+    "images_total": 2,
+    "images_missing_alt": 0,
+    "images_empty_alt": 0,
+    "images_no_dims": 2,
+    "images_srcset": 0,
+    "semantic": {
+      "main": true,
+      "nav": true,
+      "header": true,
+      "footer": true
+    }
+  },
+  {
+    "url": "out/index.html",
+    "final_url": "out/index.html",
+    "status": 200,
+    "error": null,
+    "bytes": 128695,
+    "title": "Outsourced Accounting & Controller Services \u00b7 Tierney & Ohlms",
+    "title_len": 61,
+    "description": "Outsourced accounting and controller services for companies with $2M\u2013$300M in revenue, including bookkeeping, monthly close, reporting, and shared services.",
+    "description_len": 156,
+    "canonical": "https://www.tierneyohlms.com/",
+    "robots_meta": "noindex, nofollow",
+    "x_robots_tag": null,
+    "html_lang": "en",
+    "og": {
+      "og:title": "Outsourced Accounting & Controller Services",
+      "og:description": "Outsourced accounting and controller services for companies with $2M\u2013$300M in revenue, including bookkeeping, monthly close, reporting, and shared services.",
+      "og:url": "https://www.tierneyohlms.com/"
+    },
+    "twitter": {
+      "twitter:card": "summary",
+      "twitter:title": "Outsourced Accounting & Controller Services",
+      "twitter:description": "Outsourced accounting and controller services for companies with $2M\u2013$300M in revenue, including bookkeeping, monthly close, reporting, and shared services."
+    },
+    "h1": [
+      "Expert Outsourcing Accounting to Controller Services"
+    ],
+    "h1_count": 1,
+    "h2_count": 8,
+    "h3_count": 15,
+    "hreflang": [],
+    "jsonld_blocks": 1,
+    "jsonld_types": [
+      "Organization",
+      "AccountingService",
+      "WebSite"
+    ],
+    "jsonld_errors": [],
+    "links_internal": 33,
+    "links_external": 3,
+    "images_total": 0,
+    "images_missing_alt": 0,
+    "images_empty_alt": 0,
+    "images_no_dims": 0,
+    "images_srcset": 0,
+    "semantic": {
+      "main": true,
+      "nav": true,
+      "header": true,
+      "footer": true
+    }
+  },
+  {
+    "url": "out/services/accounting-monthly-close/index.html",
+    "final_url": "out/services/accounting-monthly-close/index.html",
+    "status": 200,
+    "error": null,
+    "bytes": 113103,
+    "title": "Day to Day Staff Accounting \u00b7 Tierney & Ohlms",
+    "title_len": 45,
+    "description": "Day-to-day staff accounting and bookkeeping support: AP and AR, reconciliations, monthly close, and financial reporting from an outsourced accounting team.",
+    "description_len": 155,
+    "canonical": "https://www.tierneyohlms.com/services/accounting-monthly-close/",
+    "robots_meta": "noindex, nofollow",
+    "x_robots_tag": null,
+    "html_lang": "en",
+    "og": {
+      "og:title": "Day to Day Staff Accounting",
+      "og:description": "Day-to-day staff accounting and bookkeeping support: AP and AR, reconciliations, monthly close, and financial reporting from an outsourced accounting team.",
+      "og:url": "https://www.tierneyohlms.com/services/accounting-monthly-close/"
+    },
+    "twitter": {
+      "twitter:card": "summary",
+      "twitter:title": "Day to Day Staff Accounting",
+      "twitter:description": "Day-to-day staff accounting and bookkeeping support: AP and AR, reconciliations, monthly close, and financial reporting from an outsourced accounting team."
+    },
+    "h1": [
+      "Day to Day Staff Accounting"
+    ],
+    "h1_count": 1,
+    "h2_count": 3,
+    "h3_count": 6,
+    "hreflang": [],
+    "jsonld_blocks": 1,
+    "jsonld_types": [
+      "Organization",
+      "AccountingService",
+      "WebSite"
+    ],
+    "jsonld_errors": [],
+    "links_internal": 34,
+    "links_external": 2,
+    "images_total": 0,
+    "images_missing_alt": 0,
+    "images_empty_alt": 0,
+    "images_no_dims": 0,
+    "images_srcset": 0,
+    "semantic": {
+      "main": true,
+      "nav": true,
+      "header": true,
+      "footer": true
+    }
+  },
+  {
+    "url": "out/services/catch-up-cleanup/index.html",
+    "final_url": "out/services/catch-up-cleanup/index.html",
+    "status": 200,
+    "error": null,
+    "bytes": 112097,
+    "title": "Catch-Up & Cleanup Bookkeeping \u00b7 Tierney & Ohlms",
+    "title_len": 48,
+    "description": "Months or years behind on the books? We reconcile every account, fix the history, and hand you a tax-ready baseline you can actually trust.",
+    "description_len": 139,
+    "canonical": "https://www.tierneyohlms.com/services/catch-up-cleanup/",
+    "robots_meta": "noindex, nofollow",
+    "x_robots_tag": null,
+    "html_lang": "en",
+    "og": {
+      "og:title": "Catch-Up & Cleanup Bookkeeping",
+      "og:description": "Months or years behind on the books? We reconcile every account, fix the history, and hand you a tax-ready baseline you can actually trust.",
+      "og:url": "https://www.tierneyohlms.com/services/catch-up-cleanup/"
+    },
+    "twitter": {
+      "twitter:card": "summary",
+      "twitter:title": "Catch-Up & Cleanup Bookkeeping",
+      "twitter:description": "Months or years behind on the books? We reconcile every account, fix the history, and hand you a tax-ready baseline you can actually trust."
+    },
+    "h1": [
+      "Catch-Up & Cleanup"
+    ],
+    "h1_count": 1,
+    "h2_count": 3,
+    "h3_count": 6,
+    "hreflang": [],
+    "jsonld_blocks": 1,
+    "jsonld_types": [
+      "Organization",
+      "AccountingService",
+      "WebSite"
+    ],
+    "jsonld_errors": [],
+    "links_internal": 34,
+    "links_external": 2,
+    "images_total": 0,
+    "images_missing_alt": 0,
+    "images_empty_alt": 0,
+    "images_no_dims": 0,
+    "images_srcset": 0,
+    "semantic": {
+      "main": true,
+      "nav": true,
+      "header": true,
+      "footer": true
+    }
+  },
+  {
+    "url": "out/services/controller-services-reporting/index.html",
+    "final_url": "out/services/controller-services-reporting/index.html",
+    "status": 200,
+    "error": null,
+    "bytes": 112730,
+    "title": "Controller Services & Financial Reporting \u00b7 Tierney & Ohlms",
+    "title_len": 59,
+    "description": "Controller-level review of every close, custom reporting, budgets and forecasts, and CPA-prepared financials a bank, bonding agent, or buyer will take seriously.",
+    "description_len": 161,
+    "canonical": "https://www.tierneyohlms.com/services/controller-services-reporting/",
+    "robots_meta": "noindex, nofollow",
+    "x_robots_tag": null,
+    "html_lang": "en",
+    "og": {
+      "og:title": "Controller Services & Financial Reporting",
+      "og:description": "Controller-level review of every close, custom reporting, budgets and forecasts, and CPA-prepared financials a bank, bonding agent, or buyer will take seriously.",
+      "og:url": "https://www.tierneyohlms.com/services/controller-services-reporting/"
+    },
+    "twitter": {
+      "twitter:card": "summary",
+      "twitter:title": "Controller Services & Financial Reporting",
+      "twitter:description": "Controller-level review of every close, custom reporting, budgets and forecasts, and CPA-prepared financials a bank, bonding agent, or buyer will take seriously."
+    },
+    "h1": [
+      "Controller Services & Reporting"
+    ],
+    "h1_count": 1,
+    "h2_count": 3,
+    "h3_count": 6,
+    "hreflang": [],
+    "jsonld_blocks": 1,
+    "jsonld_types": [
+      "Organization",
+      "AccountingService",
+      "WebSite"
+    ],
+    "jsonld_errors": [],
+    "links_internal": 34,
+    "links_external": 2,
+    "images_total": 0,
+    "images_missing_alt": 0,
+    "images_empty_alt": 0,
+    "images_no_dims": 0,
+    "images_srcset": 0,
+    "semantic": {
+      "main": true,
+      "nav": true,
+      "header": true,
+      "footer": true
+    }
+  },
+  {
+    "url": "out/services/index.html",
+    "final_url": "out/services/index.html",
+    "status": 200,
+    "error": null,
+    "bytes": 75631,
+    "title": "Outsourced Accounting Services \u00b7 Tierney & Ohlms",
+    "title_len": 48,
+    "description": "From cleanup to controller oversight: bookkeeping, monthly close, CPA-prepared financials, tax, payroll, and automation. One flat monthly fee.",
+    "description_len": 142,
+    "canonical": "https://www.tierneyohlms.com/services/",
+    "robots_meta": "noindex, nofollow",
+    "x_robots_tag": null,
+    "html_lang": "en",
+    "og": {
+      "og:title": "Outsourced Accounting Services",
+      "og:description": "From cleanup to controller oversight: bookkeeping, monthly close, CPA-prepared financials, tax, payroll, and automation. One flat monthly fee.",
+      "og:url": "https://www.tierneyohlms.com/services/"
+    },
+    "twitter": {
+      "twitter:card": "summary",
+      "twitter:title": "Outsourced Accounting Services",
+      "twitter:description": "From cleanup to controller oversight: bookkeeping, monthly close, CPA-prepared financials, tax, payroll, and automation. One flat monthly fee."
+    },
+    "h1": [
+      "Everything an accounting department does, under one roof."
+    ],
+    "h1_count": 1,
+    "h2_count": 3,
+    "h3_count": 10,
+    "hreflang": [],
+    "jsonld_blocks": 1,
+    "jsonld_types": [
+      "Organization",
+      "AccountingService",
+      "WebSite"
+    ],
+    "jsonld_errors": [],
+    "links_internal": 35,
+    "links_external": 2,
+    "images_total": 0,
+    "images_missing_alt": 0,
+    "images_empty_alt": 0,
+    "images_no_dims": 0,
+    "images_srcset": 0,
+    "semantic": {
+      "main": true,
+      "nav": true,
+      "header": true,
+      "footer": true
+    }
+  },
+  {
+    "url": "out/services/payroll/index.html",
+    "final_url": "out/services/payroll/index.html",
+    "status": 200,
+    "error": null,
+    "bytes": 109090,
+    "title": "Outsourced Payroll \u00b7 Tierney & Ohlms",
+    "title_len": 36,
+    "description": "Payroll processed on your schedule, tax filings and deposits handled, and certified payroll where projects require it.",
+    "description_len": 118,
+    "canonical": "https://www.tierneyohlms.com/services/payroll/",
+    "robots_meta": "noindex, nofollow",
+    "x_robots_tag": null,
+    "html_lang": "en",
+    "og": {
+      "og:title": "Outsourced Payroll",
+      "og:description": "Payroll processed on your schedule, tax filings and deposits handled, and certified payroll where projects require it.",
+      "og:url": "https://www.tierneyohlms.com/services/payroll/"
+    },
+    "twitter": {
+      "twitter:card": "summary",
+      "twitter:title": "Outsourced Payroll",
+      "twitter:description": "Payroll processed on your schedule, tax filings and deposits handled, and certified payroll where projects require it."
+    },
+    "h1": [
+      "Payroll"
+    ],
+    "h1_count": 1,
+    "h2_count": 3,
+    "h3_count": 6,
+    "hreflang": [],
+    "jsonld_blocks": 1,
+    "jsonld_types": [
+      "Organization",
+      "AccountingService",
+      "WebSite"
+    ],
+    "jsonld_errors": [],
+    "links_internal": 34,
+    "links_external": 2,
+    "images_total": 0,
+    "images_missing_alt": 0,
+    "images_empty_alt": 0,
+    "images_no_dims": 0,
+    "images_srcset": 0,
+    "semantic": {
+      "main": true,
+      "nav": true,
+      "header": true,
+      "footer": true
+    }
+  },
+  {
+    "url": "out/services/shared-services/index.html",
+    "final_url": "out/services/shared-services/index.html",
+    "status": 200,
+    "error": null,
+    "bytes": 121179,
+    "title": "Shared Services for Back-Office Functions \u00b7 Tierney & Ohlms",
+    "title_len": 59,
+    "description": "One back-office function, run end-to-end: AP processing and payment automation, multi-location and multi-system reconciliation, and documented internal controls.",
+    "description_len": 161,
+    "canonical": "https://www.tierneyohlms.com/services/shared-services/",
+    "robots_meta": "noindex, nofollow",
+    "x_robots_tag": null,
+    "html_lang": "en",
+    "og": {
+      "og:title": "Shared Services for Back-Office Functions",
+      "og:description": "One back-office function, run end-to-end: AP processing and payment automation, multi-location and multi-system reconciliation, and documented internal controls.",
+      "og:url": "https://www.tierneyohlms.com/services/shared-services/"
+    },
+    "twitter": {
+      "twitter:card": "summary",
+      "twitter:title": "Shared Services for Back-Office Functions",
+      "twitter:description": "One back-office function, run end-to-end: AP processing and payment automation, multi-location and multi-system reconciliation, and documented internal controls."
+    },
+    "h1": [
+      "Shared Services"
+    ],
+    "h1_count": 1,
+    "h2_count": 4,
+    "h3_count": 8,
+    "hreflang": [],
+    "jsonld_blocks": 1,
+    "jsonld_types": [
+      "Organization",
+      "AccountingService",
+      "WebSite"
+    ],
+    "jsonld_errors": [],
+    "links_internal": 34,
+    "links_external": 2,
+    "images_total": 0,
+    "images_missing_alt": 0,
+    "images_empty_alt": 0,
+    "images_no_dims": 0,
+    "images_srcset": 0,
+    "semantic": {
+      "main": true,
+      "nav": true,
+      "header": true,
+      "footer": true
+    }
+  },
+  {
+    "url": "out/services/systems-automation/index.html",
+    "final_url": "out/services/systems-automation/index.html",
+    "status": 200,
+    "error": null,
+    "bytes": 112762,
+    "title": "Accounting Systems & Automation \u00b7 Tierney & Ohlms",
+    "title_len": 49,
+    "description": "Migration to QuickBooks Online, NetSuite, or Xero, integration of the tools you already run, and automated workflows with CPA review of every output.",
+    "description_len": 149,
+    "canonical": "https://www.tierneyohlms.com/services/systems-automation/",
+    "robots_meta": "noindex, nofollow",
+    "x_robots_tag": null,
+    "html_lang": "en",
+    "og": {
+      "og:title": "Accounting Systems & Automation",
+      "og:description": "Migration to QuickBooks Online, NetSuite, or Xero, integration of the tools you already run, and automated workflows with CPA review of every output.",
+      "og:url": "https://www.tierneyohlms.com/services/systems-automation/"
+    },
+    "twitter": {
+      "twitter:card": "summary",
+      "twitter:title": "Accounting Systems & Automation",
+      "twitter:description": "Migration to QuickBooks Online, NetSuite, or Xero, integration of the tools you already run, and automated workflows with CPA review of every output."
+    },
+    "h1": [
+      "Systems & Automation"
+    ],
+    "h1_count": 1,
+    "h2_count": 3,
+    "h3_count": 6,
+    "hreflang": [],
+    "jsonld_blocks": 1,
+    "jsonld_types": [
+      "Organization",
+      "AccountingService",
+      "WebSite"
+    ],
+    "jsonld_errors": [],
+    "links_internal": 34,
+    "links_external": 2,
+    "images_total": 0,
+    "images_missing_alt": 0,
+    "images_empty_alt": 0,
+    "images_no_dims": 0,
+    "images_srcset": 0,
+    "semantic": {
+      "main": true,
+      "nav": true,
+      "header": true,
+      "footer": true
+    }
+  },
+  {
+    "url": "out/services/tax-preparation-planning/index.html",
+    "final_url": "out/services/tax-preparation-planning/index.html",
+    "status": 200,
+    "error": null,
+    "bytes": 112222,
+    "title": "Tax Preparation & Planning \u00b7 Tierney & Ohlms",
+    "title_len": 44,
+    "description": "Business and personal returns, quarterly estimates, and year-end strategy that happens while there is still time to act on it. No spring scramble.",
+    "description_len": 146,
+    "canonical": "https://www.tierneyohlms.com/services/tax-preparation-planning/",
+    "robots_meta": "noindex, nofollow",
+    "x_robots_tag": null,
+    "html_lang": "en",
+    "og": {
+      "og:title": "Tax Preparation & Planning",
+      "og:description": "Business and personal returns, quarterly estimates, and year-end strategy that happens while there is still time to act on it. No spring scramble.",
+      "og:url": "https://www.tierneyohlms.com/services/tax-preparation-planning/"
+    },
+    "twitter": {
+      "twitter:card": "summary",
+      "twitter:title": "Tax Preparation & Planning",
+      "twitter:description": "Business and personal returns, quarterly estimates, and year-end strategy that happens while there is still time to act on it. No spring scramble."
+    },
+    "h1": [
+      "Tax Preparation & Planning"
+    ],
+    "h1_count": 1,
+    "h2_count": 3,
+    "h3_count": 6,
+    "hreflang": [],
+    "jsonld_blocks": 1,
+    "jsonld_types": [
+      "Organization",
+      "AccountingService",
+      "WebSite"
+    ],
+    "jsonld_errors": [],
+    "links_internal": 34,
+    "links_external": 2,
+    "images_total": 0,
+    "images_missing_alt": 0,
+    "images_empty_alt": 0,
+    "images_no_dims": 0,
+    "images_srcset": 0,
+    "semantic": {
+      "main": true,
+      "nav": true,
+      "header": true,
+      "footer": true
+    }
+  }
+]
