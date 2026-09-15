@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "SANITY_STRICT_FETCH=true next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
@@ -12,6 +12,8 @@
     "sanity:deploy": "sanity deploy",
     "sanity:push": "node scripts/push-content.mjs",
     "sanity:push:dry": "node scripts/push-content.mjs --dry-run",
+    "sanity:diff": "node scripts/sanity-diff.mjs",
+    "sanity:diff:verbose": "node scripts/sanity-diff.mjs --verbose",
     "sanity:sync": "node scripts/push-content.mjs --patch-file scripts/positioning-updates.json",
     "sanity:sync:check": "npm run sanity:sync -- --validate-only"
   },
