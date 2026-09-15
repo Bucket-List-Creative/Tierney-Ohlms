@@ -73,8 +73,8 @@ export const siteSettings: SiteSettings = {
     },
   ],
   legalLinks: [
-    { label: "Privacy Policy", href: "#top" },
-    { label: "Terms of Service", href: "#top" },
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms of Service", href: "/terms" },
   ],
 };
 
