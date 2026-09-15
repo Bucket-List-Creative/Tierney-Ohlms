@@ -86,7 +86,9 @@ export const serviceSlugsQuery = groq`*[_type == "service" && defined(slug.curre
   | order(orderRank){ "slug": slug.current }`;
 
 export const featuresQuery = groq`*[_type == "feature"] | order(orderRank){
-  _id, title, description, icon
+  _id, title, statValue,
+  statLabel,
+  description, icon
 }`;
 
 export const processStepsQuery = groq`*[_type == "processStep"] | order(index){

@@ -118,6 +118,21 @@ export const feature = defineType({
       validation: (r) => r.required(),
     }),
     defineField({
+      name: "statValue",
+      title: "Stat value",
+      type: "string",
+      description:
+        "Only the FIRST feature uses this — it renders as the large figure on the wide card. Clear it to remove the figure entirely; the card keeps its title and description.",
+      initialValue: "60%",
+    }),
+    defineField({
+      name: "statLabel",
+      title: "Stat label",
+      type: "string",
+      description: "Caption under the stat value. Ignored when there is no stat value.",
+      initialValue: "Typical savings",
+    }),
+    defineField({
       name: "description",
       title: "Description",
       type: "text",

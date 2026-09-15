@@ -60,6 +60,9 @@ export type Feature = {
   title: string;
   description: string;
   icon: IconKey;
+  /** First feature only: the large figure on the wide card. */
+  statValue?: string;
+  statLabel?: string;
 };
 
 export type ProcessStep = {

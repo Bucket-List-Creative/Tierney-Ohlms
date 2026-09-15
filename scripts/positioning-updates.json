@@ -249,5 +249,14 @@
         ]
       }
     }
+  },
+  {
+    "patch": {
+      "id": "feature-cost",
+      "set": {
+        "statValue": "60%",
+        "statLabel": "Typical savings"
+      }
+    }
   }
 ]

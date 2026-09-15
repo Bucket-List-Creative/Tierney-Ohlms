@@ -10,8 +10,11 @@ import { EmphasisText } from "@/components/primitives/EmphasisText";
  * first feature leads, last one closes, everything between fills the grid.
  * Adding or reordering a Feature in the Studio now changes the page.
  *
- * The 60% figure stays hardcoded: it isn't a Feature field, and the claim is
- * still awaiting substantiation from the client.
+ * The stat figure on the wide card comes from the first Feature's statValue.
+ * Clearing that field in the Studio removes the figure and its caption and
+ * leaves the card as title + description — which is the path the client needs,
+ * because the "60% typical savings" claim is still awaiting substantiation and
+ * an unsourced financial figure should not require a developer to take down.
  */
 export function WhyUs({ header, features }: { header: HeaderData; features: Feature[] }) {
   const [lead, ...rest] = features;
@@ -26,8 +29,8 @@ export function WhyUs({ header, features }: { header: HeaderData; features: Feat
         <p className="m-0 text-[15.5px] leading-relaxed text-slate">{header.lead}</p>
       </header>
       <div className="grid grid-cols-3 gap-5 max-[980px]:grid-cols-2 max-[640px]:grid-cols-1">
-        {lead && <article className="grid grid-cols-[auto_1fr] items-center gap-7 rounded-panel border border-rule bg-white p-8 transition hover:border-gold hover:shadow-[var(--shadow-hover)] min-[981px]:col-span-2 max-[980px]:col-span-2 max-[640px]:col-span-1 max-[560px]:grid-cols-1">
-          <div><strong className="gradient-text font-display text-[clamp(54px,5vw,76px)] font-medium leading-none">60<span className="text-[.5em]">%</span></strong><span className="mt-2 block font-mono text-[10px] max-[1199px]:text-[12px] uppercase tracking-[.14em] text-dark-label">Typical savings</span></div>
+        {lead && <article className={`grid ${lead.statValue ? "grid-cols-[auto_1fr]" : "grid-cols-1"} items-center gap-7 rounded-panel border border-rule bg-white p-8 transition hover:border-gold hover:shadow-[var(--shadow-hover)] min-[981px]:col-span-2 max-[980px]:col-span-2 max-[640px]:col-span-1 max-[560px]:grid-cols-1`}>
+          {lead.statValue && <div><strong className="gradient-text font-display text-[clamp(54px,5vw,76px)] font-medium leading-none">{lead.statValue}</strong>{lead.statLabel && <span className="mt-2 block font-mono text-[10px] max-[1199px]:text-[12px] uppercase tracking-[.14em] text-dark-label">{lead.statLabel}</span>}</div>}
           <div><h3 className="m-0 font-display text-[24px] font-semibold">{lead.title}</h3><p className="mb-0 text-[15px] leading-relaxed text-slate">{lead.description}</p></div>
         </article>}
         {grid.map(feature => <article key={feature._id} className="flex flex-col gap-3.5 rounded-panel border border-rule bg-white p-6 transition duration-300 hover:-translate-y-[3px] hover:shadow-[var(--shadow-hover)]"><IconTile icon={feature.icon} tile={44} size={19}/><h3 className="m-0 font-display text-[18px] font-semibold">{feature.title}</h3><p className="m-0 text-[14px] leading-relaxed text-slate">{feature.description}</p></article>)}

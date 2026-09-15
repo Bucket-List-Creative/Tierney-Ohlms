@@ -379,6 +379,8 @@ export const features: Feature[] = [
     _id: "feature-cost",
     title: "Cost-Effective",
     icon: "cost",
+    statValue: "60%",
+    statLabel: "Typical savings",
     description:
       "Save up to 60% compared to hiring full-time accounting staff while getting expert-level service.",
   },
