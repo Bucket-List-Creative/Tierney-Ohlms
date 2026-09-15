@@ -248,6 +248,12 @@
       padding-inline: 20px;
     }
   }
+  /* 320px phones: 20px gutters leave 280px, which the header row cannot fit. */
+  @media (max-width: 359px) {
+    .container-x {
+      padding-inline: 14px;
+    }
+  }
 
   /* Eyebrow label — brass, never gold (gold fails contrast as text). */
   .eyebrow {

@@ -833,6 +833,15 @@
 
 /* Three documents per chapter, pushed into the corners, and a headline that
    is immediately readable at the top of the fold. */
+/* 320-374px: two documents, not three. There is no room for a second top
+   card beside a two-line eyebrow and a three-line headline, and these are
+   aria-hidden decoration — the type is the content. */
+@media (max-width: 374px) {
+  .hideXs {
+    display: none;
+  }
+}
+
 @media (max-width: 600px) {
   .runway {
     height: 260vh;
@@ -863,12 +872,24 @@
     opacity: calc(var(--fade) * 0.8);
   }
   .copy {
-    gap: 14px;
-    padding: 0 20px 40px;
+    gap: 12px;
+    padding: 0 20px 36px;
   }
+  /* Short viewports (landscape phones, 320x700) have no room to spare. */
+  @media (max-height: 740px) {
+    .copy {
+      gap: 9px;
+    }
+    .copy p {
+      font-size: 14px;
+    }
+  }
+  /* 11.5px over a single line: the documents no longer crowd this, so it can
+     wrap on the narrowest phones rather than shrink below a readable size. */
   .eyebrow {
-    font-size: 10.5px;
-    letter-spacing: 0.12em;
+    font-size: 12px;
+    letter-spacing: 0.09em;
+    line-height: 1.4;
   }
   .copy h1,
   .copy h2 {

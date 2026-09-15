@@ -65,9 +65,9 @@ export default async function AboutPage() {
             <Reveal variant="left" duration={700}>
               <nav
                 aria-label="Breadcrumb"
-                className="flex items-center gap-2 font-mono text-[11px] max-[767px]:text-[12px] uppercase tracking-[0.14em] text-slate"
+                className="flex items-center gap-2 font-mono text-[11px] max-[1199px]:text-[12px] uppercase tracking-[0.14em] text-slate"
               >
-                <Link href="/" className="link-line transition-colors hover:text-ink">
+                <Link href="/" className="link-line inline-flex min-h-11 items-center transition-colors hover:text-ink">
                   Home
                 </Link>
                 <span aria-hidden>/</span>
@@ -181,11 +181,11 @@ export default async function AboutPage() {
                   &ldquo;
                 </span>
                 <blockquote className="relative m-0 pt-8">
-                  <p className="m-0 font-display text-[21px] italic leading-[1.55] text-ink max-[767px]:text-[19px]">
+                  <p className="m-0 font-display text-[21px] italic leading-[1.55] text-ink max-[1199px]:text-[19px]">
                     {rooted.pullQuote}
                   </p>
                 </blockquote>
-                <figcaption className="mt-6 flex items-center gap-2.5 font-mono text-[11px] max-[767px]:text-[12px] uppercase tracking-[0.14em] text-brass">
+                <figcaption className="mt-6 flex items-center gap-2.5 font-mono text-[11px] max-[1199px]:text-[12px] uppercase tracking-[0.14em] text-brass">
                   <span aria-hidden className="h-px w-8 bg-gold" />
                   Tierney &amp; Ohlms
                 </figcaption>
@@ -323,10 +323,10 @@ function FounderCard({ founder, imageRight }: { founder: Founder; imageRight: bo
         }`}
       >
         <div className="flex flex-col gap-2 border-b border-rule pb-5">
-          <h3 className="m-0 font-display text-[30px] font-semibold text-ink max-[767px]:text-[25px]">
+          <h3 className="m-0 font-display text-[30px] font-semibold text-ink max-[1199px]:text-[25px]">
             {founder.name}
           </h3>
-          <p className="m-0 font-mono text-[11px] max-[767px]:text-[12px] uppercase tracking-[0.14em] text-brass">
+          <p className="m-0 font-mono text-[11px] max-[1199px]:text-[12px] uppercase tracking-[0.14em] text-brass">
             {founder.credential}
           </p>
         </div>
@@ -339,7 +339,7 @@ function FounderCard({ founder, imageRight }: { founder: Founder; imageRight: bo
 
         {founder.outsideWork ? (
           <div className="mt-auto flex flex-col gap-1 rounded-input border-l-2 border-gold bg-goldwash/40 py-2.5 pl-4">
-            <span className="text-[11px] max-[767px]:text-[12px] font-semibold uppercase tracking-[0.14em] text-brass">
+            <span className="text-[11px] max-[1199px]:text-[12px] font-semibold uppercase tracking-[0.14em] text-brass">
               Outside work
             </span>
             <span className="text-[15px] leading-relaxed text-ink">

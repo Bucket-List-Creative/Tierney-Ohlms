@@ -332,7 +332,7 @@ function ContactRow({
     <div className="group flex items-center gap-3.5 border-t border-rule py-3">
       <IconTile icon={icon} tile={38} size={16} />
       <span className="flex min-w-0 flex-col">
-        <span className="font-mono text-[10px] uppercase tracking-[.14em] text-dark-label">
+        <span className="font-mono text-[10px] max-[1199px]:text-[12px] uppercase tracking-[.14em] text-dark-label">
           {label}
         </span>
         <span className="text-[14px] leading-snug text-ink">{children}</span>

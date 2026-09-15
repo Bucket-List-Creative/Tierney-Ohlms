@@ -43,14 +43,14 @@ const CHAPTER_ONE: Record<string, Place> = {
     ox: -26, oy: 34, tx: 4, ty: 8, tz: -6,
     dx: -190, dy: -130, dz: 280, delay: 150, sheen: -12,
     xm: "20%", ym: "14%", wm: 200,
-    xs: "27%", ys: "10%", ws: 142,
+    xs: "32%", ys: "4%", ws: 126,
   },
   books: {
     x: "88%", y: "18%", w: 240, z: -90,
     ox: 30, oy: -18, ty: -9, tz: 5,
     dx: 200, dy: -145, dz: 300, delay: 300, sheen: 8,
     xm: "80%", ym: "12%", wm: 195,
-    xs: "73%", ys: "14%", ws: 140,
+    xs: "73%", ys: "9%", ws: 124,
   },
   note: {
     x: "31%", y: "16%", w: 174, z: 30,
@@ -62,7 +62,7 @@ const CHAPTER_ONE: Record<string, Place> = {
     ox: 22, oy: 26, ty: 6, tz: 4,
     dx: -180, dy: 160, dz: 250, delay: 550, sheen: 14,
     xm: "22%", ym: "84%", wm: 205,
-    xs: "46%", ys: "83%", ws: 160,
+    xs: "46%", ys: "81%", ws: 150,
   },
   invoice: {
     x: "87%", y: "78%", w: 246, z: 50,
@@ -78,14 +78,14 @@ const CHAPTER_TWO: Record<string, Place> = {
     ox: 18, oy: -22, ty: 7, tz: -4,
     dx: -185, dy: -120, dz: 270, delay: 150, sheen: -10,
     xm: "20%", ym: "14%", wm: 200,
-    xs: "27%", ys: "10%", ws: 142,
+    xs: "32%", ys: "4%", ws: 126,
   },
   review: {
     x: "87.5%", y: "22%", w: 238, z: -70,
     ox: -20, oy: 24, ty: -6, tz: 5,
     dx: 195, dy: -130, dz: 290, delay: 300, sheen: 10,
     xm: "80%", ym: "12%", wm: 195,
-    xs: "73%", ys: "14%", ws: 140,
+    xs: "73%", ys: "9%", ws: 124,
   },
   seal: {
     x: "77%", y: "10%", w: 84, z: 70,
@@ -97,7 +97,7 @@ const CHAPTER_TWO: Record<string, Place> = {
     ox: -16, oy: 20, ty: 6, tz: -3,
     dx: -175, dy: 155, dz: 250, delay: 550, sheen: 12,
     xm: "22%", ym: "84%", wm: 205,
-    xs: "46%", ys: "83%", ws: 160,
+    xs: "46%", ys: "81%", ws: 150,
   },
   deadlines: {
     x: "87%", y: "77%", w: 248, z: -30,
@@ -223,7 +223,7 @@ export function Hero({ hero }: { hero: HeroData }) {
             <Reconciled label="Reconciled" />
           </Doc>
 
-          <Doc place={CHAPTER_ONE.books}>
+          <Doc place={CHAPTER_ONE.books} className={styles.hideXs}>
             <Mono>Ledger</Mono>
             <strong>{a.closeSummary}</strong>
             <Progress value="86%" />
@@ -288,7 +288,7 @@ export function Hero({ hero }: { hero: HeroData }) {
             <Mono>{a.filingProgress}</Mono>
           </Doc>
 
-          <Doc place={CHAPTER_TWO.review}>
+          <Doc place={CHAPTER_TWO.review} className={styles.hideXs}>
             <div className={styles.reminderTop}>
               <span className={styles.iconTile}>□</span>
               <div>

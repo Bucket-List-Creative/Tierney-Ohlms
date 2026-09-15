@@ -145,7 +145,7 @@ export function ServiceLadder({ services }: { services: Service[] }) {
               type="button"
               onClick={toggle}
               aria-pressed={grid}
-              className="inline-flex min-h-11 items-center gap-2.5 rounded-btn border border-gold/45 bg-ink px-4 py-2 font-mono text-[11px] max-[767px]:text-[12px] uppercase tracking-[.14em] text-gold"
+              className="inline-flex min-h-11 items-center gap-2.5 rounded-btn border border-gold/45 bg-ink px-4 py-2 font-mono text-[11px] max-[1199px]:text-[12px] uppercase tracking-[.14em] text-gold"
             >
               {grid ? "Explore entry points" : "View entry points"}
               <LineIcon name={grid ? "arrow-up-right" : "arrow-right"} size={14} />
@@ -168,7 +168,7 @@ export function ServiceLadder({ services }: { services: Service[] }) {
             {/* Persistent section header */}
             <div className="container-x flex shrink-0 flex-col items-center gap-2 pt-9 text-center max-[767px]:pt-7">
               <span className="eyebrow text-gold">Where you fit</span>
-              <p className="m-0 max-w-[46ch] text-[14px] leading-relaxed text-dark-body max-[767px]:text-[13px]">
+              <p className="m-0 max-w-[46ch] text-[14px] leading-relaxed text-dark-body max-[1199px]:text-[13px]">
                 Choose the entry point that fits your company and your team.
                 Each engagement is shaped around the support you need.
               </p>
@@ -188,11 +188,11 @@ export function ServiceLadder({ services }: { services: Service[] }) {
                   <span
                     data-lift
                     style={{ opacity: i === 0 ? 1 : 0 }}
-                    className="flex items-center gap-3 font-mono text-[11px] max-[767px]:text-[12px] uppercase tracking-[.14em] text-gold"
+                    className="flex items-center gap-3 font-mono text-[11px] max-[1199px]:text-[12px] uppercase tracking-[.14em] text-gold"
                   >
                     {String(i + 1).padStart(2, "0")} / {String(services.length).padStart(2, "0")}
                     {service.topTier ? (
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-gold px-2.5 py-1 text-[10px] max-[767px]:text-[11.5px]">
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-gold px-2.5 py-1 text-[10px] max-[1199px]:text-[12px]">
                         <LineIcon name="star" size={11} />
                         Most popular
                       </span>
@@ -220,7 +220,7 @@ export function ServiceLadder({ services }: { services: Service[] }) {
                   <p
                     data-lift
                     style={{ opacity: i === 0 ? 1 : 0 }}
-                    className="m-0 max-w-[62ch] text-[15.5px] leading-relaxed text-dark-body max-[767px]:text-[14.5px]"
+                    className="m-0 max-w-[62ch] text-[15.5px] leading-relaxed text-dark-body max-[1199px]:text-[14.5px]"
                   >
                     {service.detail ?? service.description}
                   </p>
@@ -245,7 +245,7 @@ export function ServiceLadder({ services }: { services: Service[] }) {
                       onClick={() => goTo(i)}
                       aria-current={i === active ? "true" : undefined}
                       className={cn(
-                        "inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border px-2.5 py-1 font-mono text-[11px] max-[767px]:text-[12px] tracking-[.12em] transition-all duration-300",
+                        "inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border px-2.5 py-1 font-mono text-[11px] max-[1199px]:text-[12px] tracking-[.12em] transition-all duration-300",
                         i === active
                           ? "border-gold bg-gold/15 text-gold"
                           : "border-white/15 text-white/45",
@@ -312,12 +312,12 @@ function GridView({
                 <LineIcon name={service.icon} size={19} />
               </span>
               {/* The rung number always shows — it is what the ladder is for. */}
-              <span className="font-mono text-[10px] max-[767px]:text-[11.5px] uppercase tracking-[.14em] text-dark-label">
+              <span className="font-mono text-[10px] max-[1199px]:text-[12px] uppercase tracking-[.14em] text-dark-label">
                 {String(i + 1).padStart(2, "0")}
               </span>
             </div>
             {service.topTier ? (
-              <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-gold px-2.5 py-1 font-mono text-[10px] max-[767px]:text-[11.5px] uppercase tracking-[.12em] text-gold">
+              <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-gold px-2.5 py-1 font-mono text-[10px] max-[1199px]:text-[12px] uppercase tracking-[.12em] text-gold">
                 <LineIcon name="star" size={11} />
                 Most popular
               </span>

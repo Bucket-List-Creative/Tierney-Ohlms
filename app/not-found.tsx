@@ -25,7 +25,7 @@ export default function NotFound() {
 
       <div className="relative z-[1] flex flex-col items-center gap-6">
         <Reveal variant="scale" duration={900}>
-          <div className="font-display text-[96px] leading-none text-white max-[767px]:text-[64px]">
+          <div className="font-display text-[96px] leading-none text-white max-[1199px]:text-[64px]">
             404
           </div>
         </Reveal>
