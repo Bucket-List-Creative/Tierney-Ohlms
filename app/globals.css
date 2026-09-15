@@ -248,6 +248,12 @@
       padding-inline: 20px;
     }
   }
+  /* 320px phones: 20px gutters leave 280px, which the header row cannot fit. */
+  @media (max-width: 359px) {
+    .container-x {
+      padding-inline: 14px;
+    }
+  }
 
   /* Eyebrow label — brass, never gold (gold fails contrast as text). */
   .eyebrow {
@@ -623,6 +629,19 @@
   .link-line {
     position: relative;
     display: inline-block;
+  }
+  /* Touch devices get a real hit area. A 20px text link is a 20px target;
+     padding-block lifts it to 44px, and the underline is re-anchored so it
+     still sits 3px under the text rather than under the padding box.
+     Keyed to `pointer: coarse` rather than width so a touch laptop counts
+     and a narrow desktop window does not. */
+  @media (pointer: coarse) {
+    .link-line {
+      padding-block: 12px;
+    }
+    .link-line::after {
+      bottom: 9px;
+    }
   }
   .link-line::after {
     content: "";

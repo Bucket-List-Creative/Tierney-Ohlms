@@ -27,7 +27,7 @@ export function Services({ header, services }: { header: HeaderData; services: S
           </Link>)}
         </div>
         {current && <aside className="sticky top-[calc(var(--header-h)+24px)] flex min-h-[320px] flex-col gap-[18px] rounded-panel border border-white/14 bg-white/[.04] p-8 max-[980px]:hidden">
-          <span className="font-mono text-[11px] uppercase tracking-[.14em] text-gold">Service {String(active+1).padStart(2,"0")} / {String(services.length).padStart(2,"0")}</span>
+          <span className="font-mono text-[11px] max-[1199px]:text-[12px] uppercase tracking-[.14em] text-gold">Service {String(active+1).padStart(2,"0")} / {String(services.length).padStart(2,"0")}</span>
           <h3 className="m-0 font-display text-[clamp(24px,2.1vw,31px)] font-medium">{current.title}</h3>
           <p className="m-0 text-[15px] leading-relaxed text-dark-body">{current.description}</p>
           <Button href={`/services/${current.slug}`} variant="inverse" className="mt-auto self-start">Explore service <LineIcon name="arrow-right" size={16}/></Button>

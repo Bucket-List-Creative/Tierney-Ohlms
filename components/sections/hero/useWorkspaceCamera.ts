@@ -117,9 +117,16 @@ export function useWorkspaceCamera({
         // looking at an empty frame between the two.
         const bArrive = outCubic(span(p, 0.4, 0.6));
         const bAdvance = span(p, 0.4, 1);
-        // Held late on purpose: the boundary into Services should arrive while
-        // the workspace is still visibly departing, not after a blank beat.
-        const bExit = push(span(p, 0.9, 1));
+        // Chapter two SETTLES rather than exits.
+        //
+        // A sticky runway always has one viewport-height of scroll left after
+        // progress hits 1 — that is just the released element scrolling away.
+        // Any exit that completes at p=1 therefore plays against an empty
+        // frame for a full screen (~500px on a phone, ~900px on desktop).
+        // So the push tops out at a quarter: chapter two is still composed and
+        // readable when the runway releases, and the section then scrolls off
+        // like every other section on the site.
+        const bExit = push(span(p, 0.9, 1)) * 0.25;
         set(panelB, "--dolly", `${((1 - bArrive) * -780 + bExit * 520).toFixed(1)}px`);
         set(panelB, "--spread", bExit.toFixed(4));
         set(panelB, "--scatter", (0.34 - outCubic(bAdvance) * 0.3).toFixed(4));
@@ -127,7 +134,7 @@ export function useWorkspaceCamera({
         set(
           panelB,
           "--copyFade",
-          (span(p, 0.48, 0.6) * (1 - span(p, 0.89, 0.99))).toFixed(4),
+          span(p, 0.48, 0.6).toFixed(4),
         );
         set(panelB, "--copyRise", `${(bExit * -40).toFixed(1)}px`);
         set(panelB, "--copyScale", (1 + bExit * 0.05).toFixed(4));

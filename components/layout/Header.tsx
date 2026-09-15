@@ -121,12 +121,12 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
         style={{ backdropFilter: "blur(18px) saturate(1.6)" }}
       >
         <div
-          className="container-x flex w-full items-center justify-between gap-3 min-[1200px]:gap-8 transition-[padding,gap] duration-[400ms] ease-out"
+          className="container-x flex w-full items-center justify-between gap-2 max-[359px]:gap-1.5 min-[1200px]:gap-8 transition-[padding,gap] duration-[400ms] ease-out"
           style={{ paddingTop: pad, paddingBottom: pad }}
         >
           <Link
             href="/"
-            className="group/mark relative shrink-0 whitespace-nowrap font-display text-[18px] leading-tight tracking-[0.01em] text-ink"
+            className="group/mark relative inline-flex min-h-11 shrink-0 items-center whitespace-nowrap font-display text-[18px] max-[359px]:text-[15px] leading-tight tracking-[0.01em] text-ink"
           >
             {wordmark}
             <span
@@ -199,7 +199,7 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
         <nav aria-label="Mobile navigation" className="flex flex-col gap-7">
           {linkGroups.map((group) => (
             <div key={group.label}>
-              <p className="m-0 pb-2 text-[11px] font-semibold uppercase tracking-[.14em] text-brass">{group.label}</p>
+              <p className="m-0 pb-2 text-[11px] max-[1199px]:text-[12px] font-semibold uppercase tracking-[.14em] text-brass">{group.label}</p>
               <ul aria-label={group.label} className="m-0 list-none p-0">
                 {group.items.map((item) => (
                   <li key={item.href + item.label}>
