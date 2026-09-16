@@ -92,6 +92,7 @@ the Jotform form is ever replaced.
 | `phone` | `q6_phoneNumber[full]` |
 | `service` | `q7_serviceOf` |
 | `message` | `q8_howCan` |
+| hCaptcha token | `h-captcha-response` + `hcaptcha_visible` (q9) |
 
 Two delivery paths share that mapping:
 
@@ -104,6 +105,25 @@ Two delivery paths share that mapping:
 
 A hidden `website` honeypot is checked on both paths: a filled one gets the same
 confirmation a human sees, and nothing is sent.
+
+### The captcha
+
+The Jotform form carries a **required** hCaptcha field (q9), so Jotform refuses
+any submission that arrives without a token. `components/primitives/HCaptcha.tsx`
+renders the same widget on our form and the token rides along with the rest of
+the fields. The site key lives in `lib/jotform.ts` as `JOTFORM_HCAPTCHA_SITEKEY`
+— it is Jotform's key, published in their form's HTML, and Jotform holds the
+secret that verifies the token, so there is nothing to configure here and no
+environment variable to set. If Jotform ever rotates it, copy the new
+`data-sitekey` out of the rendered form source.
+
+Two consequences worth knowing:
+
+- A visitor whose browser blocks hCaptcha cannot submit the form. The field
+  says so and points at the phone number and email address instead.
+- `/api/contact` rejects a tokenless submission itself, with a 422. Jotform
+  answers its own rejection with a `200` page that reads the same as a success,
+  so letting one through would look delivered and vanish.
 
 ---
 
