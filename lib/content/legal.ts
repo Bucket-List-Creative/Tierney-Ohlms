@@ -6,6 +6,7 @@
  *
  *   - the contact form's fields            components/sections/ContactForm.tsx
  *   - where submissions go                 app/api/contact/route.ts -> Jotform
+ *   - the captcha and what it loads        components/primitives/HCaptcha.tsx -> hCaptcha
  *   - the embedded map                     components/primitives/MapCard.tsx
  *   - the client portal link               lib/content/index.ts (navigation)
  *   - the absence of analytics or cookies  verified by search across app/, components/, lib/
@@ -33,7 +34,7 @@ export type LegalDocument = {
 export const privacyPolicy: LegalDocument = {
   eyebrow: "Legal",
   title: "Privacy Policy",
-  updated: "September 15, 2026",
+  updated: "September 16, 2026",
   intro:
     "This policy explains what this website collects, who it is shared with, and what we do with it. It covers this website only — the handling of client financial records under an engagement is governed by your engagement letter, not by this page.",
   sections: [
@@ -49,6 +50,7 @@ export const privacyPolicy: LegalDocument = {
       body: [
         "The contact form asks for your name, email address and message, and optionally your company, phone number, and the service you are interested in. You control all of it — nothing is required beyond name, email and message.",
         "The form includes a hidden field that is invisible to people and only ever filled in by automated bots. Submissions with that field completed are discarded without being read.",
+        "Before a message can be sent, the form asks you to pass an hCaptcha verification check. This is there to keep automated submissions out; see the service providers section below for what hCaptcha receives.",
       ],
     },
     {
@@ -62,7 +64,8 @@ export const privacyPolicy: LegalDocument = {
       heading: "Service providers",
       body: [
         "Contact form submissions are transmitted to and stored by Jotform, which hosts the form backend and delivers submissions to us. Your submission is subject to Jotform's own privacy policy in addition to this one.",
-        "The office location page embeds a map from Google Maps. When that map loads, Google receives your IP address and may set its own cookies, under Google's privacy policy. The rest of the site does not embed third-party content.",
+        "The contact form's verification step is hCaptcha, provided through Jotform. When the contact section loads, hCaptcha receives your IP address and information about your browser and your interaction with the page, and may set its own cookies, in order to tell a person from a bot. This is governed by hCaptcha's own privacy policy. It runs only where the contact form appears, and it is not used to track you around the site.",
+        "The office location page embeds a map from Google Maps. When that map loads, Google receives your IP address and may set its own cookies, under Google's privacy policy. Apart from that map and the contact form's verification step, the site embeds no third-party content.",
         "This site's content is managed in Sanity, a content management system. Sanity stores our published page content; it does not receive information about you.",
       ],
     },
@@ -75,7 +78,7 @@ export const privacyPolicy: LegalDocument = {
     {
       heading: "Cookies",
       body: [
-        "This website sets no cookies of its own, and stores nothing in your browser's local storage. The embedded Google map described above may set cookies when it loads. You can block or remove cookies in your browser settings without affecting your ability to read this site or submit the contact form.",
+        "This website sets no cookies of its own, and stores nothing in your browser's local storage. The embedded Google map and the contact form's hCaptcha verification, both described above, may set cookies of their own when they load. You can block or remove cookies in your browser settings without affecting your ability to read this site; blocking them for hCaptcha may stop the verification step from working, in which case please email or call us instead.",
       ],
     },
     {

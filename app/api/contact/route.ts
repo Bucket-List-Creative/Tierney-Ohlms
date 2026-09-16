@@ -25,9 +25,19 @@ export async function POST(request: Request) {
   const name = String(body.name ?? "").trim();
   const email = String(body.email ?? "").trim();
   const message = String(body.message ?? "").trim();
+  const captchaToken = String(body.captchaToken ?? "").trim();
 
   if (!name || !email || !message) {
     return NextResponse.json({ error: "Missing required fields." }, { status: 422 });
+  }
+
+  // The Jotform form's captcha field is required, so a tokenless submission is
+  // refused on arrival — and Jotform answers that refusal with a 200 page we
+  // cannot tell from a success. Stop it here, where the browser still gets a
+  // truthful answer. Verification itself is Jotform's: it holds the hCaptcha
+  // secret, and re-checking the token here would consume it before they could.
+  if (!captchaToken) {
+    return NextResponse.json({ error: "Verification required." }, { status: 422 });
   }
 
   try {
@@ -41,6 +51,7 @@ export async function POST(request: Request) {
         company: String(body.company ?? ""),
         phone: String(body.phone ?? ""),
         service: String(body.service ?? ""),
+        captchaToken,
       }),
       // Jotform answers a submission with a redirect to its thank-you page;
       // reaching that redirect is the success signal, so don't follow it.

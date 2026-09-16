@@ -4,12 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import { Label, Input, Textarea, Select } from "@/components/primitives/Field";
 import { Button } from "@/components/primitives/Button";
 import { IconTile } from "@/components/primitives/IconTile";
+import { HCaptcha } from "@/components/primitives/HCaptcha";
 import { LineIcon } from "@/components/icons/LineIcon";
-import { JOTFORM_SUBMIT_URL, toJotformBody } from "@/lib/jotform";
+import {
+  JOTFORM_HCAPTCHA_SITEKEY,
+  JOTFORM_SUBMIT_URL,
+  toJotformBody,
+} from "@/lib/jotform";
 import { cn } from "@/lib/cn";
 import type { SiteSettings } from "@/lib/types";
 
-type Errors = Partial<Record<"name" | "email" | "message", string>>;
+type Errors = Partial<Record<"name" | "email" | "message" | "captcha", string>>;
 type Status = "idle" | "submitting" | "sent" | "error";
 
 /** Everything the form needs from site settings, for the confirmation panel. */
@@ -29,6 +34,10 @@ const STATIC_EXPORT = process.env.NEXT_PUBLIC_STATIC_EXPORT === "true";
  * the real result; in a static-export build there is no API route, so the
  * browser POSTs to Jotform directly.
  *
+ * The Jotform form carries a required hCaptcha field, so a submission without
+ * a token is refused at the far end. We render the same hCaptcha here and send
+ * its token along, which keeps our form and theirs in step.
+ *
  * On success the fields give way to a confirmation panel in the same shell —
  * it says what happens next and offers the direct lines for anyone who does
  * not want to wait. It holds until the visitor dismisses it.
@@ -44,7 +53,11 @@ export function ContactForm({
 }) {
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>("idle");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaBroken, setCaptchaBroken] = useState(false);
+  const [captchaResets, setCaptchaResets] = useState(0);
   const confirmationRef = useRef<HTMLDivElement>(null);
+  const captchaRef = useRef<HTMLDivElement>(null);
 
   const sent = status === "sent";
 
@@ -63,6 +76,12 @@ export function ContactForm({
     else if (!EMAIL_RE.test(email)) next.email = "Please enter a valid email address.";
     if (!String(data.get("message") ?? "").trim())
       next.message = "Please tell us a little about what you need.";
+    // Jotform rejects a submission with no captcha token, so catch it here
+    // rather than letting the visitor watch a message fail to send.
+    if (!captchaToken)
+      next.captcha = captchaBroken
+        ? "Verification could not load. Please reload the page, or reach us directly."
+        : "Please confirm you are not a robot.";
     return next;
   }
 
@@ -73,7 +92,10 @@ export function ContactForm({
     const found = validate(form);
     setErrors(found);
     if (Object.keys(found).length > 0) {
-      form.querySelector<HTMLElement>("[aria-invalid='true']")?.focus();
+      const firstInvalid = form.querySelector<HTMLElement>("[aria-invalid='true']");
+      // Nothing carries aria-invalid when the captcha alone is outstanding —
+      // it is an iframe, not a field of ours — so send focus to its label.
+      (firstInvalid ?? captchaRef.current)?.focus();
       return;
     }
 
@@ -81,6 +103,12 @@ export function ContactForm({
       string,
       string
     >;
+
+    // hCaptcha writes its own response textareas into whatever form it sits
+    // in. We pass the token explicitly instead, so drop them rather than
+    // shipping the same value twice under a name nothing reads.
+    delete payload["h-captcha-response"];
+    delete payload["g-recaptcha-response"];
 
     // Honeypot: only a bot fills a field it cannot see. Show the same
     // confirmation a human gets, and send nothing.
@@ -99,19 +127,24 @@ export function ContactForm({
         await fetch(JOTFORM_SUBMIT_URL, {
           method: "POST",
           mode: "no-cors",
-          body: toJotformBody(payload),
+          body: toJotformBody({ ...payload, captchaToken }),
         });
       } else {
         const res = await fetch("/api/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
+          body: JSON.stringify({ ...payload, captchaToken }),
         });
         if (!res.ok) throw new Error("Request failed");
       }
       setStatus("sent");
     } catch {
       setStatus("error");
+      // The token is spent whether or not it reached Jotform, and it expires
+      // on its own within minutes. Hand the visitor a fresh challenge so a
+      // retry is not refused for a stale one.
+      setCaptchaToken(null);
+      setCaptchaResets((n) => n + 1);
     }
   }
 
@@ -279,6 +312,44 @@ export function ContactForm({
         aria-hidden="true"
         className="pointer-events-none absolute h-px w-px opacity-0"
       />
+
+      {/* q9 on the Jotform form — a required hCaptcha. The widget is an iframe
+          hCaptcha owns, so it gets a heading of its own rather than a <label>,
+          and the wrapper takes focus when validation lands on it. */}
+      <div ref={captchaRef} tabIndex={-1} className="flex flex-col gap-2 outline-none">
+        <span className="text-sm font-semibold text-ink">
+          Please verify that you are human
+        </span>
+        <HCaptcha
+          sitekey={JOTFORM_HCAPTCHA_SITEKEY}
+          onVerify={(token) => {
+            setCaptchaToken(token);
+            if (token) setErrors((prev) => ({ ...prev, captcha: undefined }));
+          }}
+          onUnavailable={() => setCaptchaBroken(true)}
+          resetSignal={captchaResets}
+          className="min-h-[78px]"
+        />
+        {captchaBroken ? (
+          <span className="flex items-start gap-1.5 text-[13px] font-medium text-ink">
+            <LineIcon name="alert" size={13} className="mt-0.5 shrink-0 text-brass" />
+            <span>
+              Verification could not load, so the form can&rsquo;t be sent. Please
+              reload the page, or reach us on{" "}
+              <a href={site.phoneHref} className="link-line font-semibold">
+                {site.phone}
+              </a>{" "}
+              or{" "}
+              <a href={`mailto:${site.email}`} className="link-line font-semibold">
+                {site.email}
+              </a>
+              .
+            </span>
+          </span>
+        ) : errors.captcha ? (
+          <FieldError id="err-captcha">{errors.captcha}</FieldError>
+        ) : null}
+      </div>
 
       {status === "error" ? (
         <p
