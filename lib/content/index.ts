@@ -59,10 +59,10 @@ export const siteSettings: SiteSettings = {
       title: "Company",
       links: [
         { label: "Our Story", href: "/about" },
-        { label: "Why Choose Us", href: "/#why" },
-        { label: "How It Works", href: "/#process" },
-        { label: "FAQ", href: "/#faq" },
-        { label: "Contact", href: "/#contact" },
+        { label: "Why Choose Us", href: "/why-us" },
+        { label: "How It Works", href: "/how-it-works" },
+        { label: "FAQ", href: "/faq" },
+        { label: "Contact", href: "/contact" },
       ],
     },
     {
@@ -83,14 +83,14 @@ export const navigation: Navigation = {
   items: [
     { label: "Services", href: "/services" },
     { label: "Our Story", href: "/about" },
-    { label: "Why Us", href: "/#why" },
-    { label: "How It Works", href: "/#process" },
+    { label: "Why Us", href: "/why-us" },
+    { label: "How It Works", href: "/how-it-works" },
     { label: "Pricing", href: "/pricing" },
-    { label: "FAQ", href: "/#faq" },
-    { label: "Contact", href: "/#contact" },
+    { label: "FAQ", href: "/faq" },
+    { label: "Contact", href: "/contact" },
   ],
   ctaLabel: "Get Started",
-  ctaHref: "/#contact",
+  ctaHref: "/contact",
   portalLabel: "Client Login",
   portalHref: "https://app.financial-cents.com/cp/tierneyohlms",
 };
@@ -105,7 +105,7 @@ export const homePage: HomePage = {
     eyebrow: "Outsourced Accounting & Controller Services",
     heading: "Expert Outsourcing Accounting to Controller Services",
     lead: "Outsource your accounting with confidence. From day-to-day staff accounting to controller-level expertise, we handle your financials so you can focus on growing your business.",
-    primaryCta: { label: "Get Started Today", href: "/#contact", variant: "primary" },
+    primaryCta: { label: "Get Started Today", href: "/contact", variant: "primary" },
     secondaryCta: { label: "Explore Services", href: "/services", variant: "secondary" },
     image: null,
     strategyScene: {
@@ -162,7 +162,7 @@ export const homePage: HomePage = {
   ctaBanner: {
     heading: "Ready to get started?",
     lead: "Let's discuss how we can streamline your accounting and free up your time to focus on what matters most.",
-    cta: { label: "Get Started Today", href: "/#contact", variant: "inverse" },
+    cta: { label: "Get Started Today", href: "/contact", variant: "inverse" },
   },
   contact: {
     eyebrow: "Contact",

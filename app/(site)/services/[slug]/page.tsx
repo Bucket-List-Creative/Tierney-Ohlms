@@ -138,7 +138,7 @@ export default async function ServiceDetailPage({
               <Reveal delay={420} duration={700} className="mt-2">
                 <div className="flex flex-wrap gap-3.5">
                   <span className="inline-flex">
-                    <Button href="/#contact" variant="primary">
+                    <Button href="/contact" variant="primary">
                       Get Started
                       <LineIcon
                         name="arrow-right"
@@ -226,7 +226,7 @@ export default async function ServiceDetailPage({
                     {service.youGet}
                   </p>
                 </div>
-                <Button href="/#contact" variant="inverse">
+                <Button href="/contact" variant="inverse">
                   Talk to our team <LineIcon name="arrow-right" size={16} />
                 </Button>
               </div>

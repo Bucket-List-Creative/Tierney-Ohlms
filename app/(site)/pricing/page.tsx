@@ -159,7 +159,7 @@ export default async function PricingPage() {
             covers. We&rsquo;ll come back with a real figure, not a range.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Button href="/#contact" variant="inverse">
+            <Button href="/contact" variant="inverse">
               Get a quote <LineIcon name="arrow-right" size={16} />
             </Button>
             <Button href={site.phoneHref} variant="inverse-outline">

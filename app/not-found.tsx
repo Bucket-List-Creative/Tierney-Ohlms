@@ -52,7 +52,7 @@ export default function NotFound() {
                 />
               </Button>
             </span>
-            <Button href="/#contact" variant="inverse-outline">
+            <Button href="/contact" variant="inverse-outline">
               Contact Us
             </Button>
           </div>
