@@ -135,23 +135,28 @@ export function Header({ wordmark, nav }: { wordmark: string; nav: Navigation })
             />
           </Link>
 
-          {/* Keep page links, homepage sections, and actions in distinct groups. */}
+          {/* One list, in the order the CMS gives them.
+              This used to render the two linkGroups below as separate <ul>s,
+              which meant a page link could never sit between two homepage
+              anchors — "Pricing" snapped back beside Services and Our Story
+              however the nav was ordered in Sanity. The grouping is still
+              what the mobile sheet uses, where the labels tell you which
+              links leave the page; here it only cost the editor control over
+              the order, so the bar is flat and the array wins. */}
           <nav aria-label="Main navigation" className="hidden items-center gap-8 whitespace-nowrap text-[12px] font-medium min-[1200px]:flex">
-            {linkGroups.map((group) => (
-              <ul key={group.label} aria-label={group.label} className="m-0 flex list-none items-center gap-4 p-0">
-                {group.items.map((item) => {
-                  const on = isActive(item.href);
-                  return (
-                    <li key={item.href + item.label}>
-                      <Link href={item.href} aria-current={on ? (isSectionLink(item.href) ? "location" : "page") : undefined}
-                        className={cn("inline-flex border-b py-2", on ? "border-brass text-ink" : "border-transparent text-slate")}>
-                        {item.label}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            ))}
+            <ul className="m-0 flex list-none items-center gap-5 p-0">
+              {nav.items.map((item) => {
+                const on = isActive(item.href);
+                return (
+                  <li key={item.href + item.label}>
+                    <Link href={item.href} aria-current={on ? (isSectionLink(item.href) ? "location" : "page") : undefined}
+                      className={cn("inline-flex border-b py-2", on ? "border-brass text-ink" : "border-transparent text-slate")}>
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
             <div className="ml-2 flex items-center gap-3">
               {portal && (
                 <Button href={portal.href} size="sm" variant="secondary" className="!px-3 !py-2 !text-[12px]" target="_blank" rel="noopener noreferrer">

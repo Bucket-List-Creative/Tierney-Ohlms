@@ -235,13 +235,29 @@
           {
             "_key": "e1",
             "_type": "engagement",
+            "industry": "Therapist Practice",
+            "annualRevenue": "$750K",
+            "monthlyCost": "$750",
+            "scope": "Limited Scope"
+          },
+          {
+            "_key": "e2",
+            "_type": "engagement",
+            "industry": "Landscaping",
+            "annualRevenue": "$1M",
+            "monthlyCost": "$1,000",
+            "scope": "Limited Scope"
+          },
+          {
+            "_key": "e3",
+            "_type": "engagement",
             "industry": "Brewery",
             "annualRevenue": "$3M",
             "monthlyCost": "$2,000",
             "scope": "Full Stack"
           },
           {
-            "_key": "e2",
+            "_key": "e4",
             "_type": "engagement",
             "industry": "HVAC",
             "annualRevenue": "$4M",
@@ -249,7 +265,7 @@
             "scope": "Full Stack"
           },
           {
-            "_key": "e3",
+            "_key": "e5",
             "_type": "engagement",
             "industry": "SaaS",
             "annualRevenue": "$4M",
@@ -257,7 +273,15 @@
             "scope": "Full Stack"
           },
           {
-            "_key": "e4",
+            "_key": "e6",
+            "_type": "engagement",
+            "industry": "Construction",
+            "annualRevenue": "$10M",
+            "monthlyCost": "$2,000",
+            "scope": "Full Stack"
+          },
+          {
+            "_key": "e7",
             "_type": "engagement",
             "industry": "Family Office HoldCo",
             "annualRevenue": "$15M",
@@ -265,20 +289,12 @@
             "scope": "Limited Scope"
           },
           {
-            "_key": "e5",
+            "_key": "e8",
             "_type": "engagement",
             "industry": "Dental Practice",
             "annualRevenue": "$20M",
             "monthlyCost": "$6,000",
             "scope": "Supplement"
-          },
-          {
-            "_key": "e6",
-            "_type": "engagement",
-            "industry": "Construction",
-            "annualRevenue": "$100M",
-            "monthlyCost": "$2,000",
-            "scope": "Full Stack"
           }
         ],
         "scopesHeading": "Scope is the biggest lever on price.",
@@ -287,8 +303,8 @@
           {
             "_key": "s1",
             "_type": "scopeDefinition",
-            "name": "Full Stack",
-            "summary": "We own the accounting function end to end: day-to-day transactions, monthly close, and CPA-prepared financials. You don't keep an internal accountant."
+            "name": "Supplement",
+            "summary": "Your team stays in place and we add the layer it's missing \u2014 usually controller-level review, close discipline, or capacity through a stretch."
           },
           {
             "_key": "s2",
@@ -299,8 +315,8 @@
           {
             "_key": "s3",
             "_type": "scopeDefinition",
-            "name": "Supplement",
-            "summary": "Your team stays in place and we add the layer it's missing \u2014 usually controller-level review, close discipline, or capacity through a stretch."
+            "name": "Full Stack",
+            "summary": "We own the accounting function end to end: day-to-day transactions, monthly close, and CPA-prepared financials. You don't keep an internal accountant."
           }
         ],
         "driversHeading": "What moves the number.",
@@ -352,12 +368,6 @@
             "label": "Services"
           },
           {
-            "_key": "n-pricing",
-            "_type": "linkItem",
-            "href": "/pricing",
-            "label": "Pricing"
-          },
-          {
             "_key": "our-story",
             "_type": "linkItem",
             "href": "/about",
@@ -374,6 +384,12 @@
             "_type": "linkItem",
             "href": "/#process",
             "label": "How It Works"
+          },
+          {
+            "_key": "n-pricing",
+            "_type": "linkItem",
+            "href": "/pricing",
+            "label": "Pricing"
           },
           {
             "_key": "n4",

@@ -82,10 +82,10 @@ export const siteSettings: SiteSettings = {
 export const navigation: Navigation = {
   items: [
     { label: "Services", href: "/services" },
-    { label: "Pricing", href: "/pricing" },
     { label: "Our Story", href: "/about" },
     { label: "Why Us", href: "/#why" },
     { label: "How It Works", href: "/#process" },
+    { label: "Pricing", href: "/pricing" },
     { label: "FAQ", href: "/#faq" },
     { label: "Contact", href: "/#contact" },
   ],
@@ -614,21 +614,23 @@ export const pricingPage: PricingPage = {
     lead: "Most accounting firms won't put a number on a page. These are real engagements — the industry, the revenue behind it, and the monthly fee. Find the row closest to your business and you'll be close to your own number.",
   },
   engagements: [
+    { industry: "Therapist Practice", annualRevenue: "$750K", monthlyCost: "$750", scope: "Limited Scope" },
+    { industry: "Landscaping", annualRevenue: "$1M", monthlyCost: "$1,000", scope: "Limited Scope" },
     { industry: "Brewery", annualRevenue: "$3M", monthlyCost: "$2,000", scope: "Full Stack" },
     { industry: "HVAC", annualRevenue: "$4M", monthlyCost: "$2,000", scope: "Full Stack" },
     { industry: "SaaS", annualRevenue: "$4M", monthlyCost: "$4,500", scope: "Full Stack" },
+    { industry: "Construction", annualRevenue: "$10M", monthlyCost: "$2,000", scope: "Full Stack" },
     { industry: "Family Office HoldCo", annualRevenue: "$15M", monthlyCost: "$4,000", scope: "Limited Scope" },
     { industry: "Dental Practice", annualRevenue: "$20M", monthlyCost: "$6,000", scope: "Supplement" },
-    { industry: "Construction", annualRevenue: "$100M", monthlyCost: "$2,000", scope: "Full Stack" },
   ],
   scopesHeading: "Scope is the biggest lever on price.",
   scopesLead:
     "Two businesses the same size can pay very differently, because they are buying different amounts of the accounting function. This is what each scope covers.",
   scopes: [
     {
-      name: "Full Stack",
+      name: "Supplement",
       summary:
-        "We own the accounting function end to end: day-to-day transactions, monthly close, and CPA-prepared financials. You don't keep an internal accountant.",
+        "Your team stays in place and we add the layer it's missing — usually controller-level review, close discipline, or capacity through a stretch.",
     },
     {
       name: "Limited Scope",
@@ -636,9 +638,9 @@ export const pricingPage: PricingPage = {
         "We own a defined part of the function and leave the rest with you. Common where a holding company needs consolidated reporting but not day-to-day bookkeeping.",
     },
     {
-      name: "Supplement",
+      name: "Full Stack",
       summary:
-        "Your team stays in place and we add the layer it's missing — usually controller-level review, close discipline, or capacity through a stretch.",
+        "We own the accounting function end to end: day-to-day transactions, monthly close, and CPA-prepared financials. You don't keep an internal accountant.",
     },
   ],
   driversHeading: "What moves the number.",
