@@ -44,6 +44,7 @@ const dataset = pick("NEXT_PUBLIC_SANITY_DATASET") || "production";
 const apiVersion = pick("NEXT_PUBLIC_SANITY_API_VERSION") || "2025-01-01";
 const token = pick("SANITY_API_WRITE_TOKEN");
 const dryRun = process.argv.includes("--dry-run");
+const skipRevalidate = process.argv.includes("--no-revalidate");
 
 const docs = readFileSync(resolve(root, "scripts/seed.ndjson"), "utf8")
   .split("\n")
@@ -127,4 +128,51 @@ console.log(
 );
 for (const [type, n] of (patchFile ? [] : Object.entries(counts).sort())) {
   console.log(`  ${type.padEnd(14)} ${n}`);
+}
+
+/**
+ * Tell the site to drop its cached copies of what we just changed.
+ *
+ * Sanity's publish webhook fires when an editor publishes in the Studio, which
+ * is what normally busts these tags. Writing over the mutation API does not
+ * fire it — so without this, a successful sync leaves the site serving the old
+ * content for up to the ISR window (an hour), and the sync looks like it did
+ * nothing. That gap cost real debugging time more than once.
+ *
+ * Deliberately fails soft. The content is already written at this point; a
+ * revalidate that cannot be reached is a stale cache, not a failed sync, and
+ * exiting non-zero here would misreport what happened.
+ */
+async function revalidate(types) {
+  const secret = pick("SANITY_REVALIDATE_SECRET");
+  const site = (pick("NEXT_PUBLIC_SITE_URL") || "https://www.tierneyohlms.com").replace(/\/+$/, "");
+
+  if (!secret) {
+    console.log("\nSkipped cache revalidation: SANITY_REVALIDATE_SECRET is not set.");
+    console.log("The dataset is updated; the site may serve cached content for up to an hour.");
+    return;
+  }
+
+  console.log(`\nRevalidating ${types.length} cache tag(s) on ${site}`);
+  for (const type of types) {
+    try {
+      const res = await fetch(`${site}/api/revalidate?secret=${encodeURIComponent(secret)}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ _type: type }),
+        signal: AbortSignal.timeout(15000),
+      });
+      console.log(`  ${type.padEnd(14)} ${res.ok ? "ok" : `HTTP ${res.status}`}`);
+    } catch (error) {
+      console.log(`  ${type.padEnd(14)} unreachable (${error.cause?.code ?? error.name})`);
+    }
+  }
+}
+
+if (!dryRun && !skipRevalidate) {
+  // A patch names a document; the cache tag is its type, which the seed knows.
+  const touched = patchFile
+    ? mutations.map((m) => docs.find((d) => d._id === m.patch.id)?._type)
+    : docs.map((d) => d._type);
+  await revalidate([...new Set(touched.filter(Boolean))].sort());
 }
