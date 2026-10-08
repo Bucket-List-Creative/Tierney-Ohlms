@@ -50,25 +50,25 @@
                 "_key": "l5",
                 "_type": "linkItem",
                 "label": "Why Choose Us",
-                "href": "/#why"
+                "href": "/why-us"
               },
               {
                 "_key": "l6",
                 "_type": "linkItem",
                 "label": "How It Works",
-                "href": "/#process"
+                "href": "/how-it-works"
               },
               {
                 "_key": "l7",
                 "_type": "linkItem",
                 "label": "FAQ",
-                "href": "/#faq"
+                "href": "/faq"
               },
               {
                 "_key": "l8",
                 "_type": "linkItem",
                 "label": "Contact",
-                "href": "/#contact"
+                "href": "/contact"
               }
             ]
           },
@@ -123,7 +123,9 @@
         "servicesHeader.eyebrow": "Services",
         "servicesHeader.heading": "Everything, under one roof.",
         "servicesHeader.emphasis": "one roof.",
-        "servicesHeader.lead": "Start with the support your business needs: cleanup and accounting department support, full outsourcing, or shared services. Add tax, payroll, and automation where they help."
+        "servicesHeader.lead": "Start with the support your business needs: cleanup and accounting department support, full outsourcing, or shared services. Add tax, payroll, and automation where they help.",
+        "hero.primaryCta.href": "/contact",
+        "ctaBanner.cta.href": "/contact"
       }
     }
   },
@@ -376,13 +378,13 @@
           {
             "_key": "n2",
             "_type": "linkItem",
-            "href": "/#why",
+            "href": "/why-us",
             "label": "Why Us"
           },
           {
             "_key": "n3",
             "_type": "linkItem",
-            "href": "/#process",
+            "href": "/how-it-works",
             "label": "How It Works"
           },
           {
@@ -394,16 +396,17 @@
           {
             "_key": "n4",
             "_type": "linkItem",
-            "href": "/#faq",
+            "href": "/faq",
             "label": "FAQ"
           },
           {
             "_key": "n5",
             "_type": "linkItem",
-            "href": "/#contact",
+            "href": "/contact",
             "label": "Contact"
           }
-        ]
+        ],
+        "ctaHref": "/contact"
       }
     }
   }

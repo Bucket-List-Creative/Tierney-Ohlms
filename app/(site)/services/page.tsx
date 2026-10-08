@@ -80,7 +80,7 @@ export default async function ServicesPage() {
             <Reveal delay={420} duration={700} className="mt-1">
               <div className="flex flex-wrap gap-3.5">
                 <span className="inline-flex">
-                  <Button href="/#contact" variant="primary">
+                  <Button href="/contact" variant="primary">
                     Get Started
                     <LineIcon
                       name="arrow-right"
