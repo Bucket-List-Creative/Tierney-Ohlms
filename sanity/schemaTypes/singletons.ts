@@ -523,3 +523,156 @@ export const aboutPage = defineType({
   ],
   preview: { prepare: () => ({ title: "Our Story page" }) },
 });
+
+/**
+ * Pricing page.
+ *
+ * The engagements are real, published figures — that is the whole point of the
+ * page, and the reason the heading can say so. If a row ever stops being a
+ * real engagement, change the heading too.
+ */
+export const pricingPage = defineType({
+  name: "pricingPage",
+  title: "Pricing page",
+  type: "document",
+  groups: [
+    { name: "hero", title: "Hero" },
+    { name: "engagements", title: "Engagements" },
+    { name: "scopes", title: "Scopes" },
+    { name: "drivers", title: "What drives the number" },
+    { name: "seo", title: "SEO" },
+  ],
+  fields: [
+    defineField({
+      name: "hero",
+      title: "Hero",
+      type: "object",
+      group: "hero",
+      fields: [
+        { name: "eyebrow", title: "Eyebrow", type: "string" },
+        { name: "heading", title: "Heading", type: "string", validation: (r) => r.required() },
+        {
+          name: "emphasis",
+          title: "Emphasised phrase",
+          type: "string",
+          description: "A phrase inside the heading to render in the gold gradient.",
+        },
+        { name: "lead", title: "Lead", type: "text", rows: 3 },
+      ],
+    }),
+    defineField({
+      name: "engagements",
+      title: "Engagements",
+      type: "array",
+      group: "engagements",
+      description:
+        "Real client engagements. The page states these are real — keep them that way, or change the heading.",
+      of: [
+        {
+          type: "object",
+          name: "engagement",
+          fields: [
+            { name: "industry", title: "Industry", type: "string", validation: (r) => r.required() },
+            {
+              name: "annualRevenue",
+              title: "Annual revenue",
+              type: "string",
+              description: 'As displayed, e.g. "$4M".',
+            },
+            {
+              name: "monthlyCost",
+              title: "Monthly cost",
+              type: "string",
+              description: 'As displayed, e.g. "$2,000".',
+            },
+            {
+              name: "scope",
+              title: "Scope",
+              type: "string",
+              options: {
+                list: [
+                  { title: "Full Stack", value: "Full Stack" },
+                  { title: "Limited Scope", value: "Limited Scope" },
+                  { title: "Supplement", value: "Supplement" },
+                ],
+              },
+              validation: (r) => r.required(),
+            },
+            {
+              name: "note",
+              title: "Note",
+              type: "string",
+              description: "Optional one-line explanation of anything unusual about this engagement.",
+            },
+          ],
+          preview: {
+            select: { title: "industry", subtitle: "monthlyCost" },
+          },
+        },
+      ],
+    }),
+    defineField({
+      name: "scopesHeading",
+      title: "Scopes heading",
+      type: "string",
+      group: "scopes",
+    }),
+    defineField({
+      name: "scopesLead",
+      title: "Scopes lead",
+      type: "text",
+      rows: 2,
+      group: "scopes",
+    }),
+    defineField({
+      name: "scopes",
+      title: "Scope definitions",
+      type: "array",
+      group: "scopes",
+      description: "What each scope actually covers. This is what makes a price legible.",
+      of: [
+        {
+          type: "object",
+          name: "scopeDefinition",
+          fields: [
+            { name: "name", title: "Name", type: "string", validation: (r) => r.required() },
+            { name: "summary", title: "Summary", type: "text", rows: 3 },
+          ],
+          preview: { select: { title: "name", subtitle: "summary" } },
+        },
+      ],
+    }),
+    defineField({
+      name: "driversHeading",
+      title: "Drivers heading",
+      type: "string",
+      group: "drivers",
+    }),
+    defineField({
+      name: "driversLead",
+      title: "Drivers lead",
+      type: "text",
+      rows: 2,
+      group: "drivers",
+    }),
+    defineField({
+      name: "drivers",
+      title: "Drivers",
+      type: "array",
+      group: "drivers",
+      of: [
+        {
+          type: "object",
+          name: "driver",
+          fields: [
+            { name: "title", title: "Title", type: "string", validation: (r) => r.required() },
+            { name: "description", title: "Description", type: "text", rows: 2 },
+          ],
+          preview: { select: { title: "title", subtitle: "description" } },
+        },
+      ],
+    }),
+    defineField({ name: "seo", title: "SEO", type: "seo", group: "seo" }),
+  ],
+  preview: { prepare: () => ({ title: "Pricing page" }) },
+});

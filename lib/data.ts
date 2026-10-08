@@ -10,11 +10,16 @@ import {
   processStepsQuery,
   highlightsQuery,
   faqsQuery,
+  pricingPageQuery,
   pageBySlugQuery,
   pageSlugsQuery,
   sitemapEntriesQuery,
 } from "@/lib/sanity/queries";
-import { localHomeData, aboutPage as localAboutPage } from "@/lib/content";
+import {
+  localHomeData,
+  aboutPage as localAboutPage,
+  pricingPage as localPricingPage,
+} from "@/lib/content";
 import type {
   HomeData,
   SiteSettings,
@@ -27,6 +32,7 @@ import type {
   Highlight,
   FaqItem,
   GenericPage,
+  PricingPage
 } from "@/lib/types";
 
 /**
@@ -147,6 +153,37 @@ export async function getAboutPage(): Promise<AboutPage> {
   };
 }
 
+/**
+ * Pricing page content. Falls back to the local mirror per section, so a
+ * half-filled document in the Studio still renders a complete page rather
+ * than an empty table.
+ */
+export async function getPricingPage(): Promise<PricingPage> {
+  const fb = localPricingPage;
+  if (!isSanityConfigured) return fb;
+
+  const doc = await sanityFetch<Partial<PricingPage> | null>({
+    query: pricingPageQuery,
+    tags: [CACHE_TAGS.pricingPage],
+  });
+  if (!doc) return fb;
+
+  return {
+    seo: doc.seo ?? fb.seo,
+    hero: doc.hero ?? fb.hero,
+    // Arrays fall back on empty, not just null: a created-but-unfilled
+    // document should still show the real engagements rather than a blank
+    // table that reads as "we have no clients".
+    engagements: doc.engagements?.length ? doc.engagements : fb.engagements,
+    scopesHeading: doc.scopesHeading ?? fb.scopesHeading,
+    scopesLead: doc.scopesLead ?? fb.scopesLead,
+    scopes: doc.scopes?.length ? doc.scopes : fb.scopes,
+    driversHeading: doc.driversHeading ?? fb.driversHeading,
+    driversLead: doc.driversLead ?? fb.driversLead,
+    drivers: doc.drivers?.length ? doc.drivers : fb.drivers,
+  };
+}
+
 export async function getPageSlugs(): Promise<string[]> {
   if (!isSanityConfigured) return [];
   const rows = await sanityFetch<{ slug: string }[]>({
@@ -169,7 +206,7 @@ export async function getPage(slug: string): Promise<GenericPage | null> {
 export type SitemapRoute = { path: string; lastModified?: string };
 
 /** Routes that exist regardless of CMS content. */
-const STATIC_ROUTES = ["/", "/about", "/services", "/privacy", "/terms"];
+const STATIC_ROUTES = ["/", "/about", "/services", "/pricing", "/privacy", "/terms"];
 
 /**
  * Every indexable route, for app/sitemap.ts.

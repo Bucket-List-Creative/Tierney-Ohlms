@@ -245,3 +245,25 @@ export type Founder ={
     body?: string;
   };
 };
+
+/** One published client engagement on the pricing page. */
+export type Engagement = {
+  industry: string;
+  annualRevenue?: string;
+  monthlyCost?: string;
+  scope: "Full Stack" | "Limited Scope" | "Supplement" | string;
+  /** Optional one-liner for anything unusual about this engagement. */
+  note?: string;
+};
+
+export type PricingPage = {
+  seo?: Seo;
+  hero: { eyebrow?: string; heading: string; emphasis?: string; lead?: string };
+  engagements: Engagement[];
+  scopesHeading?: string;
+  scopesLead?: string;
+  scopes: { name: string; summary?: string }[];
+  driversHeading?: string;
+  driversLead?: string;
+  drivers: { title: string; description?: string }[];
+};

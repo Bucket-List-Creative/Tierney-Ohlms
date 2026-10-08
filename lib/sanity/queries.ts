@@ -149,3 +149,15 @@ export const sitemapEntriesQuery = groq`{
     | order(orderRank){ "slug": slug.current, _updatedAt },
   "pages": *[_type == "page" && defined(slug.current)]{ "slug": slug.current, _updatedAt }
 }`;
+
+export const pricingPageQuery = groq`*[_type == "pricingPage"][0]{
+  seo{ metaTitle, metaDescription, ogImage${imageProjection} },
+  hero{ eyebrow, heading, emphasis, lead },
+  engagements[]{ industry, annualRevenue, monthlyCost, scope, note },
+  scopesHeading,
+  scopesLead,
+  scopes[]{ name, summary },
+  driversHeading,
+  driversLead,
+  drivers[]{ title, description }
+}`;

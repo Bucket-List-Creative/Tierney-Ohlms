@@ -8,16 +8,17 @@
  * honestly from that same source material.
  */
 import type {
-  HomeData,
-  Service,
-  Feature,
-  ProcessStep,
-  Highlight,
-  FaqItem,
-  SiteSettings,
-  Navigation,
-  HomePage,
   AboutPage,
+  FaqItem,
+  Feature,
+  Highlight,
+  HomeData,
+  HomePage,
+  Navigation,
+  PricingPage,
+  ProcessStep,
+  Service,
+  SiteSettings,
 } from "@/lib/types";
 
 export const siteSettings: SiteSettings = {
@@ -81,6 +82,7 @@ export const siteSettings: SiteSettings = {
 export const navigation: Navigation = {
   items: [
     { label: "Services", href: "/services" },
+    { label: "Pricing", href: "/pricing" },
     { label: "Our Story", href: "/about" },
     { label: "Why Us", href: "/#why" },
     { label: "How It Works", href: "/#process" },
@@ -587,4 +589,86 @@ export const aboutPage: AboutPage = {
     heading: "A Bourbon Company and a banker's introduction.",
     body: "Our first non-family client was a bourbon company that needed financials a bank would trust to approve a loan. Their legacy firm was mostly tax preparers doing some accounting on the side, so the books were behind and not something a lender would accept. A local banker introduced us, and from the moment we met them the need was obvious. We cleaned up the prior financials, built out a full accounting process, and set a real close timeline. That experience validated the vision and became the foundation of the firm.",
   },
+};
+
+/**
+ * Pricing page.
+ *
+ * The engagements are real published figures, supplied by the firm. The page
+ * says so in its heading, which is only true while they stay real — if a row
+ * is ever adjusted or invented, the heading has to change with it.
+ *
+ * Ordered by annual revenue ascending, so a visitor can find the row closest
+ * to their own business rather than hunting.
+ */
+export const pricingPage: PricingPage = {
+  seo: {
+    metaTitle: "Pricing",
+    metaDescription:
+      "Real monthly fees from real Tierney & Ohlms engagements, with the revenue behind each one and what the scope covers. Most firms won't publish this.",
+  },
+  hero: {
+    eyebrow: "Pricing",
+    heading: "What our clients actually pay.",
+    emphasis: "actually pay.",
+    lead: "Most accounting firms won't put a number on a page. These are real engagements — the industry, the revenue behind it, and the monthly fee. Find the row closest to your business and you'll be close to your own number.",
+  },
+  engagements: [
+    { industry: "Brewery", annualRevenue: "$3M", monthlyCost: "$2,000", scope: "Full Stack" },
+    { industry: "HVAC", annualRevenue: "$4M", monthlyCost: "$2,000", scope: "Full Stack" },
+    { industry: "SaaS", annualRevenue: "$4M", monthlyCost: "$4,500", scope: "Full Stack" },
+    { industry: "Family Office HoldCo", annualRevenue: "$15M", monthlyCost: "$4,000", scope: "Limited Scope" },
+    { industry: "Dental Practice", annualRevenue: "$20M", monthlyCost: "$6,000", scope: "Supplement" },
+    { industry: "Construction", annualRevenue: "$100M", monthlyCost: "$2,000", scope: "Full Stack" },
+  ],
+  scopesHeading: "Scope is the biggest lever on price.",
+  scopesLead:
+    "Two businesses the same size can pay very differently, because they are buying different amounts of the accounting function. This is what each scope covers.",
+  scopes: [
+    {
+      name: "Full Stack",
+      summary:
+        "We own the accounting function end to end: day-to-day transactions, monthly close, and CPA-prepared financials. You don't keep an internal accountant.",
+    },
+    {
+      name: "Limited Scope",
+      summary:
+        "We own a defined part of the function and leave the rest with you. Common where a holding company needs consolidated reporting but not day-to-day bookkeeping.",
+    },
+    {
+      name: "Supplement",
+      summary:
+        "Your team stays in place and we add the layer it's missing — usually controller-level review, close discipline, or capacity through a stretch.",
+    },
+  ],
+  driversHeading: "What moves the number.",
+  driversLead:
+    "Revenue is the shorthand, not the driver. These are what actually determine the monthly fee.",
+  drivers: [
+    {
+      title: "Transaction volume",
+      description:
+        "Not revenue. A brewery settling a taproom every day can take more work than a holding company with forty invoices a month.",
+    },
+    {
+      title: "Entities and locations",
+      description:
+        "Every additional entity, intercompany relationship, or location adds a reconciliation and a consolidation step.",
+    },
+    {
+      title: "Systems",
+      description:
+        "Clean books in one well-configured system cost less to run than clean books spread across three that don't talk to each other.",
+    },
+    {
+      title: "Close cadence",
+      description:
+        "A five-day close with a lender waiting on it is a different commitment from financials that are needed by the end of the month.",
+    },
+    {
+      title: "Condition on arrival",
+      description:
+        "Cleanup is quoted separately and ends. It doesn't sit inside the monthly fee once the books are current.",
+    },
+  ],
 };

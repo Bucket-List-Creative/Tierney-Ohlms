@@ -8,7 +8,13 @@ import {
   founder,
   practiceExample,
 } from "./objects";
-import { siteSettings, navigation, homePage, aboutPage} from "./singletons";
+import {
+  aboutPage,
+  homePage,
+  navigation,
+  pricingPage,
+  siteSettings,
+} from "./singletons";
 import {
   service,
   feature,
@@ -39,4 +45,5 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   highlight,
   faq,
   page,
+  pricingPage,
 ];

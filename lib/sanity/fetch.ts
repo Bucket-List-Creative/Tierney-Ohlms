@@ -14,6 +14,7 @@ export const CACHE_TAGS = {
   highlight: "highlight",
   faq: "faq",
   page: "page",
+  pricingPage: "pricingPage",
 } as const;
 
 type FetchOptions = {
