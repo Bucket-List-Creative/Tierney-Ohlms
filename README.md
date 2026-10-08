@@ -204,3 +204,23 @@ scripts/seed.ndjson        importable placeholder dataset
 
 Push to a Git repo, import in Vercel, set the same env vars, and add the
 revalidation webhook above. ISR + tag revalidation are already wired.
+
+### Syncing content to Sanity
+
+`npm run sanity:sync` applies the targeted patches in
+`scripts/positioning-updates.json`, then asks the site to drop the cache tags
+for whatever it changed.
+
+That second step matters. Sanity's publish webhook fires when an editor
+publishes in the Studio, which is what normally busts those tags — writing
+over the mutation API does not fire it. Without the revalidate pass a
+successful sync leaves the site serving the old content for up to an hour, and
+looks like it did nothing.
+
+- `npm run sanity:diff` — read-only; shows where the seed and the dataset
+  disagree. Run it before a sync: `sanity:push` replaces whole documents and
+  would overwrite Studio edits, whereas `sanity:sync` patches named fields.
+- `--no-revalidate` skips the cache call (for a dataset not backed by this site).
+- `--dry-run` never revalidates.
+- Revalidation fails soft: the content is already written, so an unreachable
+  site is a stale cache, not a failed sync.
